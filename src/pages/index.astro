@@ -1,0 +1,949 @@
+---
+const focusAreas = [
+  {
+    title: "Web projects",
+    description: "Sites, tools, and experiments with a place to live.",
+  },
+  {
+    title: "Internal systems",
+    description: "Reusable bits, CLIs, and small platforms for future work.",
+  },
+  {
+    title: "Notes",
+    description: "Docs, release posts, and occasional dispatches from the desk.",
+  },
+];
+
+const projects = [
+  {
+    name: "Reef",
+    division: "Shrimpworks",
+    summary: "A market simulation and trading infrastructure playground for testing systems ideas with charts nearby.",
+    status: "Research",
+  },
+  {
+    name: "Trove",
+    division: "Shwimp Studios",
+    summary: "A bookmark organizer for turning saved links into something browsable, searchable, and less feral.",
+    status: "Prototype",
+  },
+  {
+    name: "Kyn",
+    division: "Shrimpworks",
+    summary: "A codebase rules CLI for making project conventions explicit before they become folklore.",
+    status: "Tooling",
+  },
+  {
+    name: "Waves",
+    division: "Noodle Ventures",
+    summary: "A WAP and WML browser experiment exploring old mobile web constraints through a modern lens.",
+    status: "Experiment",
+  },
+];
+
+const divisions = [
+  {
+    name: "Lady International",
+    label: "Holding company",
+    description: "The top-level home for the studio family, naming system, and long-running collection of projects.",
+  },
+  {
+    name: "Shwimp Studios",
+    label: "Main studio",
+    description: "The public product studio where web projects get names, pages, and enough polish to meet the world.",
+  },
+  {
+    name: "Shrimpworks",
+    label: "Engineering",
+    description: "Infrastructure, developer tools, reusable code, and the practical machinery behind the portfolio.",
+  },
+  {
+    name: "Wimpy Productions",
+    label: "Media",
+    description: "Docs, release notes, announcements, and written context for the things being built.",
+  },
+  {
+    name: "Noodle Ventures",
+    label: "Incubation",
+    description: "Prototypes, odd ideas, and small bets that need a little room before they know what they are.",
+  },
+];
+
+const leaders = [
+  {
+    name: "Catherine",
+    alias: "The Lady / The Noodle",
+    title: "Chair of Strategy",
+    initials: "CA",
+    note: "Provides elegant oversight, selective approval, and a strong preference for decisions made from a comfortable perch.",
+  },
+  {
+    name: "Cynthia",
+    alias: "Shrimp / Wimpy / Shwimp",
+    title: "Head of Product Taste",
+    initials: "CY",
+    note: "Responsible for product taste, operational impatience, and the studio name that somehow stuck.",
+  },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lady International and Shwimp Studios are a playful studio home for personal web projects, software experiments, writing, and small tools."
+    />
+    <title>Lady International | Shwimp Studios</title>
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand-mark" href="#top" aria-label="Lady International home">
+        <span class="brand-glyph" aria-hidden="true">LI</span>
+        <span>
+          <strong>Lady International</strong>
+          <small>Shwimp Studios</small>
+        </span>
+      </a>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img src="/studio-hero.png" alt="A bright creative technology studio desk with a laptop, notebooks, and warm design materials." />
+        <div class="hero-shade" aria-hidden="true"></div>
+        <div class="hero-content">
+          <p class="eyebrow">Lady International / Shwimp Studios</p>
+          <h1 id="hero-title">A polished home for web projects and strange little tools.</h1>
+          <p class="hero-copy">
+            Shwimp Studios collects useful software, project notes, and small experiments with unusually specific names.
+          </p>
+          <div class="hero-actions" aria-label="Hero actions">
+            <a class="button primary" href="#projects">View projects</a>
+            <a class="button secondary" href="#about">Get to know us</a>
+          </div>
+          <p class="hero-note">Small tools. Tidy pages. Reasonable ceremony.</p>
+        </div>
+      </section>
+
+      <section class="section intro" id="work" aria-labelledby="work-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">What this is</p>
+            <h2 id="work-title">A home base with a little ceremony.</h2>
+          </div>
+          <p>
+            Clean enough for a footer, warm enough to feel human, and organized enough that the names mostly make sense.
+          </p>
+        </div>
+
+        <div class="info-grid">
+          {
+            focusAreas.map((area) => (
+              <article class="info-card">
+                <h3>{area.title}</h3>
+                <p>{area.description}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section projects" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">Projects</p>
+            <h2 id="projects-title">Current projects from around the studio family.</h2>
+          </div>
+          <p>
+            Some are useful, some are exploratory, and some are mostly a good reason to learn a thing. Each one gets a
+            name, a place, and room to become more real over time.
+          </p>
+        </div>
+
+        <div class="project-list">
+          {
+            projects.map((project) => (
+              <article class="project-card">
+                <div class="project-topline">
+                  <span class="project-status">{project.status}</span>
+                  <span>{project.division}</span>
+                </div>
+                <h3>{project.name}</h3>
+                <p>{project.summary}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section about" id="about" aria-labelledby="about-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">About / get to know us</p>
+            <h2 id="about-title">A small studio ecosystem with a quietly dramatic naming committee.</h2>
+          </div>
+          <p>
+            The names started with Cynthia and Catherine, two cats with disproportionate influence over company strategy.
+            That origin story sits lightly behind the studio structure, giving everything a little more personality than
+            a folder named projects.
+          </p>
+        </div>
+
+        <div class="about-grid">
+          <section class="leaders-panel" aria-labelledby="leaders-title">
+            <div class="panel-heading">
+              <p class="eyebrow">Leadership</p>
+              <h3 id="leaders-title">Leadership portraits, pending formal headshots.</h3>
+            </div>
+
+            <div class="leader-list">
+              {
+                leaders.map((leader) => (
+                  <article class="leader-card">
+                    <div class="portrait" aria-label={`${leader.name} headshot placeholder`}>
+                      <span>{leader.initials}</span>
+                    </div>
+                    <div>
+                      <p class="card-label">{leader.title}</p>
+                      <h4>{leader.name}</h4>
+                      <p class="leader-alias">{leader.alias}</p>
+                      <p>{leader.note}</p>
+                    </div>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+
+          <section class="structure-panel" aria-labelledby="structure-title">
+            <div class="panel-heading">
+              <p class="eyebrow">Corporate structure</p>
+              <h3 id="structure-title">How the ecosystem is organized.</h3>
+            </div>
+
+            <div class="structure-list">
+              {
+                divisions.map((division) => (
+                  <article class="structure-row">
+                    <div>
+                      <span>{division.label}</span>
+                      <strong>{division.name}</strong>
+                    </div>
+                    <p>{division.description}</p>
+                  </article>
+                ))
+              }
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Lady International</strong>
+        <p>Holding company and home base for Shwimp Studios, Shrimpworks, Wimpy Productions, and Noodle Ventures.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="socials" aria-label="Social links">
+        <a href="https://github.com/" rel="noreferrer">GitHub</a>
+        <a href="https://bsky.app/" rel="noreferrer">Bluesky</a>
+        <a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :root {
+    --ink: #24221f;
+    --ink-soft: #5b544c;
+    --paper: #fbf6ed;
+    --paper-strong: #ffffff;
+    --mist: #efebe2;
+    --teal: #6f7f68;
+    --coral: #a95f46;
+    --gold: #b48a4c;
+    --line: rgba(36, 34, 31, 0.14);
+    --shadow: 0 22px 56px rgba(36, 34, 31, 0.12);
+    --radius: 8px;
+    --max: 1160px;
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    color: var(--ink);
+    background: var(--paper);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  body::selection {
+    color: var(--paper-strong);
+    background: var(--teal);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  .site-header {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: min(calc(100% - 32px), var(--max));
+    margin: 16px auto 0;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: var(--radius);
+    color: var(--paper-strong);
+    background: rgba(36, 34, 31, 0.64);
+    box-shadow: 0 18px 50px rgba(36, 34, 31, 0.2);
+    backdrop-filter: blur(18px);
+  }
+
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .brand-mark strong,
+  .brand-mark small {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .brand-mark strong {
+    font-size: 0.95rem;
+    line-height: 1.1;
+  }
+
+  .brand-mark small {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.74rem;
+  }
+
+  .brand-glyph {
+    display: grid;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 7px;
+    color: var(--ink);
+    background: linear-gradient(135deg, #e6c98e, #b66b50);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .site-header nav,
+  .site-footer nav,
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .site-header nav a {
+    padding: 8px 10px;
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.88rem;
+    transition:
+      color 160ms ease,
+      background 160ms ease;
+  }
+
+  .site-header nav a:hover,
+  .site-header nav a:focus-visible {
+    color: var(--paper-strong);
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .hero {
+    position: relative;
+    display: grid;
+    min-height: 74svh;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero img,
+  .hero-shade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero img {
+    z-index: -2;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-shade {
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(36, 34, 31, 0.9) 0%, rgba(36, 34, 31, 0.7) 42%, rgba(36, 34, 31, 0.16) 76%),
+      linear-gradient(180deg, rgba(36, 34, 31, 0.2) 0%, rgba(251, 246, 237, 0.94) 100%);
+  }
+
+  .hero-content {
+    width: min(calc(100% - 40px), var(--max));
+    margin: 0 auto;
+    padding: clamp(96px, 12vh, 124px) 0 clamp(34px, 6vh, 60px);
+    color: var(--paper-strong);
+  }
+
+  .hero-content > * {
+    max-width: 820px;
+  }
+
+  .eyebrow,
+  .card-label,
+  .project-status {
+    margin: 0 0 12px;
+    color: var(--coral);
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .hero .eyebrow {
+    color: #e8c78a;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    margin-top: 0;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: clamp(2.4rem, 5.4vw, 4.55rem);
+    line-height: 0.98;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  h2 {
+    margin-bottom: 18px;
+    font-size: clamp(1.8rem, 3.4vw, 2.85rem);
+    line-height: 1.05;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  h3 {
+    margin-bottom: 12px;
+    font-size: 1.34rem;
+    line-height: 1.2;
+  }
+
+  h4 {
+    margin-bottom: 2px;
+    font-size: 1.26rem;
+    line-height: 1.2;
+  }
+
+  .hero-copy {
+    max-width: 660px;
+    margin-bottom: 28px;
+    color: rgba(255, 255, 255, 0.86);
+    font-size: clamp(1.08rem, 2vw, 1.28rem);
+    text-wrap: balance;
+  }
+
+  .hero-note {
+    display: inline-flex;
+    margin: 18px 0 0;
+    padding: 8px 11px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.78);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.9rem;
+    font-weight: 750;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-weight: 800;
+    transition:
+      transform 160ms ease,
+      background 160ms ease,
+      border-color 160ms ease;
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .button.primary {
+    color: var(--ink);
+    background: #e3c482;
+  }
+
+  .button.primary:hover,
+  .button.primary:focus-visible {
+    background: #f0d79b;
+  }
+
+  .button.secondary {
+    color: var(--paper-strong);
+    border-color: rgba(255, 255, 255, 0.34);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .button.secondary:hover,
+  .button.secondary:focus-visible {
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .section {
+    padding: clamp(50px, 7vw, 88px) 20px;
+  }
+
+  .section-heading,
+  .info-grid,
+  .project-list,
+  .about-grid,
+  .site-footer {
+    width: min(100%, var(--max));
+    margin-inline: auto;
+  }
+
+  .section-heading {
+    margin-bottom: 26px;
+  }
+
+  .section-heading > p,
+  .section-heading.split > p,
+  .leader-card p,
+  .structure-row p,
+  .info-card p,
+  .project-card p {
+    color: var(--ink-soft);
+  }
+
+  .section-heading > p,
+  .section-heading.split > p {
+    max-width: 600px;
+    font-size: 1rem;
+  }
+
+  .section-heading.split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+    gap: 28px;
+    align-items: end;
+  }
+
+  .intro {
+    background: linear-gradient(180deg, var(--paper) 0%, #f2ece0 100%);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .info-card,
+  .project-card,
+  .leaders-panel,
+  .structure-panel {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-strong);
+    box-shadow: 0 12px 32px rgba(36, 34, 31, 0.08);
+  }
+
+  .info-card {
+    position: relative;
+    min-height: 150px;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .info-card::before {
+    content: "Studio note";
+    display: inline-flex;
+    margin-bottom: 16px;
+    padding: 5px 8px;
+    border-radius: 999px;
+    color: var(--teal);
+    background: rgba(111, 127, 104, 0.12);
+    font-size: 0.74rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .projects {
+    background: var(--mist);
+  }
+
+  .project-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .project-card {
+    position: relative;
+    min-height: 230px;
+    padding: 22px;
+    overflow: hidden;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      border-color 160ms ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(111, 127, 104, 0.36);
+    box-shadow: var(--shadow);
+  }
+
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: auto 22px 0 22px;
+    height: 4px;
+    border-radius: 999px 999px 0 0;
+    background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
+  }
+
+  .project-card::after {
+    content: "In progress";
+    position: absolute;
+    right: 18px;
+    bottom: 16px;
+    color: rgba(36, 34, 31, 0.18);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    transform: rotate(-6deg);
+  }
+
+  .project-topline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 26px;
+    color: var(--teal);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  .project-status {
+    display: inline-flex;
+    margin: 0;
+    padding: 6px 9px;
+    border-radius: 999px;
+    color: var(--ink);
+    background: #e3c482;
+  }
+
+  .about {
+    background: var(--paper);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 18px;
+    align-items: start;
+  }
+
+  .leaders-panel,
+  .structure-panel {
+    position: relative;
+    padding: clamp(22px, 4vw, 34px);
+    overflow: hidden;
+  }
+
+  .leaders-panel::before,
+  .structure-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+    background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
+  }
+
+  .panel-heading {
+    margin-bottom: 22px;
+  }
+
+  .leader-list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .leader-card {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    gap: 18px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fbf7ef;
+  }
+
+  .portrait {
+    display: grid;
+    width: 108px;
+    aspect-ratio: 1;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(36, 34, 31, 0.12);
+    border-radius: var(--radius);
+    background:
+      radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.74) 0 12%, transparent 13%),
+      linear-gradient(135deg, rgba(111, 127, 104, 0.3), rgba(169, 95, 70, 0.2) 48%, rgba(180, 138, 76, 0.34));
+  }
+
+  .portrait span {
+    display: grid;
+    width: 56px;
+    height: 56px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--paper-strong);
+    background: rgba(36, 34, 31, 0.82);
+    font-weight: 900;
+  }
+
+  .leader-card .card-label {
+    margin-bottom: 6px;
+  }
+
+  .leader-alias {
+    margin-bottom: 12px;
+    color: var(--teal);
+    font-weight: 800;
+  }
+
+  .leader-card p:last-child {
+    margin-bottom: 0;
+  }
+
+  .structure-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .structure-row {
+    display: grid;
+    grid-template-columns: minmax(160px, 0.7fr) minmax(0, 1fr);
+    gap: 18px;
+    padding: 16px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .structure-row:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .structure-row span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--coral);
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .structure-row strong {
+    display: block;
+    font-size: 1.06rem;
+  }
+
+  .structure-row p {
+    margin-bottom: 0;
+  }
+
+  .site-footer {
+    display: grid;
+    grid-template-columns: minmax(260px, 1.2fr) minmax(160px, 0.7fr) auto;
+    gap: 28px;
+    padding: 38px 20px 52px;
+    border-top: 1px solid var(--line);
+  }
+
+  .site-footer p {
+    max-width: 480px;
+    margin: 8px 0 0;
+    color: var(--ink-soft);
+  }
+
+  .site-footer nav,
+  .socials {
+    align-content: start;
+  }
+
+  .site-footer a {
+    padding: 6px 0;
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+
+  .site-footer a:hover,
+  .site-footer a:focus-visible {
+    color: var(--teal);
+  }
+
+  @media (max-width: 1040px) {
+    .project-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 940px) {
+    .site-header {
+      position: absolute;
+      align-items: flex-start;
+    }
+
+    .site-header nav {
+      justify-content: flex-end;
+    }
+
+    .brand-mark small {
+      display: none;
+    }
+
+    .hero {
+      min-height: 80svh;
+    }
+
+    .hero-shade {
+      background:
+        linear-gradient(90deg, rgba(36, 34, 31, 0.9) 0%, rgba(36, 34, 31, 0.62) 68%, rgba(36, 34, 31, 0.2) 100%),
+        linear-gradient(180deg, rgba(36, 34, 31, 0.34) 0%, rgba(251, 246, 237, 0.9) 100%);
+    }
+
+    .section-heading.split,
+    .info-grid,
+    .about-grid,
+    .site-footer {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 660px) {
+    .site-header {
+      width: min(calc(100% - 20px), var(--max));
+      margin-top: 10px;
+      padding: 9px;
+    }
+
+    .site-header nav {
+      gap: 2px;
+    }
+
+    .site-header nav a {
+      padding: 7px 8px;
+      font-size: 0.8rem;
+    }
+
+    .brand-mark strong {
+      max-width: 132px;
+      white-space: normal;
+      font-size: 0.86rem;
+    }
+
+    .hero-content {
+      width: min(calc(100% - 28px), var(--max));
+      padding-top: 112px;
+    }
+
+    .hero-copy {
+      font-size: 1.02rem;
+    }
+
+    .button {
+      width: 100%;
+    }
+
+    .project-list,
+    .leader-card,
+    .structure-row {
+      grid-template-columns: 1fr;
+    }
+
+    .info-card,
+    .project-card {
+      min-height: unset;
+    }
+
+    .portrait {
+      width: 100%;
+      max-width: 180px;
+    }
+
+    .section {
+      padding-inline: 14px;
+    }
+  }
+</style>
