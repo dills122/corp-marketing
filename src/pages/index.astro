@@ -1,90 +1,7 @@
 ---
-const focusAreas = [
-  {
-    title: "Web projects",
-    description: "Sites, tools, and experiments with a place to live.",
-  },
-  {
-    title: "Internal systems",
-    description: "Reusable bits, CLIs, and small platforms for future work.",
-  },
-  {
-    title: "Notes",
-    description: "Docs, release posts, and occasional dispatches from the desk.",
-  },
-];
+import { ecosystem, leaders, notes, projects } from "../data/site";
 
-const projects = [
-  {
-    name: "Reef",
-    division: "Shrimpworks",
-    summary: "A market simulation and trading infrastructure playground for testing systems ideas with charts nearby.",
-    status: "Research",
-  },
-  {
-    name: "Trove",
-    division: "Shwimp Studios",
-    summary: "A bookmark organizer for turning saved links into something browsable, searchable, and less feral.",
-    status: "Prototype",
-  },
-  {
-    name: "Kyn",
-    division: "Shrimpworks",
-    summary: "A codebase rules CLI for making project conventions explicit before they become folklore.",
-    status: "Tooling",
-  },
-  {
-    name: "Waves",
-    division: "Noodle Ventures",
-    summary: "A WAP and WML browser experiment exploring old mobile web constraints through a modern lens.",
-    status: "Experiment",
-  },
-];
-
-const divisions = [
-  {
-    name: "Lady International",
-    label: "Holding company",
-    description: "The top-level home for the studio family, naming system, and long-running collection of projects.",
-  },
-  {
-    name: "Shwimp Studios",
-    label: "Main studio",
-    description: "The public product studio where web projects get names, pages, and enough polish to meet the world.",
-  },
-  {
-    name: "Shrimpworks",
-    label: "Engineering",
-    description: "Infrastructure, developer tools, reusable code, and the practical machinery behind the portfolio.",
-  },
-  {
-    name: "Wimpy Productions",
-    label: "Media",
-    description: "Docs, release notes, announcements, and written context for the things being built.",
-  },
-  {
-    name: "Noodle Ventures",
-    label: "Incubation",
-    description: "Prototypes, odd ideas, and small bets that need a little room before they know what they are.",
-  },
-];
-
-const leaders = [
-  {
-    name: "Catherine",
-    alias: "The Lady / The Noodle",
-    title: "Chair of Strategy",
-    initials: "CA",
-    note: "Provides elegant oversight, selective approval, and a strong preference for decisions made from a comfortable perch.",
-  },
-  {
-    name: "Cynthia",
-    alias: "Shrimp / Wimpy / Shwimp",
-    title: "Head of Product Taste",
-    initials: "CY",
-    note: "Responsible for product taste, operational impatience, and the studio name that somehow stuck.",
-  },
-];
+const featuredProjects = projects.filter((project) => project.featured);
 ---
 
 <!doctype html>
@@ -94,167 +11,155 @@ const leaders = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Lady International and Shwimp Studios are a playful studio home for personal web projects, software experiments, writing, and small tools."
+      content="Shwimp Studios is an independent software studio and engineering lab building tools, experiments, and a strange little universe of named projects."
     />
-    <title>Lady International | Shwimp Studios</title>
+    <title>Shwimp Studios | Software, tools, experiments</title>
   </head>
   <body>
     <header class="site-header" aria-label="Primary navigation">
-      <a class="brand-mark" href="#top" aria-label="Lady International home">
-        <span class="brand-glyph" aria-hidden="true">LI</span>
+      <a class="brand-mark" href="#top" aria-label="Shwimp Studios home">
+        <span class="brand-glyph" aria-hidden="true">SS</span>
         <span>
-          <strong>Lady International</strong>
-          <small>Shwimp Studios</small>
+          <strong>Shwimp Studios</strong>
+          <small>Lady International</small>
         </span>
       </a>
       <nav>
-        <a href="#work">Work</a>
+        <a href="/org/">Organizations</a>
         <a href="#projects">Projects</a>
-        <a href="#about">About</a>
+        <a href="#studio">Studio</a>
       </nav>
     </header>
 
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
-        <img src="/studio-hero.png" alt="A bright creative technology studio desk with a laptop, notebooks, and warm design materials." />
-        <div class="hero-shade" aria-hidden="true"></div>
-        <div class="hero-content">
-          <p class="eyebrow">Lady International / Shwimp Studios</p>
-          <h1 id="hero-title">A polished home for web projects and strange little tools.</h1>
-          <p class="hero-copy">
-            Shwimp Studios collects useful software, project notes, and small experiments with unusually specific names.
-          </p>
-          <div class="hero-actions" aria-label="Hero actions">
-            <a class="button primary" href="#projects">View projects</a>
-            <a class="button secondary" href="#about">Get to know us</a>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Independent software studio / engineering lab</p>
+            <h1 id="hero-title">Shwimp Studios builds software, tools, experiments, and occasionally questionable ideas.</h1>
+            <p class="lede">
+              A small creative technology shop inside Lady International, organized around useful products, strange research threads, and a naming system that has already gone too far.
+            </p>
+            <div class="hero-actions" aria-label="Hero actions">
+              <a class="button primary" href="#projects">Explore projects</a>
+              <a class="button secondary" href="#ecosystem">Map the ecosystem</a>
+            </div>
           </div>
-          <p class="hero-note">Small tools. Tidy pages. Reasonable ceremony.</p>
+
         </div>
       </section>
 
-      <section class="section intro" id="work" aria-labelledby="work-title">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">What this is</p>
-            <h2 id="work-title">A home base with a little ceremony.</h2>
-          </div>
+      <section class="ticker" aria-label="Studio notes">
+        <div>
+          {notes.map((note) => <span>{note}</span>)}
+        </div>
+      </section>
+
+      <section class="section ecosystem" id="ecosystem" aria-labelledby="ecosystem-title">
+        <div class="section-heading">
+          <p class="eyebrow">The ecosystem</p>
+          <h2 id="ecosystem-title">A holding company with a product studio, an engineering bench, a media shelf, and an incubator.</h2>
           <p>
-            Clean enough for a footer, warm enough to feel human, and organized enough that the names mostly make sense.
+            The site should not feel like a generic consultancy because the work is not organized like one. Each name has a job, and the projects make more sense when that structure is visible.
           </p>
         </div>
 
-        <div class="info-grid">
+        <div class="ecosystem-grid">
           {
-            focusAreas.map((area) => (
-              <article class="info-card">
-                <h3>{area.title}</h3>
-                <p>{area.description}</p>
-              </article>
+            ecosystem.map((item) => (
+              <a class="ecosystem-card" href={`/org/${item.slug}/`}>
+                <p>{item.role}</p>
+                <h3>{item.name}</h3>
+                <span>{item.description}</span>
+                <strong>View organization</strong>
+              </a>
             ))
           }
         </div>
       </section>
 
-      <section class="section projects" id="projects" aria-labelledby="projects-title">
+      <section class="section project-showcase" id="projects" aria-labelledby="projects-title">
         <div class="section-heading split">
           <div>
-            <p class="eyebrow">Projects</p>
-            <h2 id="projects-title">Current projects from around the studio family.</h2>
+            <p class="eyebrow">Featured projects</p>
+            <h2 id="projects-title">The projects are the point.</h2>
           </div>
           <p>
-            Some are useful, some are exploratory, and some are mostly a good reason to learn a thing. Each one gets a
-            name, a place, and room to become more real over time.
+            Shwimp Studios is less interesting as a slogan than as a catalog of living things: simulators, bookmark systems, developer tools, and retro-web experiments with enough personality to remember.
           </p>
         </div>
 
         <div class="project-list">
           {
-            projects.map((project) => (
-              <article class="project-card">
-                <div class="project-topline">
-                  <span class="project-status">{project.status}</span>
-                  <span>{project.division}</span>
+            featuredProjects.map((project, index) => (
+              <article class={`project-row ${project.tone}`}>
+                <div class="project-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+                <div class="project-main">
+                  <div class="project-topline">
+                    <span>{project.division}</span>
+                    <strong>{project.status}</strong>
+                  </div>
+                  <h3>{project.name}</h3>
+                  <p class="project-kicker">{project.kicker}</p>
+                  <p class="project-summary">{project.summary}</p>
+                  <div class="project-links" aria-label={`${project.name} links`}>
+                    {
+                      project.links?.map((link) => (
+                        <a href={link.href} target="_blank" rel="noreferrer">
+                          {link.label}
+                        </a>
+                      ))
+                    }
+                    {project.availability && <span>{project.availability}</span>}
+                  </div>
                 </div>
-                <h3>{project.name}</h3>
-                <p>{project.summary}</p>
+                <div class="project-mark" aria-hidden="true">
+                  <span>{project.name.slice(0, 1)}</span>
+                </div>
               </article>
             ))
           }
         </div>
       </section>
 
-      <section class="section about" id="about" aria-labelledby="about-title">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">About / get to know us</p>
-            <h2 id="about-title">A small studio ecosystem with a quietly dramatic naming committee.</h2>
+      <section class="section studio" id="studio" aria-labelledby="studio-title">
+        <div class="studio-layout">
+          <div class="section-heading">
+            <p class="eyebrow">Studio governance</p>
+            <h2 id="studio-title">Executive leadership for a very serious organization.</h2>
+            <p>
+              Lady International maintains a compact leadership structure, clear operating principles, and an unusually high tolerance for ideas that begin as jokes and become infrastructure.
+            </p>
           </div>
-          <p>
-            The names started with Cynthia and Catherine, two cats with disproportionate influence over company strategy.
-            That origin story sits lightly behind the studio structure, giving everything a little more personality than
-            a folder named projects.
-          </p>
-        </div>
 
-        <div class="about-grid">
-          <section class="leaders-panel" aria-labelledby="leaders-title">
-            <div class="panel-heading">
-              <p class="eyebrow">Leadership</p>
-              <h3 id="leaders-title">Leadership portraits, pending formal headshots.</h3>
-            </div>
-
-            <div class="leader-list">
-              {
-                leaders.map((leader) => (
-                  <article class="leader-card">
-                    <div class="portrait" aria-label={`${leader.name} headshot placeholder`}>
-                      <span>{leader.initials}</span>
-                    </div>
-                    <div>
-                      <p class="card-label">{leader.title}</p>
-                      <h4>{leader.name}</h4>
-                      <p class="leader-alias">{leader.alias}</p>
-                      <p>{leader.note}</p>
-                    </div>
-                  </article>
-                ))
-              }
-            </div>
-          </section>
-
-          <section class="structure-panel" aria-labelledby="structure-title">
-            <div class="panel-heading">
-              <p class="eyebrow">Corporate structure</p>
-              <h3 id="structure-title">How the ecosystem is organized.</h3>
-            </div>
-
-            <div class="structure-list">
-              {
-                divisions.map((division) => (
-                  <article class="structure-row">
-                    <div>
-                      <span>{division.label}</span>
-                      <strong>{division.name}</strong>
-                    </div>
-                    <p>{division.description}</p>
-                  </article>
-                ))
-              }
-            </div>
-          </section>
+          <div class="leader-list">
+            {
+              leaders.map((leader) => (
+                <article class="leader-card">
+                  <img src={leader.image} alt={`Editorial portrait illustration of ${leader.name}.`} />
+                  <div>
+                    <p class="card-label">{leader.title}</p>
+                    <h3>{leader.name}</h3>
+                    <p class="leader-alias">{leader.alias}</p>
+                    <p class="leader-note">{leader.note}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
       <div>
-        <strong>Lady International</strong>
-        <p>Holding company and home base for Shwimp Studios, Shrimpworks, Wimpy Productions, and Noodle Ventures.</p>
+        <strong>Shwimp Studios</strong>
+        <p>Software, tools, experiments, and cat-approved ideas from the Lady International universe.</p>
       </div>
       <nav aria-label="Footer navigation">
-        <a href="#work">Work</a>
+        <a href="/org/">Organizations</a>
         <a href="#projects">Projects</a>
-        <a href="#about">About</a>
+        <a href="#studio">Studio</a>
       </nav>
       <div class="socials" aria-label="Social links">
         <a href="https://github.com/" rel="noreferrer">GitHub</a>
@@ -267,18 +172,19 @@ const leaders = [
 
 <style>
   :root {
-    --ink: #24221f;
-    --ink-soft: #5b544c;
-    --paper: #fbf6ed;
-    --paper-strong: #ffffff;
-    --mist: #efebe2;
-    --teal: #6f7f68;
-    --coral: #a95f46;
-    --gold: #b48a4c;
-    --line: rgba(36, 34, 31, 0.14);
-    --shadow: 0 22px 56px rgba(36, 34, 31, 0.12);
+    --ink: #172637;
+    --ink-soft: #536170;
+    --paper: #fbf4e7;
+    --paper-strong: #fffaf1;
+    --blue: #214f6f;
+    --green: #496b53;
+    --coral: #b25e46;
+    --gold: #c49342;
+    --sky: #d8e7ee;
+    --line: rgba(23, 38, 55, 0.16);
+    --shadow: 0 22px 60px rgba(23, 38, 55, 0.12);
     --radius: 8px;
-    --max: 1160px;
+    --max: 1180px;
     font-family:
       Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
@@ -291,6 +197,7 @@ const leaders = [
     color: var(--ink);
     background: var(--paper);
     scroll-behavior: smooth;
+    scroll-padding-top: 84px;
   }
 
   body {
@@ -302,7 +209,7 @@ const leaders = [
 
   body::selection {
     color: var(--paper-strong);
-    background: var(--teal);
+    background: var(--blue);
   }
 
   a {
@@ -316,23 +223,17 @@ const leaders = [
   }
 
   .site-header {
-    position: fixed;
+    position: sticky;
     z-index: 20;
     top: 0;
-    left: 0;
-    right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 24px;
-    width: min(calc(100% - 32px), var(--max));
-    margin: 16px auto 0;
-    padding: 10px 12px;
-    border: 1px solid rgba(255, 255, 255, 0.48);
-    border-radius: var(--radius);
-    color: var(--paper-strong);
-    background: rgba(36, 34, 31, 0.64);
-    box-shadow: 0 18px 50px rgba(36, 34, 31, 0.2);
+    width: 100%;
+    padding: 14px max(18px, calc((100vw - var(--max)) / 2));
+    border-bottom: 1px solid var(--line);
+    background: rgba(251, 244, 231, 0.9);
     backdrop-filter: blur(18px);
   }
 
@@ -350,26 +251,30 @@ const leaders = [
   }
 
   .brand-mark strong {
-    font-size: 0.95rem;
-    line-height: 1.1;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.1rem;
+    line-height: 1.05;
   }
 
   .brand-mark small {
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--ink-soft);
     font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
   }
 
   .brand-glyph {
     display: grid;
     flex: 0 0 auto;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     place-items: center;
-    border-radius: 7px;
-    color: var(--ink);
-    background: linear-gradient(135deg, #e6c98e, #b66b50);
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    color: var(--paper-strong);
+    background: var(--ink);
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 900;
   }
 
   .site-header nav,
@@ -383,8 +288,9 @@ const leaders = [
   .site-header nav a {
     padding: 8px 10px;
     border-radius: 999px;
-    color: rgba(255, 255, 255, 0.84);
+    color: var(--ink-soft);
     font-size: 0.88rem;
+    font-weight: 800;
     transition:
       color 160ms ease,
       background 160ms ease;
@@ -392,118 +298,81 @@ const leaders = [
 
   .site-header nav a:hover,
   .site-header nav a:focus-visible {
-    color: var(--paper-strong);
-    background: rgba(255, 255, 255, 0.14);
+    color: var(--ink);
+    background: rgba(33, 79, 111, 0.1);
   }
 
   .hero {
     position: relative;
-    display: grid;
-    min-height: 74svh;
     overflow: hidden;
-    isolation: isolate;
-  }
-
-  .hero img,
-  .hero-shade {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero img {
-    z-index: -2;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .hero-shade {
-    z-index: -1;
+    border-bottom: 1px solid var(--line);
     background:
-      linear-gradient(90deg, rgba(36, 34, 31, 0.9) 0%, rgba(36, 34, 31, 0.7) 42%, rgba(36, 34, 31, 0.16) 76%),
-      linear-gradient(180deg, rgba(36, 34, 31, 0.2) 0%, rgba(251, 246, 237, 0.94) 100%);
+      linear-gradient(90deg, rgba(251, 244, 231, 0.92), rgba(251, 244, 231, 0.72)),
+      url("/studio-hero-v2.png") center / cover;
   }
 
-  .hero-content {
+  .hero-inner {
     width: min(calc(100% - 40px), var(--max));
+    min-height: calc(78svh - 67px);
     margin: 0 auto;
-    padding: clamp(96px, 12vh, 124px) 0 clamp(34px, 6vh, 60px);
-    color: var(--paper-strong);
+    padding: clamp(22px, 3vw, 36px) 0 clamp(24px, 4vw, 40px);
   }
 
-  .hero-content > * {
-    max-width: 820px;
+  .hero-copy {
+    max-width: 920px;
   }
 
   .eyebrow,
-  .card-label,
-  .project-status {
-    margin: 0 0 12px;
+  .card-label {
+    margin: 0 0 14px;
     color: var(--coral);
     font-size: 0.78rem;
-    font-weight: 800;
+    font-weight: 900;
+    letter-spacing: 0;
     text-transform: uppercase;
-  }
-
-  .hero .eyebrow {
-    color: #e8c78a;
   }
 
   h1,
   h2,
   h3,
-  h4,
   p {
     margin-top: 0;
   }
 
-  h1 {
-    margin-bottom: 20px;
-    font-size: clamp(2.4rem, 5.4vw, 4.55rem);
-    line-height: 0.98;
+  h1,
+  h2,
+  .project-row h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 700;
     letter-spacing: 0;
     text-wrap: balance;
+  }
+
+  h1 {
+    max-width: 860px;
+    margin-bottom: 24px;
+    font-size: clamp(2.85rem, 5vw, 4.65rem);
+    line-height: 0.94;
   }
 
   h2 {
     margin-bottom: 18px;
-    font-size: clamp(1.8rem, 3.4vw, 2.85rem);
-    line-height: 1.05;
-    letter-spacing: 0;
-    text-wrap: balance;
+    font-size: clamp(2.1rem, 4.4vw, 4.15rem);
+    line-height: 0.98;
   }
 
   h3 {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     font-size: 1.34rem;
     line-height: 1.2;
   }
 
-  h4 {
-    margin-bottom: 2px;
-    font-size: 1.26rem;
-    line-height: 1.2;
-  }
-
-  .hero-copy {
-    max-width: 660px;
-    margin-bottom: 28px;
-    color: rgba(255, 255, 255, 0.86);
-    font-size: clamp(1.08rem, 2vw, 1.28rem);
+  .lede {
+    max-width: 720px;
+    margin-bottom: 30px;
+    color: var(--ink-soft);
+    font-size: clamp(1.06rem, 2vw, 1.28rem);
     text-wrap: balance;
-  }
-
-  .hero-note {
-    display: inline-flex;
-    margin: 18px 0 0;
-    padding: 8px 11px;
-    border: 1px solid rgba(255, 255, 255, 0.24);
-    border-radius: 999px;
-    color: rgba(255, 255, 255, 0.78);
-    background: rgba(255, 255, 255, 0.08);
-    font-size: 0.9rem;
-    font-weight: 750;
   }
 
   .hero-actions {
@@ -518,13 +387,13 @@ const leaders = [
     justify-content: center;
     min-height: 46px;
     padding: 12px 18px;
-    border: 1px solid transparent;
+    border: 1px solid var(--ink);
     border-radius: 999px;
-    font-weight: 800;
+    font-weight: 900;
     transition:
       transform 160ms ease,
       background 160ms ease,
-      border-color 160ms ease;
+      color 160ms ease;
   }
 
   .button:hover,
@@ -533,294 +402,366 @@ const leaders = [
   }
 
   .button.primary {
-    color: var(--ink);
-    background: #e3c482;
+    color: var(--paper-strong);
+    background: var(--ink);
   }
 
   .button.primary:hover,
   .button.primary:focus-visible {
-    background: #f0d79b;
+    background: var(--blue);
   }
 
   .button.secondary {
-    color: var(--paper-strong);
-    border-color: rgba(255, 255, 255, 0.34);
-    background: rgba(255, 255, 255, 0.08);
+    color: var(--ink);
+    background: rgba(255, 250, 241, 0.54);
   }
 
   .button.secondary:hover,
   .button.secondary:focus-visible {
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.16);
+    color: var(--paper-strong);
+    background: var(--green);
+  }
+
+  .ticker {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: rgba(255, 250, 241, 0.7);
+    color: var(--ink);
+  }
+
+  .ticker div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: min(calc(100% - 40px), var(--max));
+    margin: 0 auto;
+  }
+
+  .ticker span {
+    min-height: 54px;
+    padding: 14px 20px;
+    border-left: 1px solid var(--line);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+    line-height: 1.2;
+  }
+
+  .ticker span:last-child {
+    border-right: 1px solid var(--line);
   }
 
   .section {
-    padding: clamp(50px, 7vw, 88px) 20px;
+    padding: clamp(56px, 8vw, 104px) 20px;
   }
 
   .section-heading,
-  .info-grid,
+  .ecosystem-grid,
   .project-list,
-  .about-grid,
+  .studio-layout,
   .site-footer {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
 
   .section-heading {
-    margin-bottom: 26px;
+    max-width: 880px;
+    margin-bottom: 30px;
   }
 
   .section-heading > p,
   .section-heading.split > p,
+  .ecosystem-card span,
+  .project-row p,
   .leader-card p,
-  .structure-row p,
-  .info-card p,
-  .project-card p {
+  .site-footer p {
     color: var(--ink-soft);
   }
 
   .section-heading > p,
   .section-heading.split > p {
-    max-width: 600px;
-    font-size: 1rem;
+    max-width: 650px;
+    font-size: 1.04rem;
   }
 
   .section-heading.split {
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
-    gap: 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+    gap: 30px;
+    max-width: none;
     align-items: end;
   }
 
-  .intro {
-    background: linear-gradient(180deg, var(--paper) 0%, #f2ece0 100%);
+  .ecosystem {
+    background: var(--paper-strong);
   }
 
-  .info-grid {
+  .ecosystem-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
 
-  .info-card,
-  .project-card,
-  .leaders-panel,
-  .structure-panel {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+  .ecosystem-card {
+    display: block;
+    min-height: 260px;
+    padding: 22px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
     background: var(--paper-strong);
-    box-shadow: 0 12px 32px rgba(36, 34, 31, 0.08);
+    transition:
+      background 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
   }
 
-  .info-card {
-    position: relative;
-    min-height: 150px;
-    padding: 20px;
-    overflow: hidden;
+  .ecosystem-card:hover,
+  .ecosystem-card:focus-visible {
+    z-index: 1;
+    background: #fffaf1;
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
   }
 
-  .info-card::before {
-    content: "Studio note";
-    display: inline-flex;
-    margin-bottom: 16px;
-    padding: 5px 8px;
-    border-radius: 999px;
-    color: var(--teal);
-    background: rgba(111, 127, 104, 0.12);
-    font-size: 0.74rem;
+  .ecosystem-card:nth-child(2) {
+    background: #edf3ed;
+  }
+
+  .ecosystem-card:nth-child(3) {
+    background: #edf5f8;
+  }
+
+  .ecosystem-card:nth-child(4) {
+    background: #f8efe8;
+  }
+
+  .ecosystem-card:nth-child(5) {
+    background: #f7ecd4;
+  }
+
+  .ecosystem-card p {
+    margin-bottom: 38px;
+    color: var(--coral);
+    font-size: 0.76rem;
     font-weight: 900;
     text-transform: uppercase;
   }
 
-  .projects {
-    background: var(--mist);
+  .ecosystem-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    letter-spacing: 0;
+  }
+
+  .ecosystem-card span {
+    display: block;
+  }
+
+  .ecosystem-card strong {
+    display: inline-flex;
+    margin-top: 22px;
+    color: var(--blue);
+    font-size: 0.82rem;
+    font-weight: 900;
+  }
+
+  .project-showcase {
+    background: #f2eadb;
   }
 
   .project-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
+    gap: 18px;
   }
 
-  .project-card {
+  .project-row {
     position: relative;
-    min-height: 230px;
-    padding: 22px;
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr) 180px;
+    gap: clamp(18px, 4vw, 46px);
+    align-items: center;
+    min-height: 300px;
+    padding: clamp(22px, 4vw, 42px);
     overflow: hidden;
-    transition:
-      transform 160ms ease,
-      box-shadow 160ms ease,
-      border-color 160ms ease;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-strong);
+    box-shadow: 0 14px 38px rgba(23, 38, 55, 0.08);
   }
 
-  .project-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(111, 127, 104, 0.36);
-    box-shadow: var(--shadow);
+  .project-row.reef {
+    border-color: rgba(33, 79, 111, 0.32);
   }
 
-  .project-card::before {
-    content: "";
-    position: absolute;
-    inset: auto 22px 0 22px;
-    height: 4px;
-    border-radius: 999px 999px 0 0;
-    background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
+  .project-row.trove {
+    border-color: rgba(196, 147, 66, 0.42);
   }
 
-  .project-card::after {
-    content: "In progress";
-    position: absolute;
-    right: 18px;
-    bottom: 16px;
-    color: rgba(36, 34, 31, 0.18);
-    font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    transform: rotate(-6deg);
+  .project-row.kyn {
+    border-color: rgba(73, 107, 83, 0.36);
+  }
+
+  .project-row.waves {
+    border-color: rgba(178, 94, 70, 0.36);
+  }
+
+  .project-index {
+    color: rgba(23, 38, 55, 0.28);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2.4rem, 5vw, 4.6rem);
+    line-height: 1;
   }
 
   .project-topline {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 26px;
-    color: var(--teal);
-    font-size: 0.82rem;
-    font-weight: 800;
+    gap: 10px;
+    margin-bottom: 18px;
+    color: var(--blue);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
-  .project-status {
+  .project-topline strong {
+    color: var(--coral);
+  }
+
+  .project-row h3 {
+    margin-bottom: 6px;
+    font-size: clamp(2.8rem, 7vw, 6.2rem);
+    line-height: 0.9;
+  }
+
+  .project-kicker {
+    margin-bottom: 14px;
+    color: var(--ink);
+    font-size: clamp(1.02rem, 2vw, 1.25rem);
+    font-weight: 900;
+  }
+
+  .project-summary {
+    max-width: 660px;
+    margin-bottom: 20px;
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .project-links a,
+  .project-links span {
     display: inline-flex;
-    margin: 0;
-    padding: 6px 9px;
+    align-items: center;
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid var(--line);
     border-radius: 999px;
     color: var(--ink);
-    background: #e3c482;
+    background: rgba(255, 250, 241, 0.72);
+    font-size: 0.84rem;
+    font-weight: 900;
   }
 
-  .about {
+  .project-links a:hover,
+  .project-links a:focus-visible {
+    border-color: rgba(33, 79, 111, 0.42);
+    color: var(--blue);
+    background: #edf5f8;
+  }
+
+  .project-links span {
+    color: var(--ink-soft);
+    background: rgba(23, 38, 55, 0.06);
+  }
+
+  .project-mark {
+    display: grid;
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #edf5f8;
+  }
+
+  .trove .project-mark {
+    background: #f7ecd4;
+  }
+
+  .kyn .project-mark {
+    background: #eaf1e8;
+  }
+
+  .waves .project-mark {
+    background: #f8e7df;
+  }
+
+  .project-mark span {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(4rem, 9vw, 7rem);
+    line-height: 1;
+  }
+
+  .studio {
     background: var(--paper);
   }
 
-  .about-grid {
+  .studio-layout {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 18px;
+    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 70px);
     align-items: start;
   }
 
-  .leaders-panel,
-  .structure-panel {
-    position: relative;
-    padding: clamp(22px, 4vw, 34px);
-    overflow: hidden;
-  }
-
-  .leaders-panel::before,
-  .structure-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 5px;
-    background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
-  }
-
-  .panel-heading {
-    margin-bottom: 22px;
+  .studio-layout .section-heading {
+    position: sticky;
+    top: 104px;
+    margin-bottom: 0;
   }
 
   .leader-list {
     display: grid;
-    gap: 14px;
+    gap: 18px;
   }
 
   .leader-card {
     display: grid;
-    grid-template-columns: 108px minmax(0, 1fr);
+    grid-template-columns: 132px minmax(0, 1fr);
     gap: 18px;
-    align-items: center;
+    align-items: start;
     padding: 16px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: #fbf7ef;
+    background: var(--paper-strong);
+    box-shadow: 0 12px 32px rgba(23, 38, 55, 0.07);
   }
 
-  .portrait {
-    display: grid;
-    width: 108px;
+  .leader-card img {
+    width: 132px;
     aspect-ratio: 1;
-    place-items: center;
-    overflow: hidden;
-    border: 1px solid rgba(36, 34, 31, 0.12);
+    object-fit: cover;
+    border: 1px solid var(--line);
     border-radius: var(--radius);
-    background:
-      radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.74) 0 12%, transparent 13%),
-      linear-gradient(135deg, rgba(111, 127, 104, 0.3), rgba(169, 95, 70, 0.2) 48%, rgba(180, 138, 76, 0.34));
   }
 
-  .portrait span {
-    display: grid;
-    width: 56px;
-    height: 56px;
-    place-items: center;
-    border-radius: 50%;
-    color: var(--paper-strong);
-    background: rgba(36, 34, 31, 0.82);
-    font-weight: 900;
-  }
-
-  .leader-card .card-label {
-    margin-bottom: 6px;
+  .leader-card h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 2.4vw, 2rem);
+    letter-spacing: 0;
   }
 
   .leader-alias {
-    margin-bottom: 12px;
-    color: var(--teal);
-    font-weight: 800;
+    margin-bottom: 10px;
+    color: var(--green);
+    font-size: 0.92rem;
+    font-weight: 900;
   }
 
-  .leader-card p:last-child {
+  .leader-note {
     margin-bottom: 0;
-  }
-
-  .structure-list {
-    display: grid;
-    gap: 10px;
-  }
-
-  .structure-row {
-    display: grid;
-    grid-template-columns: minmax(160px, 0.7fr) minmax(0, 1fr);
-    gap: 18px;
-    padding: 16px 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .structure-row:first-child {
-    border-top: 0;
-    padding-top: 0;
-  }
-
-  .structure-row span {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--coral);
-    font-size: 0.76rem;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .structure-row strong {
-    display: block;
-    font-size: 1.06rem;
-  }
-
-  .structure-row p {
-    margin-bottom: 0;
+    font-size: 0.92rem;
+    line-height: 1.5;
   }
 
   .site-footer {
@@ -831,10 +772,14 @@ const leaders = [
     border-top: 1px solid var(--line);
   }
 
+  .site-footer strong {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.32rem;
+  }
+
   .site-footer p {
-    max-width: 480px;
+    max-width: 520px;
     margin: 8px 0 0;
-    color: var(--ink-soft);
   }
 
   .site-footer nav,
@@ -845,101 +790,121 @@ const leaders = [
   .site-footer a {
     padding: 6px 0;
     color: var(--ink-soft);
-    font-weight: 700;
+    font-weight: 800;
   }
 
   .site-footer a:hover,
   .site-footer a:focus-visible {
-    color: var(--teal);
+    color: var(--blue);
   }
 
   @media (max-width: 1040px) {
-    .project-list {
+    .studio-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-inner {
+      min-height: auto;
+    }
+
+    .ecosystem-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .project-row {
+      grid-template-columns: 70px minmax(0, 1fr);
+    }
+
+    .project-mark {
+      display: none;
+    }
+
+    .studio-layout .section-heading {
+      position: static;
     }
   }
 
-  @media (max-width: 940px) {
+  @media (max-width: 760px) {
+    html {
+      scroll-padding-top: 112px;
+    }
+
     .site-header {
-      position: absolute;
       align-items: flex-start;
+      padding-inline: 12px;
     }
 
     .site-header nav {
       justify-content: flex-end;
+      gap: 2px;
+    }
+
+    .site-header nav a {
+      padding: 6px 5px;
+      font-size: 0.76rem;
     }
 
     .brand-mark small {
       display: none;
     }
 
-    .hero {
-      min-height: 80svh;
+    .hero-inner {
+      width: min(calc(100% - 28px), var(--max));
+      padding-top: 24px;
     }
 
-    .hero-shade {
-      background:
-        linear-gradient(90deg, rgba(36, 34, 31, 0.9) 0%, rgba(36, 34, 31, 0.62) 68%, rgba(36, 34, 31, 0.2) 100%),
-        linear-gradient(180deg, rgba(36, 34, 31, 0.34) 0%, rgba(251, 246, 237, 0.9) 100%);
+    h1 {
+      font-size: clamp(2.45rem, 11vw, 3.15rem);
     }
 
+    .ticker div,
     .section-heading.split,
-    .info-grid,
-    .about-grid,
+    .ecosystem-grid,
+    .project-row,
+    .leader-card,
     .site-footer {
       grid-template-columns: 1fr;
     }
+
+    .ticker span,
+    .ticker span:last-child {
+      border-right: 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .ecosystem-card {
+      min-height: 230px;
+    }
+
+    .project-row {
+      min-height: 0;
+    }
+
+    .project-index {
+      font-size: 2rem;
+    }
+
+    .leader-card img {
+      width: 100%;
+      max-width: 220px;
+    }
   }
 
-  @media (max-width: 660px) {
-    .site-header {
-      width: min(calc(100% - 20px), var(--max));
-      margin-top: 10px;
-      padding: 9px;
-    }
-
-    .site-header nav {
-      gap: 2px;
-    }
-
-    .site-header nav a {
-      padding: 7px 8px;
-      font-size: 0.8rem;
-    }
-
+  @media (max-width: 520px) {
     .brand-mark strong {
-      max-width: 132px;
+      max-width: 116px;
       white-space: normal;
-      font-size: 0.86rem;
+      font-size: 0.96rem;
     }
 
-    .hero-content {
-      width: min(calc(100% - 28px), var(--max));
-      padding-top: 112px;
-    }
-
-    .hero-copy {
-      font-size: 1.02rem;
+    .brand-glyph {
+      width: 34px;
+      height: 34px;
     }
 
     .button {
       width: 100%;
-    }
-
-    .project-list,
-    .leader-card,
-    .structure-row {
-      grid-template-columns: 1fr;
-    }
-
-    .info-card,
-    .project-card {
-      min-height: unset;
-    }
-
-    .portrait {
-      width: 100%;
-      max-width: 180px;
     }
 
     .section {
