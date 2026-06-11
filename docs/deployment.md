@@ -28,6 +28,16 @@ shwimp.studio
 
 4. After DNS is verified and the certificate is available, enable `Enforce HTTPS`.
 
+If the deploy workflow reaches `actions/deploy-pages` and fails with:
+
+```text
+Creating Pages deployment failed
+HttpError: Not Found
+Ensure GitHub Pages has been enabled
+```
+
+the build artifact uploaded correctly, but GitHub Pages has not been enabled for the repository yet. Complete the Pages settings above, then re-run the failed workflow.
+
 ## Custom Domain Files
 
 The configured domain appears in two places:
