@@ -1,4 +1,5 @@
 ---
+import SiteFooter from "../../components/SiteFooter.astro";
 import { ecosystem, projects } from "../../data/site";
 
 const orgCards = ecosystem.map((org) => {
@@ -73,17 +74,7 @@ const orgCards = ecosystem.map((org) => {
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div>
-        <strong>Shwimp Studios</strong>
-        <p>Software, tools, experiments, and cat-approved ideas from the Lady International universe.</p>
-      </div>
-      <nav aria-label="Footer navigation">
-        <a href="/org/">Organizations</a>
-        <a href="/#projects">Projects</a>
-        <a href="/#studio">Studio</a>
-      </nav>
-    </footer>
+    <SiteFooter />
   </body>
 </html>
 
@@ -154,8 +145,7 @@ const orgCards = ecosystem.map((org) => {
 
   .brand-mark strong,
   h1,
-  h2,
-  .site-footer strong {
+  h2 {
     font-family: Georgia, "Times New Roman", serif;
     letter-spacing: 0;
   }
@@ -186,8 +176,7 @@ const orgCards = ecosystem.map((org) => {
     font-weight: 900;
   }
 
-  .site-header nav,
-  .site-footer nav {
+  .site-header nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -222,8 +211,7 @@ const orgCards = ecosystem.map((org) => {
   }
 
   .directory-hero > div,
-  .org-grid,
-  .site-footer {
+  .org-grid {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
@@ -251,8 +239,7 @@ const orgCards = ecosystem.map((org) => {
   }
 
   .lede,
-  .org-card span,
-  .site-footer p {
+  .org-card span {
     color: var(--ink-soft);
   }
 
@@ -315,29 +302,6 @@ const orgCards = ecosystem.map((org) => {
     font-weight: 700;
   }
 
-  .site-footer {
-    display: grid;
-    grid-template-columns: minmax(260px, 1fr) auto;
-    gap: 28px;
-    padding: 38px 20px 52px;
-    border-top: 1px solid var(--line);
-  }
-
-  .site-footer strong {
-    font-size: 1.32rem;
-  }
-
-  .site-footer p {
-    max-width: 520px;
-    margin: 8px 0 0;
-  }
-
-  .site-footer a {
-    padding: 6px 0;
-    color: var(--ink-soft);
-    font-weight: 800;
-  }
-
   @media (max-width: 900px) {
     .org-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -364,8 +328,7 @@ const orgCards = ecosystem.map((org) => {
       display: none;
     }
 
-    .org-grid,
-    .site-footer {
+    .org-grid {
       grid-template-columns: 1fr;
     }
   }
