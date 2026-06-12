@@ -416,12 +416,6 @@ export const projects = [
   },
 ];
 
-export const notes = [
-  "Software first, mythology close behind.",
-  "Projects get names before they get pitch decks.",
-  "Built under the supervision of two highly opinionated cats.",
-];
-
 export const leaders = [
   {
     name: "Catherine",

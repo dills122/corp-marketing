@@ -1,7 +1,9 @@
 ---
-import { ecosystem, leaders, notes, projects } from "../data/site";
+import SiteFooter from "../components/SiteFooter.astro";
+import { ecosystem, leaders, projects } from "../data/site";
 
 const featuredProjects = projects.filter((project) => project.featured);
+const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll(" ", "-")}`;
 ---
 
 <!doctype html>
@@ -49,12 +51,6 @@ const featuredProjects = projects.filter((project) => project.featured);
         </div>
       </section>
 
-      <section class="ticker" aria-label="Studio notes">
-        <div>
-          {notes.map((note) => <span>{note}</span>)}
-        </div>
-      </section>
-
       <section class="section ecosystem" id="ecosystem" aria-labelledby="ecosystem-title">
         <div class="section-heading">
           <p class="eyebrow">The ecosystem</p>
@@ -92,7 +88,7 @@ const featuredProjects = projects.filter((project) => project.featured);
         <div class="project-list">
           {
             featuredProjects.map((project, index) => (
-              <article class={`project-row ${project.tone}`}>
+              <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
                 <div class="project-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
                 <div class="project-main">
                   <div class="project-topline">
@@ -151,22 +147,7 @@ const featuredProjects = projects.filter((project) => project.featured);
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div>
-        <strong>Shwimp Studios</strong>
-        <p>Software, tools, experiments, and cat-approved ideas from the Lady International universe.</p>
-      </div>
-      <nav aria-label="Footer navigation">
-        <a href="/org/">Organizations</a>
-        <a href="#projects">Projects</a>
-        <a href="#studio">Studio</a>
-      </nav>
-      <div class="socials" aria-label="Social links">
-        <a href="https://github.com/" rel="noreferrer">GitHub</a>
-        <a href="https://bsky.app/" rel="noreferrer">Bluesky</a>
-        <a href="https://www.linkedin.com/" rel="noreferrer">LinkedIn</a>
-      </div>
-    </footer>
+    <SiteFooter />
   </body>
 </html>
 
@@ -277,9 +258,7 @@ const featuredProjects = projects.filter((project) => project.featured);
     font-weight: 900;
   }
 
-  .site-header nav,
-  .site-footer nav,
-  .socials {
+  .site-header nav {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
@@ -422,33 +401,6 @@ const featuredProjects = projects.filter((project) => project.featured);
     background: var(--green);
   }
 
-  .ticker {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: rgba(255, 250, 241, 0.7);
-    color: var(--ink);
-  }
-
-  .ticker div {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    width: min(calc(100% - 40px), var(--max));
-    margin: 0 auto;
-  }
-
-  .ticker span {
-    min-height: 54px;
-    padding: 14px 20px;
-    border-left: 1px solid var(--line);
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(0.98rem, 1.4vw, 1.12rem);
-    line-height: 1.2;
-  }
-
-  .ticker span:last-child {
-    border-right: 1px solid var(--line);
-  }
-
   .section {
     padding: clamp(56px, 8vw, 104px) 20px;
   }
@@ -456,8 +408,7 @@ const featuredProjects = projects.filter((project) => project.featured);
   .section-heading,
   .ecosystem-grid,
   .project-list,
-  .studio-layout,
-  .site-footer {
+  .studio-layout {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
@@ -471,8 +422,7 @@ const featuredProjects = projects.filter((project) => project.featured);
   .section-heading.split > p,
   .ecosystem-card span,
   .project-row p,
-  .leader-card p,
-  .site-footer p {
+  .leader-card p {
     color: var(--ink-soft);
   }
 
@@ -764,40 +714,6 @@ const featuredProjects = projects.filter((project) => project.featured);
     line-height: 1.5;
   }
 
-  .site-footer {
-    display: grid;
-    grid-template-columns: minmax(260px, 1.2fr) minmax(160px, 0.7fr) auto;
-    gap: 28px;
-    padding: 38px 20px 52px;
-    border-top: 1px solid var(--line);
-  }
-
-  .site-footer strong {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.32rem;
-  }
-
-  .site-footer p {
-    max-width: 520px;
-    margin: 8px 0 0;
-  }
-
-  .site-footer nav,
-  .socials {
-    align-content: start;
-  }
-
-  .site-footer a {
-    padding: 6px 0;
-    color: var(--ink-soft);
-    font-weight: 800;
-  }
-
-  .site-footer a:hover,
-  .site-footer a:focus-visible {
-    color: var(--blue);
-  }
-
   @media (max-width: 1040px) {
     .studio-layout {
       grid-template-columns: 1fr;
@@ -857,20 +773,11 @@ const featuredProjects = projects.filter((project) => project.featured);
       font-size: clamp(2.45rem, 11vw, 3.15rem);
     }
 
-    .ticker div,
     .section-heading.split,
     .ecosystem-grid,
     .project-row,
-    .leader-card,
-    .site-footer {
+    .leader-card {
       grid-template-columns: 1fr;
-    }
-
-    .ticker span,
-    .ticker span:last-child {
-      border-right: 0;
-      border-left: 0;
-      border-bottom: 1px solid var(--line);
     }
 
     .ecosystem-card {

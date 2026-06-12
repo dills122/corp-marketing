@@ -1,0 +1,227 @@
+---
+import { ecosystem, projects } from "../data/site";
+
+const featuredProjects = projects.filter((project) => project.featured);
+const year = new Date().getFullYear();
+const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replaceAll(" ", "-")}`;
+---
+
+<footer class="site-footer">
+  <div class="footer-primary">
+    <a class="footer-brand" href="/" aria-label="Shwimp Studios home">
+      <span class="brand-glyph" aria-hidden="true">SS</span>
+      <span>
+        <strong>Shwimp Studios</strong>
+        <small>Lady International</small>
+      </span>
+    </a>
+    <p>
+      Independent software, practical tools, technical experiments, and public notes from the Lady International
+      ecosystem.
+    </p>
+    <div class="social-strip" aria-label="Social links">
+      <a href="https://github.com/dills122" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://stackoverflow.com/users/4962223/dylan-steele" target="_blank" rel="noreferrer">
+        Stack Overflow
+      </a>
+    </div>
+    <p class="copyright">&copy; {year} Shwimp Studios. All rights reserved.</p>
+  </div>
+
+  <nav class="footer-group" aria-label="Footer site navigation">
+    <h2>Explore</h2>
+    <a href="/">Home</a>
+    <a href="/org/">Organizations</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#studio">Studio</a>
+  </nav>
+
+  <nav class="footer-group" aria-label="Footer organization links">
+    <h2>Organizations</h2>
+    {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
+  </nav>
+
+  <nav class="footer-group" aria-label="Footer featured project links">
+    <h2>Featured</h2>
+    {
+      featuredProjects.map((project) => (
+        <a href={toProjectAnchor(project.name)}>{project.name}</a>
+      ))
+    }
+  </nav>
+
+  <nav class="footer-group" aria-label="Footer site links">
+    <h2>Sites</h2>
+    <a href="https://dsteele.dev/" target="_blank" rel="noreferrer">dsteele.dev</a>
+    <a href="https://shwimp.studio/" target="_blank" rel="noreferrer">shwimp.studio</a>
+    <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noreferrer">Source repo</a>
+  </nav>
+</footer>
+
+<style>
+  .site-footer {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.5fr) repeat(4, minmax(128px, 0.7fr));
+    gap: clamp(26px, 4vw, 46px);
+    width: min(calc(100% - 40px), var(--max));
+    margin-inline: auto;
+    padding: clamp(42px, 6vw, 66px) 0 clamp(44px, 7vw, 74px);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-primary {
+    display: grid;
+    align-content: start;
+    gap: 20px;
+    max-width: 420px;
+  }
+
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .footer-brand span:last-child {
+    min-width: 0;
+  }
+
+  .footer-brand strong,
+  .footer-brand small {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .footer-brand strong,
+  .footer-group h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    letter-spacing: 0;
+  }
+
+  .footer-brand strong {
+    font-size: 1.28rem;
+    line-height: 1.05;
+  }
+
+  .footer-brand small {
+    color: var(--ink-soft);
+    font-size: 0.74rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .brand-glyph {
+    display: grid;
+    flex: 0 0 auto;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius);
+    color: var(--paper-strong);
+    background: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .site-footer p {
+    margin: 0;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  .social-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .social-strip a {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 900;
+    line-height: 1.3;
+    text-decoration: none;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .social-strip a:hover,
+  .social-strip a:focus-visible {
+    color: var(--blue);
+    transform: translateX(2px);
+  }
+
+  .copyright {
+    font-size: 0.84rem;
+    font-weight: 800;
+  }
+
+  .footer-group {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+  }
+
+  .footer-group h2 {
+    margin: 0 0 8px;
+    color: var(--ink);
+    font-size: 1.04rem;
+    line-height: 1.15;
+  }
+
+  .footer-group a {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.3;
+    text-decoration: none;
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .footer-group a:hover,
+  .footer-group a:focus-visible {
+    color: var(--blue);
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 980px) {
+    .site-footer {
+      grid-template-columns: minmax(260px, 1fr) repeat(2, minmax(150px, 0.7fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .site-footer {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: min(calc(100% - 28px), var(--max));
+    }
+
+    .footer-primary {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .site-footer {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-brand strong {
+      max-width: 180px;
+      white-space: normal;
+      font-size: 1.08rem;
+    }
+
+    .brand-glyph {
+      width: 34px;
+      height: 34px;
+    }
+  }
+</style>

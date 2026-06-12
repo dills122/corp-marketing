@@ -1,4 +1,5 @@
 ---
+import SiteFooter from "../../components/SiteFooter.astro";
 import { ecosystem, projects } from "../../data/site";
 
 export function getStaticPaths() {
@@ -127,17 +128,7 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div>
-        <strong>Shwimp Studios</strong>
-        <p>Software, tools, experiments, and cat-approved ideas from the Lady International universe.</p>
-      </div>
-      <nav aria-label="Footer navigation">
-        <a href="/org/">Organizations</a>
-        <a href="/#projects">Projects</a>
-        <a href="/#studio">Studio</a>
-      </nav>
-    </footer>
+    <SiteFooter />
   </body>
 </html>
 
@@ -210,8 +201,7 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
   .brand-mark strong,
   h1,
   h2,
-  h3,
-  .site-footer strong {
+  h3 {
     font-family: Georgia, "Times New Roman", serif;
     letter-spacing: 0;
   }
@@ -243,7 +233,6 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
   }
 
   .site-header nav,
-  .site-footer nav,
   .project-links {
     display: flex;
     flex-wrap: wrap;
@@ -282,8 +271,7 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
   .org-hero > div,
   .section-heading,
   .project-grid,
-  .empty-state,
-  .site-footer {
+  .empty-state {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
@@ -326,8 +314,7 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
   .lede,
   .section-heading > p,
   .project-card p,
-  .empty-state,
-  .site-footer p {
+  .empty-state {
     color: var(--ink-soft);
   }
 
@@ -427,29 +414,6 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
     background: var(--paper-strong);
   }
 
-  .site-footer {
-    display: grid;
-    grid-template-columns: minmax(260px, 1fr) auto;
-    gap: 28px;
-    padding: 38px 20px 52px;
-    border-top: 1px solid var(--line);
-  }
-
-  .site-footer strong {
-    font-size: 1.32rem;
-  }
-
-  .site-footer p {
-    max-width: 520px;
-    margin: 8px 0 0;
-  }
-
-  .site-footer a {
-    padding: 6px 0;
-    color: var(--ink-soft);
-    font-weight: 800;
-  }
-
   @media (max-width: 760px) {
     .site-header {
       align-items: flex-start;
@@ -471,8 +435,7 @@ const pastProjects = orgProjects.filter((project) => project.phase === "past");
     }
 
     .section-heading.split,
-    .project-grid,
-    .site-footer {
+    .project-grid {
       grid-template-columns: 1fr;
     }
   }
