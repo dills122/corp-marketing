@@ -1,0 +1,80 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string;
+}
+
+const { title, description, canonicalPath } = Astro.props;
+const siteUrl = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL(canonicalPath, siteUrl);
+const socialImageUrl = new URL("/og-image.jpg", siteUrl);
+const heroImageStyle =
+  "--hero-image: image-set(url('/studio-hero-v2.avif') type('image/avif'), url('/studio-hero-v2.webp') type('image/webp'), url('/studio-hero-v2.jpg') type('image/jpeg'));";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: "Shwimp Studios",
+      url: siteUrl.toString(),
+      description:
+        "An independent software studio and engineering lab building tools, experiments, and a universe of named projects.",
+      sameAs: [
+        "https://github.com/dills122",
+        "https://www.linkedin.com/in/dssteele122/",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      name: "Shwimp Studios",
+      url: siteUrl.toString(),
+      publisher: { "@id": `${siteUrl}#organization` },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="theme-color" content="#fbf4e7" />
+    <title>{title}</title>
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/studio-hero-v2.avif" as="image" type="image/avif" fetchpriority="high" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Shwimp Studios" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Shwimp Studios, an independent software studio and engineering lab." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+  </head>
+  <body style={heroImageStyle}>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <SiteHeader currentPath={Astro.url.pathname} />
+    <slot />
+    <SiteFooter />
+  </body>
+</html>

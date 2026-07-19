@@ -19,10 +19,10 @@ const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replac
       Independent software, practical tools, technical experiments, and public notes from the Lady International
       ecosystem.
     </p>
-    <div class="social-strip" aria-label="Social links">
-      <a href="https://github.com/dills122" target="_blank" rel="noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noreferrer">LinkedIn</a>
-      <a href="https://stackoverflow.com/users/4962223/dylan-steele" target="_blank" rel="noreferrer">
+    <div class="social-strip" role="group" aria-label="Social links">
+      <a href="https://github.com/dills122" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="https://stackoverflow.com/users/4962223/dylan-steele" target="_blank" rel="noopener noreferrer">
         Stack Overflow
       </a>
     </div>
@@ -53,9 +53,9 @@ const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replac
 
   <nav class="footer-group" aria-label="Footer site links">
     <h2>Sites</h2>
-    <a href="https://dsteele.dev/" target="_blank" rel="noreferrer">dsteele.dev</a>
-    <a href="https://shwimp.studio/" target="_blank" rel="noreferrer">shwimp.studio</a>
-    <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noreferrer">Source repo</a>
+    <a href="https://dsteele.dev/" target="_blank" rel="noopener noreferrer">dsteele.dev</a>
+    <a href="https://shwimp.studio/" target="_blank" rel="noopener noreferrer">shwimp.studio</a>
+    <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noopener noreferrer">Source repo</a>
   </nav>
 </footer>
 
@@ -140,6 +140,9 @@ const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replac
   }
 
   .social-strip a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--ink-soft);
     font-size: 0.9rem;
     font-weight: 900;
@@ -175,6 +178,9 @@ const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replac
   }
 
   .footer-group a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--ink-soft);
     font-size: 0.9rem;
     font-weight: 800;

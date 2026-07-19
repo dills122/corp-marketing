@@ -421,7 +421,7 @@ export const leaders = [
     name: "Catherine",
     alias: "The Lady / The Noodle",
     title: "Chairwoman, Lady International",
-    image: "/Catherine.png",
+    image: "/Catherine",
     note:
       "Much of Catherine's professional history remains classified, sealed, or otherwise unavailable through conventional channels. Following a series of successful engagements throughout Eastern Europe, she accepted the role of Chairwoman at Lady International, where she provides strategic oversight, executive leadership, and occasional guidance on matters best left undocumented.",
   },
@@ -429,7 +429,7 @@ export const leaders = [
     name: "D. Steele",
     alias: "Founder / Operator",
     title: "Founder, Shwimp Studios",
-    image: "/venture-bro-newest.png",
+    image: "/venture-bro-newest",
     note:
       "Responsible for turning the organization's questionable ideas into working software, shaping the technical direction, and keeping the growing collection of projects moving from loose concept to usable thing.",
   },
@@ -437,7 +437,7 @@ export const leaders = [
     name: "Cynthia",
     alias: "Shrimp / Wimpy / Shwimp",
     title: "Director of Product Instinct",
-    image: "/Cynthia.png",
+    image: "/Cynthia",
     note:
       "Cynthia's career was defined less by expertise and more by persistence. Although frequently confused about the details, she approached every challenge with confidence, enthusiasm, and a remarkable willingness to improvise. Many of the studio's ideas can be traced back to questions she probably should not have been asking, and her influence continues to be felt throughout the organization today.",
   },
