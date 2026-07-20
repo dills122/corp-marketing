@@ -3,125 +3,142 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ecosystem, projects } from "../../data/site";
 
 export function getStaticPaths() {
-  return ecosystem.map((org) => ({
+  return ecosystem.map((org, index) => ({
     params: { slug: org.slug },
-    props: { org },
+    props: { org, organizationNumber: index },
   }));
 }
 
-const { org } = Astro.props;
+const { org, organizationNumber } = Astro.props;
 const orgProjects = org.name === "Lady International" ? projects : projects.filter((project) => project.division === org.name);
 const currentProjects = orgProjects.filter((project) => project.phase !== "past");
 const pastProjects = orgProjects.filter((project) => project.phase === "past");
 const pageDescription = `${org.name}: ${org.description}`;
+const organizationCode = `ORG–${String(organizationNumber).padStart(2, "0")}`;
 ---
 
 <BaseLayout title={`${org.name} | Shwimp Studios`} description={pageDescription} canonicalPath={`/org/${org.slug}/`}>
-    <main id="main-content">
-      <section class="org-hero" aria-labelledby="org-title">
-        <div>
-          <a class="back-link" href="/org/">Back to organizations</a>
-          <p class="eyebrow">{org.role}</p>
-          <h1 id="org-title">{org.name}</h1>
+  <main id="main-content">
+    <header class="organization-cover" aria-labelledby="organization-title">
+      <div class="cover-inner">
+        <div class="cover-copy">
+          <a class="back-link" href="/org/"><span aria-hidden="true">←</span> Organization register</a>
+          <p class="eyebrow">{organizationCode} / {org.role}</p>
+          <h1 id="organization-title">{org.name}</h1>
           <p class="lede">{org.overview}</p>
         </div>
-      </section>
 
-      <section class="section" aria-labelledby="current-title">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">Current work</p>
-            <h2 id="current-title">Active projects</h2>
-          </div>
-          <p>
-            Public and in-progress work currently associated with {org.name}. Some projects are still private while they take shape.
-          </p>
+        <aside class="organization-file" aria-label={`${org.name} registry summary`}>
+          <p>Public organization file</p>
+          <div class="organization-initial" aria-hidden="true">{org.name.slice(0, 1)}</div>
+          <dl>
+            <div>
+              <dt>File</dt>
+              <dd>{organizationCode}</dd>
+            </div>
+            <div>
+              <dt>Mandate</dt>
+              <dd>{org.role}</dd>
+            </div>
+            <div>
+              <dt>Current records</dt>
+              <dd>{currentProjects.length}</dd>
+            </div>
+            <div>
+              <dt>Archived records</dt>
+              <dd>{pastProjects.length}</dd>
+            </div>
+          </dl>
+          <span>Division record verified for public release.</span>
+        </aside>
+      </div>
+    </header>
+
+    <section class="work-register current-work" aria-labelledby="current-title">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Current work / active register</p>
+          <h2 id="current-title">Active projects</h2>
         </div>
+        <p>Public and in-progress work currently associated with {org.name}. Some projects remain private while they take shape.</p>
+      </div>
 
-        {
-          currentProjects.length > 0 ? (
-            <div class="project-grid">
-              {currentProjects.map((project) => (
-                <article class="project-card">
-                  <div class="project-topline">
-                    <span>{project.division}</span>
-                    <strong>{project.status}</strong>
-                  </div>
+      {
+        currentProjects.length > 0 ? (
+          <div class="project-ledger">
+            {currentProjects.map((project, index) => (
+              <article class="project-record">
+                <div class="record-code">
+                  <strong>{organizationCode}.{String(index + 1).padStart(2, "0")}</strong>
+                  <span>{project.status}</span>
+                </div>
+                <div class="record-title">
+                  <p>{project.division}</p>
                   <h3>{project.name}</h3>
-                  <p class="project-kicker">{project.kicker}</p>
+                  <strong>{project.kicker}</strong>
+                </div>
+                <div class="record-detail">
                   <p>{project.summary}</p>
-                  <div class="project-links" role="group" aria-label={`${project.name} links`}>
+                  <div class="project-links" aria-label={`${project.name} links`}>
                     {project.links?.map((link) => (
                       <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.label}
+                        {link.label} <span aria-hidden="true">↗</span>
                       </a>
                     ))}
-                    {project.availability && <span>{project.availability}</span>}
+                    {project.availability && <span class="unavailable">{project.availability}</span>}
                   </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <p class="empty-state">No current public projects are listed for {org.name} yet.</p>
-          )
-        }
-      </section>
-
-      <section class="section past-work" aria-labelledby="past-title">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">Archive</p>
-            <h2 id="past-title">Past projects</h2>
+                </div>
+              </article>
+            ))}
           </div>
-          <p>Older releases, retired experiments, and archived work will live here as the studio history fills in.</p>
+        ) : (
+          <p class="empty-state">No current public projects are listed for {org.name} yet.</p>
+        )
+      }
+    </section>
+
+    <section class="work-register archive" aria-labelledby="archive-title">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Historical register / closed files</p>
+          <h2 id="archive-title">Past projects</h2>
         </div>
+        <p>Older releases, retired experiments, and archived work retained as part of the studio record.</p>
+      </div>
 
-        {
-          pastProjects.length > 0 ? (
-            <div class="project-grid">
-              {pastProjects.map((project) => (
-                <article class="project-card">
-                  <div class="project-topline">
-                    <span>{project.division}</span>
-                    <strong>{project.status}</strong>
-                  </div>
+      {
+        pastProjects.length > 0 ? (
+          <div class="archive-ledger">
+            {pastProjects.map((project, index) => (
+              <article class="archive-record">
+                <div class="archive-code">
+                  <span>{organizationCode}.A{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{project.status}</strong>
+                </div>
+                <div>
                   <h3>{project.name}</h3>
-                  <p class="project-kicker">{project.kicker}</p>
-                  <p>{project.summary}</p>
-                  <div class="project-links" role="group" aria-label={`${project.name} links`}>
-                    {project.links?.map((link) => (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.label}
-                      </a>
-                    ))}
-                    {project.availability && <span>{project.availability}</span>}
-                  </div>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <p class="empty-state">No archived projects are listed for {org.name} yet.</p>
-          )
-        }
-      </section>
-    </main>
-
+                  <p>{project.kicker}</p>
+                </div>
+                <p>{project.summary}</p>
+                <div class="project-links compact" aria-label={`${project.name} archive links`}>
+                  {project.links?.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <p class="empty-state">No archived projects are listed for {org.name} yet.</p>
+        )
+      }
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
-  h1,
-  h2,
-  h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    letter-spacing: 0;
-  }
-
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
   h1,
   h2,
   h3,
@@ -129,167 +146,400 @@ const pageDescription = `${org.name}: ${org.description}`;
     margin-top: 0;
   }
 
-  .org-hero {
-    padding: clamp(58px, 8vw, 104px) 20px clamp(46px, 7vw, 82px);
-    border-bottom: 1px solid var(--line);
-    background-image:
-      linear-gradient(90deg, rgba(251, 244, 231, 0.94), rgba(251, 244, 231, 0.78)),
-      var(--hero-image);
-    background-position: center;
-    background-size: cover;
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.045em;
+    text-wrap: balance;
   }
 
-  .org-hero > div,
-  .section-heading,
-  .project-grid,
+  .eyebrow,
+  .back-link,
+  .organization-file > p,
+  .organization-file dt,
+  .record-code,
+  .record-title > p,
+  .archive-code {
+    font-family: var(--font-label);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .organization-cover {
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--paper-light);
+  }
+
+  .cover-inner,
+  .section-intro,
+  .project-ledger,
+  .archive-ledger,
   .empty-state {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
 
+  .cover-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.55fr);
+    gap: clamp(50px, 9vw, 124px);
+    align-items: center;
+    padding: clamp(54px, 7vw, 96px) var(--gutter);
+  }
+
   .back-link {
-    display: inline-flex;
-    margin-bottom: 26px;
-    color: var(--blue);
-    font-size: 0.88rem;
-    font-weight: 900;
-  }
-
-  .eyebrow {
-    margin: 0 0 14px;
-    color: var(--coral);
-    font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    max-width: 920px;
-    margin-bottom: 22px;
-    font-size: clamp(3rem, 7vw, 6rem);
-    line-height: 0.92;
-  }
-
-  h2 {
-    margin-bottom: 18px;
-    font-size: clamp(2rem, 4vw, 3.6rem);
-    line-height: 1;
-  }
-
-  h3 {
-    margin-bottom: 8px;
-    font-size: clamp(1.7rem, 3vw, 2.35rem);
-    line-height: 1.05;
-  }
-
-  .lede,
-  .section-heading > p,
-  .project-card p,
-  .empty-state {
-    color: var(--ink-soft);
-  }
-
-  .lede {
-    max-width: 760px;
-    margin-bottom: 0;
-    font-size: clamp(1.08rem, 2vw, 1.3rem);
-    text-wrap: balance;
-  }
-
-  .section {
-    padding: clamp(54px, 8vw, 92px) 20px;
-  }
-
-  .section-heading {
-    margin-bottom: 26px;
-  }
-
-  .section-heading.split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
-    gap: 30px;
-    align-items: end;
-  }
-
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .project-card {
-    min-height: 260px;
-    padding: 22px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--paper-strong);
-    box-shadow: var(--shadow);
-  }
-
-  .project-topline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    color: var(--blue);
-    font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .project-topline strong {
-    color: var(--coral);
-  }
-
-  .project-kicker {
-    margin-bottom: 12px;
-    color: var(--ink);
-    font-size: 1.02rem;
-    font-weight: 900;
-  }
-
-  .project-links {
-    margin-top: 18px;
-  }
-
-  .project-links a,
-  .project-links span {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 8px 12px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255, 250, 241, 0.72);
-    font-size: 0.84rem;
+    gap: var(--space-xs);
+    margin-bottom: clamp(34px, 5vw, 58px);
+    color: var(--ink-soft);
+    font-size: var(--text-label);
+    transition:
+      color 140ms ease,
+      transform 140ms ease;
+  }
+
+  .back-link:hover,
+  .back-link:focus-visible {
+    color: var(--signal);
+    transform: translateX(-3px);
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-md);
+    color: var(--signal);
+    font-size: 0.78rem;
+  }
+
+  h1 {
+    margin-bottom: var(--space-md);
+    font-size: clamp(3.8rem, 8vw, 8rem);
+    font-weight: 700;
+    line-height: 0.86;
+  }
+
+  .lede {
+    max-width: 800px;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: clamp(1.06rem, 2vw, 1.32rem);
+  }
+
+  .organization-file {
+    border: 1px solid var(--line-strong);
+    background: var(--folder-blue);
+    transform: rotate(1deg);
+  }
+
+  .organization-file > p {
+    margin: 0;
+    padding: var(--space-sm);
+    border-bottom: var(--rule);
+    font-size: var(--text-label-small);
+  }
+
+  .organization-initial {
+    display: grid;
+    min-height: 210px;
+    place-items: center;
+    border-bottom: var(--rule);
+    font-family: var(--font-display);
+    font-size: clamp(7rem, 12vw, 10rem);
+    font-weight: 700;
+    line-height: 0.8;
+  }
+
+  .organization-file dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+  }
+
+  .organization-file dl div {
+    display: grid;
+    align-content: start;
+    min-height: 92px;
+    padding: var(--space-sm);
+    border-right: var(--rule);
+    border-bottom: var(--rule);
+  }
+
+  .organization-file dt {
+    color: color-mix(in srgb, var(--ink-deep) 65%, transparent);
+    font-size: var(--text-label-small);
+  }
+
+  .organization-file dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .organization-file > span {
+    display: block;
+    padding: var(--space-sm);
+    color: color-mix(in srgb, var(--ink-deep) 72%, transparent);
+    font-size: 0.85rem;
+  }
+
+  .work-register {
+    padding: var(--section-space) var(--gutter);
+  }
+
+  .section-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+    gap: clamp(34px, 7vw, 96px);
+    align-items: end;
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-intro h2 {
+    margin: 0;
+    font-size: clamp(2.9rem, 5.5vw, 5.7rem);
+    font-weight: 700;
+    line-height: 0.91;
+  }
+
+  .section-intro > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .project-ledger {
+    border-top: 2px solid var(--ink-deep);
+  }
+
+  .project-record {
+    display: grid;
+    grid-template-columns: minmax(100px, 0.35fr) minmax(260px, 0.9fr) minmax(300px, 1.25fr);
+    gap: clamp(24px, 5vw, 70px);
+    min-height: 220px;
+    align-items: center;
+    padding: clamp(30px, 5vw, 58px) var(--space-md);
+    border-bottom: 1px solid var(--line-strong);
+    transition: background 140ms ease;
+  }
+
+  .project-record:hover {
+    background: color-mix(in srgb, var(--folder-blue) 14%, var(--paper));
+  }
+
+  .record-code {
+    display: grid;
+    gap: 4px;
+    align-self: start;
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .record-code strong,
+  .record-title > p {
+    color: var(--signal);
+  }
+
+  .record-title > p {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-label-small);
     font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .record-title h3 {
+    margin-bottom: 4px;
+    font-size: clamp(2.65rem, 4.4vw, 4.5rem);
+    line-height: 0.9;
+  }
+
+  .record-title > strong {
+    font-size: 0.92rem;
+  }
+
+  .record-detail > p {
+    margin-bottom: var(--space-md);
+    color: var(--ink-soft);
+  }
+
+  .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .project-links a,
+  .project-links .unavailable {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 7px 11px;
+    border: var(--rule);
+    background: var(--paper-light);
+    font-family: var(--font-label);
+    font-size: var(--text-label-small);
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-links a {
+    transition:
+      color 140ms ease,
+      background 140ms ease;
   }
 
   .project-links a:hover,
   .project-links a:focus-visible {
-    color: var(--blue);
-    background: #edf5f8;
+    color: var(--paper-strong);
+    background: var(--ink-deep);
   }
 
-  .project-links span,
+  .project-links .unavailable {
+    color: var(--ink-soft);
+    background: transparent;
+  }
+
+  .archive {
+    border-top: 1px solid var(--line-strong);
+    background: var(--paper-light);
+  }
+
+  .archive-ledger {
+    border-top: 2px solid var(--ink-deep);
+  }
+
+  .archive-record {
+    display: grid;
+    grid-template-columns: minmax(100px, 0.35fr) minmax(220px, 0.75fr) minmax(280px, 1.25fr) minmax(180px, 0.65fr);
+    gap: clamp(20px, 4vw, 54px);
+    align-items: start;
+    padding: var(--space-lg) var(--space-md);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .archive-code {
+    display: grid;
+    gap: 4px;
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .archive-code strong {
+    color: var(--stamp);
+  }
+
+  .archive-record h3 {
+    margin-bottom: 2px;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 0.95;
+  }
+
+  .archive-record p {
+    margin-bottom: 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .project-links.compact a {
+    min-height: 44px;
+  }
+
   .empty-state {
+    padding: var(--space-lg) 0;
+    border-top: 2px solid var(--ink-deep);
+    border-bottom: 1px solid var(--line-strong);
     color: var(--ink-soft);
   }
 
-  .empty-state {
-    padding: 20px 0;
-    border-top: 1px solid var(--line);
-  }
+  @media (max-width: 980px) {
+    .cover-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(270px, 0.5fr);
+      gap: var(--space-lg);
+    }
 
-  .past-work {
-    background: var(--paper-strong);
-  }
+    .project-record {
+      grid-template-columns: minmax(90px, 0.3fr) minmax(240px, 0.8fr) minmax(280px, 1fr);
+    }
 
-  @media (max-width: 760px) {
-    .section-heading.split,
-    .project-grid {
-      grid-template-columns: 1fr;
+    .archive-record {
+      grid-template-columns: minmax(100px, 0.35fr) minmax(220px, 0.75fr) minmax(280px, 1fr);
+    }
+
+    .archive-record .project-links {
+      grid-column: 2 / -1;
     }
   }
 
+  @media (max-width: 800px) {
+    .cover-inner,
+    .section-intro {
+      grid-template-columns: 1fr;
+    }
+
+    .organization-file {
+      width: min(100%, 480px);
+      transform: none;
+    }
+
+    .project-record {
+      grid-template-columns: 80px minmax(0, 1fr);
+    }
+
+    .record-detail {
+      grid-column: 2;
+    }
+
+    .archive-record {
+      grid-template-columns: 80px minmax(0, 1fr);
+    }
+
+    .archive-record > p,
+    .archive-record .project-links {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 680px) {
+    h1 {
+      font-size: clamp(3.3rem, 16vw, 5rem);
+    }
+
+    .cover-inner {
+      padding-top: var(--space-xl);
+    }
+
+    .section-intro {
+      gap: var(--space-md);
+    }
+
+    .section-intro h2 {
+      font-size: clamp(2.8rem, 13vw, 4.2rem);
+    }
+
+    .project-record,
+    .archive-record {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      padding-inline: var(--space-xs);
+    }
+
+    .record-detail,
+    .archive-record > p,
+    .archive-record .project-links {
+      grid-column: 1;
+    }
+
+    .record-title h3 {
+      font-size: clamp(2.8rem, 14vw, 4.2rem);
+    }
+
+    .organization-file dl {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
