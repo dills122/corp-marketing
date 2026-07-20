@@ -3,6 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { ecosystem, leaders, projects } from "../data/site";
 
 const featuredProjects = projects.filter((project) => project.featured);
+const parentOrganization = ecosystem[0];
+const operatingOrganizations = ecosystem.slice(1);
+const activeProjectCount = projects.filter((project) => project.phase !== "past").length;
+const archivedProjectCount = projects.filter((project) => project.phase === "past").length;
 const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll(" ", "-")}`;
 ---
 
@@ -11,174 +15,206 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   description="Shwimp Studios is an independent software studio and engineering lab building tools, experiments, and a strange little universe of named projects."
   canonicalPath="/"
 >
-    <main id="main-content">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-inner">
-          <div class="hero-copy">
-            <p class="eyebrow">Independent software studio / engineering lab</p>
-            <h1 id="hero-title">Shwimp Studios builds software, tools, experiments, and occasionally questionable ideas.</h1>
-            <p class="lede">
-              A small creative technology shop inside Lady International, organized around useful products, strange research threads, and a naming system that has already gone too far.
-            </p>
-            <div class="hero-actions" role="group" aria-label="Hero actions">
-              <a class="button primary" href="#projects">Explore projects</a>
-              <a class="button secondary" href="#ecosystem">Map the ecosystem</a>
-            </div>
+  <main id="main-content">
+    <section class="cover" id="index" aria-labelledby="cover-title">
+      <div class="cover-inner">
+        <div class="cover-copy">
+          <div class="file-heading">
+            <p>Public registry / Shwimp Studios</p>
+            <span>File SS–001</span>
           </div>
-
-        </div>
-      </section>
-
-      <section class="section ecosystem" id="ecosystem" aria-labelledby="ecosystem-title">
-        <div class="section-heading">
-          <p class="eyebrow">The ecosystem</p>
-          <h2 id="ecosystem-title">A holding company with a product studio, an engineering bench, a media shelf, and an incubator.</h2>
-          <p>
-            The site should not feel like a generic consultancy because the work is not organized like one. Each name has a job, and the projects make more sense when that structure is visible.
+          <p class="eyebrow">Independent software studio and engineering lab</p>
+          <h1 id="cover-title">Useful software for curious people and questionable ideas.</h1>
+          <p class="lede">
+            Shwimp Studios is a small creative technology shop inside Lady International, organized around practical
+            products, strange research threads, and a naming system that has already gone too far.
           </p>
+          <div class="cover-actions" aria-label="Homepage shortcuts">
+            <a class="action primary" href="#projects">Open project index</a>
+            <a class="action secondary" href="#ecosystem">Trace the organization</a>
+          </div>
         </div>
 
-        <div class="ecosystem-grid">
+        <aside class="current-file" aria-labelledby="current-file-title">
+          <div class="current-file-heading">
+            <span>Current project / 001</span>
+            <strong>{featuredProjects[0].status}</strong>
+          </div>
+          <div class="current-copy">
+            <p>{featuredProjects[0].division}</p>
+            <h2 id="current-file-title">{featuredProjects[0].name}</h2>
+            <strong>{featuredProjects[0].kicker}</strong>
+            <span>{featuredProjects[0].summary}</span>
+          </div>
+          <dl class="current-register">
+            <div>
+              <dt>Availability</dt>
+              <dd>{featuredProjects[0].availability}</dd>
+            </div>
+            <div>
+              <dt>Registry state</dt>
+              <dd>Under development</dd>
+            </div>
+          </dl>
+          <a class="current-link" href={`#${toProjectId(featuredProjects[0].name)}`}>
+            Open project record <span aria-hidden="true">→</span>
+          </a>
+        </aside>
+      </div>
+
+      <dl class="cover-register" aria-label="Studio registry summary">
+        <div>
+          <dt>Parent organization</dt>
+          <dd>Lady International</dd>
+        </div>
+        <div>
+          <dt>Operating divisions</dt>
+          <dd>{operatingOrganizations.length}</dd>
+        </div>
+        <div>
+          <dt>Current records</dt>
+          <dd>{activeProjectCount}</dd>
+        </div>
+        <div>
+          <dt>Archived records</dt>
+          <dd>{archivedProjectCount}</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="project-index" id="projects" aria-labelledby="projects-title">
+      <div class="section-intro">
+        <div>
+          <p class="eyebrow">Selected works / register A</p>
+          <h2 id="projects-title">The projects are the point.</h2>
+        </div>
+        <p>
+          A working index of simulators, bookmark systems, developer tools, and retro-web experiments with enough
+          personality to remember.
+        </p>
+      </div>
+
+      <div class="project-ledger">
+        {
+          featuredProjects.map((project, index) => (
+            <article id={toProjectId(project.name)} class={`project-record ${project.tone}`}>
+              <div class="record-number" aria-hidden="true">A–{String(index + 1).padStart(2, "0")}</div>
+              <div class="record-identity">
+                <div class="project-topline">
+                  <span>{project.division}</span>
+                  <strong>{project.status}</strong>
+                </div>
+                <h3>{project.name}</h3>
+                <p class="project-kicker">{project.kicker}</p>
+              </div>
+              <div class="record-detail">
+                <p>{project.summary}</p>
+                <div class="project-links" aria-label={`${project.name} links`}>
+                  {project.links?.map((link) => (
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.label} <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                  {project.availability && <span class="unavailable">{project.availability}</span>}
+                </div>
+              </div>
+              <div class="record-initial" aria-hidden="true">{project.name.slice(0, 1)}</div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="organization-register" id="ecosystem" aria-labelledby="ecosystem-title">
+      <div class="section-intro compact">
+        <div>
+          <p class="eyebrow">Corporate structure / register B</p>
+          <h2 id="ecosystem-title">One parent. Four operating desks.</h2>
+        </div>
+        <p>Each name has a job. The projects make more sense when the structure is visible.</p>
+      </div>
+
+      <div class="organization-tree">
+        <a class="parent-record" href={`/org/${parentOrganization.slug}/`}>
+          <div>
+            <p>{parentOrganization.role}</p>
+            <h3>{parentOrganization.name}</h3>
+          </div>
+          <span>{parentOrganization.description}</span>
+          <strong>Open parent file <b aria-hidden="true">→</b></strong>
+        </a>
+
+        <div class="branch-rule" aria-hidden="true"><span></span></div>
+
+        <div class="operating-register">
           {
-            ecosystem.map((item) => (
-              <a class="ecosystem-card" href={`/org/${item.slug}/`}>
-                <p>{item.role}</p>
+            operatingOrganizations.map((item, index) => (
+              <a class="organization-record" href={`/org/${item.slug}/`}>
+                <p>B–{String(index + 1).padStart(2, "0")} / {item.role}</p>
                 <h3>{item.name}</h3>
                 <span>{item.description}</span>
-                <strong>View organization</strong>
+                <strong>View division <b aria-hidden="true">→</b></strong>
               </a>
             ))
           }
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section project-showcase" id="projects" aria-labelledby="projects-title">
-        <div class="section-heading split">
-          <div>
-            <p class="eyebrow">Featured projects</p>
-            <h2 id="projects-title">The projects are the point.</h2>
-          </div>
-          <p>
-            Shwimp Studios is less interesting as a slogan than as a catalog of living things: simulators, bookmark systems, developer tools, and retro-web experiments with enough personality to remember.
-          </p>
+    <section class="personnel" id="studio" aria-labelledby="studio-title">
+      <div class="section-intro personnel-heading">
+        <div>
+          <p class="eyebrow">Personnel files / register C</p>
+          <h2 id="studio-title">Executive leadership for a very serious organization.</h2>
         </div>
+        <p>
+          A compact leadership structure with an unusually high tolerance for ideas that begin as jokes and become
+          infrastructure.
+        </p>
+      </div>
 
-        <div class="project-list">
-          {
-            featuredProjects.map((project, index) => (
-              <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
-                <div class="project-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-                <div class="project-main">
-                  <div class="project-topline">
-                    <span>{project.division}</span>
-                    <strong>{project.status}</strong>
-                  </div>
-                  <h3>{project.name}</h3>
-                  <p class="project-kicker">{project.kicker}</p>
-                  <p class="project-summary">{project.summary}</p>
-                  <div class="project-links" role="group" aria-label={`${project.name} links`}>
-                    {
-                      project.links?.map((link) => (
-                        <a href={link.href} target="_blank" rel="noopener noreferrer">
-                          {link.label}
-                        </a>
-                      ))
-                    }
-                    {project.availability && <span>{project.availability}</span>}
-                  </div>
-                </div>
-                <div class="project-mark" aria-hidden="true">
-                  <span>{project.name.slice(0, 1)}</span>
-                </div>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section class="section studio" id="studio" aria-labelledby="studio-title">
-        <div class="studio-layout">
-          <div class="section-heading">
-            <p class="eyebrow">Studio governance</p>
-            <h2 id="studio-title">Executive leadership for a very serious organization.</h2>
-            <p>
-              Lady International maintains a compact leadership structure, clear operating principles, and an unusually high tolerance for ideas that begin as jokes and become infrastructure.
-            </p>
-          </div>
-
-          <div class="leader-list">
-            {
-              leaders.map((leader) => (
-                <article class="leader-card">
-                  <picture>
-                    <source
-                      type="image/avif"
-                      srcset={`${leader.image}-220.avif 220w, ${leader.image}-440.avif 440w`}
-                      sizes="(max-width: 760px) 220px, 132px"
-                    />
-                    <source
-                      type="image/webp"
-                      srcset={`${leader.image}-220.webp 220w, ${leader.image}-440.webp 440w`}
-                      sizes="(max-width: 760px) 220px, 132px"
-                    />
-                    <img
-                      src={`${leader.image}-440.jpg`}
-                      width="440"
-                      height="440"
-                      loading="lazy"
-                      decoding="async"
-                      alt={`Editorial portrait illustration of ${leader.name}.`}
-                    />
-                  </picture>
-                  <div>
-                    <p class="card-label">{leader.title}</p>
-                    <h3>{leader.name}</h3>
-                    <p class="leader-alias">{leader.alias}</p>
-                    <p class="leader-note">{leader.note}</p>
-                  </div>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      </section>
-    </main>
-
+      <div class="personnel-files">
+        {
+          leaders.map((leader, index) => (
+            <article class="personnel-file">
+              <div class="portrait-wrap">
+                <p aria-hidden="true">C–{String(index + 1).padStart(2, "0")}</p>
+                <picture>
+                  <source
+                    type="image/avif"
+                    srcset={`${leader.image}-220.avif 220w, ${leader.image}-440.avif 440w`}
+                    sizes="(max-width: 680px) 100vw, 260px"
+                  />
+                  <source
+                    type="image/webp"
+                    srcset={`${leader.image}-220.webp 220w, ${leader.image}-440.webp 440w`}
+                    sizes="(max-width: 680px) 100vw, 260px"
+                  />
+                  <img
+                    src={`${leader.image}-440.jpg`}
+                    width="440"
+                    height="440"
+                    loading="lazy"
+                    decoding="async"
+                    alt={`Editorial portrait illustration of ${leader.name}.`}
+                  />
+                </picture>
+              </div>
+              <div class="personnel-copy">
+                <p class="personnel-title">{leader.title}</p>
+                <h3>{leader.name}</h3>
+                <p class="personnel-alias">Known aliases: {leader.alias}</p>
+                <p class="personnel-note">{leader.note}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid var(--line);
-    background-image:
-      linear-gradient(90deg, rgba(251, 244, 231, 0.92), rgba(251, 244, 231, 0.72)),
-      var(--hero-image);
-    background-position: center;
-    background-size: cover;
-  }
-
-  .hero-inner {
-    width: min(calc(100% - 40px), var(--max));
-    min-height: calc(78svh - 67px);
-    margin: 0 auto;
-    padding: clamp(22px, 3vw, 36px) 0 clamp(24px, 4vw, 40px);
-  }
-
-  .hero-copy {
-    max-width: 920px;
-  }
-
-  .eyebrow,
-  .card-label {
-    margin: 0 0 14px;
-    color: var(--coral);
-    font-size: 0.78rem;
-    font-weight: 900;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
   h1,
   h2,
   h3,
@@ -188,472 +224,896 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
   h1,
   h2,
-  .project-row h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 700;
-    letter-spacing: 0;
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.045em;
     text-wrap: balance;
   }
 
-  h1 {
-    max-width: 860px;
-    margin-bottom: 24px;
-    font-size: clamp(2.85rem, 5vw, 4.65rem);
-    line-height: 0.94;
+  .eyebrow,
+  .file-heading,
+  .project-topline,
+  .record-number,
+  .parent-record > div > p,
+  .organization-record > p,
+  .personnel-title,
+  .portrait-wrap > p,
+  .current-file-heading,
+  .current-register,
+  .current-copy > p {
+    font-family: var(--font-label);
+    font-weight: 900;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
   }
 
-  h2 {
-    margin-bottom: 18px;
-    font-size: clamp(2.1rem, 4.4vw, 4.15rem);
-    line-height: 0.98;
+  .eyebrow {
+    margin-bottom: var(--space-md);
+    color: var(--signal);
+    font-size: 0.78rem;
   }
 
-  h3 {
-    margin-bottom: 10px;
-    font-size: 1.34rem;
-    line-height: 1.2;
+  .cover {
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--paper-light);
+  }
+
+  .cover-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.6fr);
+    gap: clamp(48px, 8vw, 120px);
+    align-items: center;
+    width: min(100%, var(--max));
+    min-height: calc(100svh - 74px - 106px);
+    margin-inline: auto;
+    padding: clamp(52px, 7vw, 90px) var(--gutter);
+  }
+
+  .file-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: clamp(34px, 5vw, 64px);
+    padding-bottom: var(--space-xs);
+    border-bottom: var(--rule);
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .file-heading p {
+    margin: 0;
+  }
+
+  .cover h1 {
+    max-width: 820px;
+    margin-bottom: var(--space-md);
+    font-size: clamp(3.25rem, 6.2vw, 6.8rem);
+    font-weight: 700;
+    line-height: 0.89;
   }
 
   .lede {
     max-width: 720px;
-    margin-bottom: 30px;
+    margin-bottom: var(--space-lg);
     color: var(--ink-soft);
-    font-size: clamp(1.06rem, 2vw, 1.28rem);
-    text-wrap: balance;
+    font-size: clamp(1.03rem, 1.7vw, 1.28rem);
+    line-height: 1.65;
   }
 
-  .hero-actions {
+  .cover-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: var(--space-sm);
   }
 
-  .button {
+  .action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 46px;
-    padding: 12px 18px;
-    border: 1px solid var(--ink);
-    border-radius: 999px;
+    min-height: 48px;
+    padding: 10px 18px;
+    border: 1px solid var(--ink-deep);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
     font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     transition:
-      transform 160ms ease,
-      background 160ms ease,
-      color 160ms ease;
+      color 140ms ease,
+      background 140ms ease,
+      transform 140ms ease;
   }
 
-  .button:hover,
-  .button:focus-visible {
+  .action:hover,
+  .action:focus-visible {
     transform: translateY(-2px);
   }
 
-  .button.primary {
+  .action:active {
+    transform: translateY(0);
+  }
+
+  .action.primary {
     color: var(--paper-strong);
-    background: var(--ink);
+    background: var(--ink-deep);
   }
 
-  .button.primary:hover,
-  .button.primary:focus-visible {
-    background: var(--blue);
+  .action.primary:hover,
+  .action.primary:focus-visible {
+    background: var(--signal);
   }
 
-  .button.secondary {
-    color: var(--ink);
-    background: rgba(255, 250, 241, 0.54);
-  }
-
-  .button.secondary:hover,
-  .button.secondary:focus-visible {
+  .action.secondary:hover,
+  .action.secondary:focus-visible {
     color: var(--paper-strong);
-    background: var(--green);
+    background: var(--ledger-green);
   }
 
-  .section {
-    padding: clamp(56px, 8vw, 104px) 20px;
+  .current-file {
+    position: relative;
+    align-self: center;
+    border-top: 2px solid var(--ink-deep);
+    border-bottom: 1px solid var(--line-strong);
   }
 
-  .section-heading,
-  .ecosystem-grid,
-  .project-list,
-  .studio-layout {
+  .current-file::before {
+    position: absolute;
+    top: -2px;
+    bottom: -1px;
+    left: 0;
+    width: 4px;
+    background: var(--signal);
+    content: "";
+  }
+
+  .current-file-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .current-file-heading strong {
+    color: var(--stamp);
+  }
+
+  .current-copy {
+    padding: clamp(28px, 4vw, 48px) 0 clamp(26px, 4vw, 42px) var(--space-md);
+  }
+
+  .current-copy > p {
+    margin-bottom: var(--space-xs);
+    font-size: var(--text-label-small);
+  }
+
+  .current-copy h2 {
+    margin-bottom: var(--space-xs);
+    font-size: clamp(3.35rem, 5.5vw, 5.4rem);
+    line-height: 0.86;
+  }
+
+  .current-copy > strong,
+  .current-copy > span {
+    display: block;
+  }
+
+  .current-copy > strong {
+    margin-bottom: var(--space-sm);
+    font-size: 0.93rem;
+  }
+
+  .current-copy > span {
+    max-width: 38ch;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .current-register {
+    display: grid;
+    margin: 0;
+    border-top: 1px solid var(--line-strong);
+    font-size: var(--text-label-small);
+  }
+
+  .current-register div {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-sm);
+    min-width: 0;
+    padding: var(--space-sm) var(--space-xs) var(--space-sm) var(--space-md);
+  }
+
+  .current-register div + div {
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .current-register dt {
+    margin-bottom: 4px;
+    color: var(--ink-soft);
+  }
+
+  .current-register dd {
+    justify-self: end;
+    margin: 0;
+    color: var(--stamp);
+    overflow-wrap: anywhere;
+    text-align: right;
+  }
+
+  .current-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 48px;
+    padding: 10px var(--space-xs) 10px var(--space-md);
+    border-top: 1px solid var(--line-strong);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .current-link span {
+    color: var(--signal);
+    font-size: 1rem;
+    transition: transform 140ms ease;
+  }
+
+  .current-link:hover span,
+  .current-link:focus-visible span {
+    transform: translateX(4px);
+  }
+
+  .cover-register {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: min(100%, var(--max));
+    margin: 0 auto;
+    border-top: 1px solid var(--line-strong);
+    border-left: 1px solid var(--line-strong);
+  }
+
+  .cover-register div {
+    display: grid;
+    gap: 2px;
+    min-height: 106px;
+    align-content: center;
+    padding: var(--space-sm) var(--space-md);
+    border-right: 1px solid var(--line-strong);
+  }
+
+  .cover-register dt {
+    color: var(--ink-soft);
+    font-family: var(--font-label);
+    font-size: var(--text-label-small);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .cover-register dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .project-index,
+  .organization-register,
+  .personnel {
+    padding: var(--section-space) var(--gutter);
+  }
+
+  .section-intro,
+  .project-ledger,
+  .organization-tree,
+  .personnel-files {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
 
-  .section-heading {
-    max-width: 880px;
-    margin-bottom: 30px;
-  }
-
-  .section-heading > p,
-  .section-heading.split > p,
-  .ecosystem-card span,
-  .project-row p,
-  .leader-card p {
-    color: var(--ink-soft);
-  }
-
-  .section-heading > p,
-  .section-heading.split > p {
-    max-width: 650px;
-    font-size: 1.04rem;
-  }
-
-  .section-heading.split {
+  .section-intro {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
-    gap: 30px;
-    max-width: none;
+    grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.55fr);
+    gap: clamp(34px, 7vw, 96px);
     align-items: end;
+    margin-bottom: clamp(38px, 6vw, 72px);
   }
 
-  .ecosystem {
-    background: var(--paper-strong);
+  .section-intro h2 {
+    max-width: 820px;
+    margin: 0;
+    font-size: clamp(2.9rem, 5.2vw, 5.8rem);
+    font-weight: 700;
+    line-height: 0.92;
   }
 
-  .ecosystem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .ecosystem-card {
-    display: block;
-    min-height: 260px;
-    padding: 22px;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--paper-strong);
-    transition:
-      background 160ms ease,
-      box-shadow 160ms ease,
-      transform 160ms ease;
-  }
-
-  .ecosystem-card:hover,
-  .ecosystem-card:focus-visible {
-    z-index: 1;
-    background: #fffaf1;
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
-  }
-
-  .ecosystem-card:nth-child(2) {
-    background: #edf3ed;
-  }
-
-  .ecosystem-card:nth-child(3) {
-    background: #edf5f8;
-  }
-
-  .ecosystem-card:nth-child(4) {
-    background: #f8efe8;
-  }
-
-  .ecosystem-card:nth-child(5) {
-    background: #f7ecd4;
-  }
-
-  .ecosystem-card p {
-    margin-bottom: 38px;
-    color: var(--coral);
-    font-size: 0.76rem;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .ecosystem-card h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
-    letter-spacing: 0;
-  }
-
-  .ecosystem-card span {
-    display: block;
-  }
-
-  .ecosystem-card strong {
-    display: inline-flex;
-    margin-top: 22px;
-    color: var(--blue);
-    font-size: 0.82rem;
-    font-weight: 900;
-  }
-
-  .project-showcase {
-    background: #f2eadb;
-  }
-
-  .project-list {
-    display: grid;
-    gap: 18px;
-  }
-
-  .project-row {
-    position: relative;
-    display: grid;
-    grid-template-columns: 92px minmax(0, 1fr) 180px;
-    gap: clamp(18px, 4vw, 46px);
-    align-items: center;
-    min-height: 300px;
-    padding: clamp(22px, 4vw, 42px);
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--paper-strong);
-    box-shadow: 0 14px 38px rgba(23, 38, 55, 0.08);
-  }
-
-  .project-row.reef {
-    border-color: rgba(33, 79, 111, 0.32);
-  }
-
-  .project-row.trove {
-    border-color: rgba(196, 147, 66, 0.42);
-  }
-
-  .project-row.kyn {
-    border-color: rgba(73, 107, 83, 0.36);
-  }
-
-  .project-row.waves {
-    border-color: rgba(178, 94, 70, 0.36);
+  .section-intro > p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 1.02rem;
   }
 
   .project-index {
-    color: rgba(23, 38, 55, 0.28);
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(2.4rem, 5vw, 4.6rem);
-    line-height: 1;
+    background: var(--paper);
+  }
+
+  .project-ledger {
+    border-top: 2px solid var(--ink-deep);
+  }
+
+  .project-record {
+    --record-accent: var(--folder-blue);
+    position: relative;
+    display: grid;
+    grid-template-columns: 80px minmax(220px, 0.85fr) minmax(300px, 1.15fr) 86px;
+    gap: clamp(20px, 4vw, 58px);
+    align-items: center;
+    min-height: 230px;
+    padding: clamp(28px, 4vw, 48px) var(--space-md);
+    overflow: hidden;
+    border-bottom: 1px solid var(--line-strong);
+    transition: background 160ms ease;
+  }
+
+  .project-record.trove {
+    --record-accent: color-mix(in srgb, var(--brass) 65%, var(--paper-light));
+  }
+
+  .project-record.kyn {
+    --record-accent: color-mix(in srgb, var(--ledger-green) 58%, var(--paper-light));
+  }
+
+  .project-record.waves {
+    --record-accent: color-mix(in srgb, var(--signal) 58%, var(--paper-light));
+  }
+
+  .project-record:hover {
+    background: color-mix(in srgb, var(--record-accent) 16%, var(--paper));
+  }
+
+  .record-number {
+    align-self: start;
+    color: var(--signal);
+    font-size: var(--text-label);
   }
 
   .project-topline {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 18px;
-    color: var(--blue);
-    font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
+    gap: var(--space-xs) var(--space-sm);
+    margin-bottom: var(--space-md);
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
   }
 
   .project-topline strong {
-    color: var(--coral);
+    color: var(--stamp);
   }
 
-  .project-row h3 {
-    margin-bottom: 6px;
-    font-size: clamp(2.8rem, 7vw, 6.2rem);
-    line-height: 0.9;
+  .record-identity h3 {
+    margin-bottom: 4px;
+    font-size: clamp(2.8rem, 4.8vw, 5.25rem);
+    font-weight: 700;
+    line-height: 0.88;
   }
 
   .project-kicker {
-    margin-bottom: 14px;
-    color: var(--ink);
-    font-size: clamp(1.02rem, 2vw, 1.25rem);
-    font-weight: 900;
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 800;
   }
 
-  .project-summary {
-    max-width: 660px;
-    margin-bottom: 20px;
+  .record-detail > p {
+    max-width: 570px;
+    margin-bottom: var(--space-md);
+    color: var(--ink-soft);
   }
 
   .project-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: var(--space-xs);
   }
 
   .project-links a,
-  .project-links span {
+  .project-links .unavailable {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    padding: 8px 12px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    color: var(--ink);
-    background: rgba(255, 250, 241, 0.72);
-    font-size: 0.84rem;
+    padding: 7px 11px;
+    border: var(--rule);
+    background: var(--paper-light);
+    font-family: var(--font-label);
+    font-size: var(--text-label-small);
     font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .project-links a {
+    transition:
+      color 140ms ease,
+      background 140ms ease;
   }
 
   .project-links a:hover,
   .project-links a:focus-visible {
-    border-color: rgba(33, 79, 111, 0.42);
-    color: var(--blue);
-    background: #edf5f8;
+    color: var(--paper-strong);
+    background: var(--ink-deep);
   }
 
-  .project-links span {
+  .project-links .unavailable {
     color: var(--ink-soft);
-    background: rgba(23, 38, 55, 0.06);
+    background: transparent;
   }
 
-  .project-mark {
+  .record-initial {
     display: grid;
+    width: 78px;
     aspect-ratio: 1;
     place-items: center;
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     border-radius: 50%;
-    background: #edf5f8;
+    background: var(--record-accent);
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    font-weight: 700;
   }
 
-  .trove .project-mark {
-    background: #f7ecd4;
+  .organization-register {
+    border-top: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--paper-light);
   }
 
-  .kyn .project-mark {
-    background: #eaf1e8;
+  .section-intro.compact h2 {
+    max-width: 700px;
   }
 
-  .waves .project-mark {
-    background: #f8e7df;
+  .organization-tree {
+    max-width: 1080px;
   }
 
-  .project-mark span {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(4rem, 9vw, 7rem);
-    line-height: 1;
-  }
-
-  .studio {
-    background: var(--paper);
-  }
-
-  .studio-layout {
+  .parent-record {
     display: grid;
-    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
-    gap: clamp(28px, 5vw, 70px);
-    align-items: start;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(280px, 1.2fr) auto;
+    gap: var(--space-lg);
+    align-items: center;
+    padding: var(--space-lg);
+    border: 2px solid var(--ink-deep);
+    color: var(--paper-strong);
+    background: var(--ink-deep);
+    transition: background 140ms ease;
   }
 
-  .studio-layout .section-heading {
-    position: sticky;
-    top: 104px;
-    margin-bottom: 0;
+  .parent-record:hover,
+  .parent-record:focus-visible {
+    background: var(--ledger-green);
   }
 
-  .leader-list {
+  .parent-record > div > p,
+  .organization-record > p {
+    margin-bottom: var(--space-xs);
+    color: var(--signal-light);
+    font-size: var(--text-label-small);
+  }
+
+  .parent-record h3,
+  .organization-record h3 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.8rem);
+    font-weight: 700;
+    line-height: 0.92;
+  }
+
+  .parent-record > span {
+    color: color-mix(in srgb, var(--paper-light) 76%, transparent);
+  }
+
+  .parent-record > strong,
+  .organization-record > strong {
+    font-family: var(--font-label);
+    font-size: var(--text-label-small);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .parent-record b,
+  .organization-record b {
+    color: var(--signal);
+    font-size: 1rem;
+  }
+
+  .branch-rule {
+    position: relative;
+    width: calc(75% - var(--space-md));
+    height: 54px;
+    margin-inline: auto;
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
+    border-left: 1px solid var(--line-strong);
+  }
+
+  .branch-rule::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: var(--line-strong);
+    content: "";
+  }
+
+  .operating-register {
     display: grid;
-    gap: 18px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line-strong);
+    border-left: 1px solid var(--line-strong);
   }
 
-  .leader-card {
+  .organization-record {
     display: grid;
-    grid-template-columns: 132px minmax(0, 1fr);
-    gap: 18px;
-    align-items: start;
-    padding: 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    grid-template-rows: auto auto 1fr auto;
+    min-width: 0;
+    min-height: 330px;
+    padding: var(--space-md);
+    overflow: hidden;
+    border-right: 1px solid var(--line-strong);
+    border-bottom: 1px solid var(--line-strong);
     background: var(--paper-strong);
-    box-shadow: 0 12px 32px rgba(23, 38, 55, 0.07);
+    transition:
+      color 140ms ease,
+      background 140ms ease;
   }
 
-  .leader-card picture {
-    width: 132px;
+  .organization-record:nth-child(2) {
+    background: color-mix(in srgb, var(--folder-blue) 30%, var(--paper-strong));
   }
 
-  .leader-card img {
+  .organization-record:nth-child(3) {
+    background: color-mix(in srgb, var(--signal) 10%, var(--paper-strong));
+  }
+
+  .organization-record:nth-child(4) {
+    background: color-mix(in srgb, var(--brass) 22%, var(--paper-strong));
+  }
+
+  .organization-record:hover,
+  .organization-record:focus-visible {
+    color: var(--paper-strong);
+    background: var(--ink-deep);
+  }
+
+  .organization-record h3 {
+    max-width: 100%;
+    margin-bottom: var(--space-md);
+    font-size: clamp(2rem, 2.4vw, 2.55rem);
+    line-height: 0.96;
+  }
+
+  .organization-record > span {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+
+  .organization-record:hover > span,
+  .organization-record:focus-visible > span {
+    color: color-mix(in srgb, var(--paper-light) 76%, transparent);
+  }
+
+  .organization-record > strong {
+    align-self: end;
+    justify-self: start;
+    margin-top: var(--space-md);
+  }
+
+  .personnel {
+    color: var(--paper-light);
+    background: var(--ink-deep);
+  }
+
+  .personnel-heading .eyebrow {
+    color: var(--signal-light);
+  }
+
+  .personnel-heading > p {
+    color: color-mix(in srgb, var(--paper-light) 66%, transparent);
+  }
+
+  .personnel-files {
+    border-top: 1px solid color-mix(in srgb, var(--paper-light) 30%, transparent);
+  }
+
+  .personnel-file {
+    position: relative;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 52px);
+    align-items: start;
+    padding: clamp(34px, 4vw, 48px) 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--paper-light) 30%, transparent);
+  }
+
+  .portrait-wrap {
+    position: relative;
+  }
+
+  .portrait-wrap > p {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 7px 10px;
+    color: var(--paper-strong);
+    background: var(--signal);
+    font-size: var(--text-label-small);
+  }
+
+  .portrait-wrap picture {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--paper-light) 42%, transparent);
+    background: var(--paper-light);
+  }
+
+  .portrait-wrap img {
     width: 100%;
     aspect-ratio: 1;
     object-fit: cover;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
+    filter: saturate(0.82) contrast(1.05);
   }
 
-  .leader-card h3 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(1.45rem, 2.4vw, 2rem);
-    letter-spacing: 0;
+  .personnel-title {
+    margin: 2px 0 10px;
+    color: var(--signal-light);
+    font-size: var(--text-label);
   }
 
-  .leader-alias {
-    margin-bottom: 10px;
-    color: var(--green);
-    font-size: 0.92rem;
+  .personnel-copy {
+    min-width: 0;
+  }
+
+  .personnel-copy h3 {
+    margin-bottom: 6px;
+    font-size: clamp(3rem, 4.5vw, 4.75rem);
+    font-weight: 700;
+    line-height: 0.92;
+  }
+
+  .personnel-alias {
+    margin-bottom: 14px;
+    color: color-mix(in srgb, var(--folder-blue) 78%, var(--paper-light));
+    font-family: var(--font-label);
+    font-size: 0.78rem;
     font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
-  .leader-note {
-    margin-bottom: 0;
-    font-size: 0.92rem;
-    line-height: 1.5;
+  .personnel-note {
+    max-width: 720px;
+    margin: 0;
+    color: color-mix(in srgb, var(--paper-light) 72%, transparent);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+
+  @media (min-width: 801px) and (max-height: 800px) {
+    .cover-inner {
+      gap: clamp(36px, 6vw, 80px);
+      min-height: calc(100svh - 74px - 106px);
+      padding-block: 28px;
+    }
+
+    .file-heading {
+      margin-bottom: 24px;
+    }
+
+    .cover h1 {
+      font-size: clamp(3.25rem, 5.2vw, 5.8rem);
+      line-height: 0.91;
+    }
+
+    .lede {
+      margin-bottom: var(--space-md);
+      font-size: clamp(1rem, 1.45vw, 1.15rem);
+      line-height: 1.5;
+    }
+
+    .current-copy {
+      padding-block: 28px 24px;
+    }
   }
 
   @media (max-width: 1040px) {
-    .studio-layout {
-      grid-template-columns: 1fr;
+    .cover-inner {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+      gap: var(--space-lg);
     }
 
-    .hero-inner {
-      min-height: auto;
+    .personnel-file {
+      grid-template-columns: 200px minmax(0, 1fr);
     }
 
-    .ecosystem-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .project-record {
+      grid-template-columns: 64px minmax(210px, 0.8fr) minmax(280px, 1.2fr);
     }
 
-    .project-row {
-      grid-template-columns: 70px minmax(0, 1fr);
-    }
-
-    .project-mark {
+    .record-initial {
       display: none;
     }
 
-    .studio-layout .section-heading {
-      position: static;
+    .operating-register {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .branch-rule {
+      width: 50%;
     }
   }
 
-  @media (max-width: 760px) {
-    .hero-inner {
-      width: min(calc(100% - 28px), var(--max));
-      padding-top: 24px;
-    }
-
-    h1 {
-      font-size: clamp(2.45rem, 11vw, 3.15rem);
-    }
-
-    .section-heading.split,
-    .ecosystem-grid,
-    .project-row,
-    .leader-card {
+  @media (max-width: 800px) {
+    .cover-inner,
+    .section-intro,
+    .parent-record {
       grid-template-columns: 1fr;
     }
 
-    .ecosystem-card {
-      min-height: 230px;
-    }
-
-    .project-row {
+    .cover-inner {
       min-height: 0;
     }
 
-    .project-index {
-      font-size: 2rem;
+    .file-heading {
+      margin-bottom: var(--space-xl);
     }
 
-    .leader-card picture {
-      width: 100%;
-      max-width: 220px;
+    .cover-copy {
+      max-width: 720px;
     }
+
+    .current-file {
+      width: min(100%, 520px);
+    }
+
+    .cover-register {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cover-register div {
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .project-record {
+      grid-template-columns: 52px minmax(0, 1fr);
+    }
+
+    .record-detail {
+      grid-column: 2;
+    }
+
+    .parent-record {
+      gap: var(--space-md);
+    }
+
+    .parent-record > strong {
+      justify-self: start;
+    }
+
+    .personnel-file {
+      grid-template-columns: 190px minmax(0, 1fr);
+    }
+
   }
 
-  @media (max-width: 520px) {
-    .button {
+  @media (max-width: 680px) {
+    .cover-inner {
+      padding-top: var(--space-xl);
+    }
+
+    .cover h1 {
+      font-size: clamp(2.9rem, 14.5vw, 4.4rem);
+      line-height: 0.92;
+    }
+
+    .file-heading span {
+      display: none;
+    }
+
+    .action {
       width: 100%;
     }
 
-    .section {
-      padding-inline: 14px;
+    .cover-register div {
+      min-height: 88px;
+      padding-inline: var(--space-sm);
+    }
+
+    .section-intro {
+      gap: var(--space-md);
+    }
+
+    .section-intro h2 {
+      font-size: clamp(2.75rem, 13vw, 4.2rem);
+    }
+
+    .project-record {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      padding-inline: var(--space-xs);
+    }
+
+    .record-number,
+    .record-detail {
+      grid-column: 1;
+    }
+
+    .record-number {
+      padding-top: var(--space-xs);
+    }
+
+    .record-identity h3 {
+      font-size: clamp(3.1rem, 16vw, 4.8rem);
+    }
+
+    .operating-register {
+      grid-template-columns: 1fr;
+    }
+
+    .branch-rule {
+      width: 1px;
+      height: var(--space-lg);
+      border: 0;
+      border-left: 1px solid var(--line-strong);
+    }
+
+    .branch-rule::before {
+      display: none;
+    }
+
+    .organization-record {
+      min-height: 260px;
+    }
+
+    .personnel-file {
+      grid-template-columns: 1fr;
+    }
+
+    .portrait-wrap {
+      width: min(100%, 300px);
+    }
+
+    .personnel-copy h3 {
+      font-size: clamp(3rem, 15vw, 4.4rem);
+    }
+
+  }
+
+  @media (max-width: 380px) {
+    .cover-register div {
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .current-copy,
+    .parent-record,
+    .organization-record {
+      padding-inline: var(--space-sm);
+    }
+
+    .current-file-heading,
+    .current-link {
+      padding-left: var(--space-sm);
+    }
+
+    .current-register div {
+      padding-inline: var(--space-sm) var(--space-xs);
     }
   }
 </style>

@@ -1,233 +1,170 @@
 ---
-import { ecosystem, projects } from "../data/site";
+import { ecosystem } from "../data/site";
 
-const featuredProjects = projects.filter((project) => project.featured);
 const year = new Date().getFullYear();
-const toProjectAnchor = (name: string) => `/#project-${name.toLowerCase().replaceAll(" ", "-")}`;
 ---
 
 <footer class="site-footer">
-  <div class="footer-primary">
-    <a class="footer-brand" href="/" aria-label="Shwimp Studios home">
-      <span class="brand-glyph" aria-hidden="true">SS</span>
-      <span>
-        <strong>Shwimp Studios</strong>
-        <small>Lady International</small>
-      </span>
-    </a>
-    <p>
-      Independent software, practical tools, technical experiments, and public notes from the Lady International
-      ecosystem.
-    </p>
-    <div class="social-strip" role="group" aria-label="Social links">
-      <a href="https://github.com/dills122" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a href="https://stackoverflow.com/users/4962223/dylan-steele" target="_blank" rel="noopener noreferrer">
-        Stack Overflow
-      </a>
+  <div class="footer-inner">
+    <div class="footer-statement">
+      <p class="footer-label">End of public file / SS–001</p>
+      <h2>Useful products, strange research, and a naming system that has gone too far.</h2>
+      <p>Filed by Shwimp Studios, an operating division of Lady International.</p>
     </div>
-    <p class="copyright">&copy; {year} Shwimp Studios. All rights reserved.</p>
+
+    <nav class="footer-index" aria-label="Footer site navigation">
+      <p>Index</p>
+      <a href="/">Home</a>
+      <a href="/#projects">Projects</a>
+      <a href="/org/">Organizations</a>
+      <a href="/#studio">Personnel</a>
+    </nav>
+
+    <nav class="footer-index organizations" aria-label="Footer organization navigation">
+      <p>Operating register</p>
+      {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
+    </nav>
+
+    <div class="footer-external">
+      <p>External channels</p>
+      <a href="https://github.com/dills122" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      <a href="https://dsteele.dev/" target="_blank" rel="noopener noreferrer">dsteele.dev ↗</a>
+      <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noopener noreferrer">Source file ↗</a>
+    </div>
+
+    <div class="footer-legal">
+      <span>Lady International registry no. LI–000</span>
+      <span>&copy; {year} Shwimp Studios</span>
+      <span>All records subject to revision.</span>
+    </div>
   </div>
-
-  <nav class="footer-group" aria-label="Footer site navigation">
-    <h2>Explore</h2>
-    <a href="/">Home</a>
-    <a href="/org/">Organizations</a>
-    <a href="/#projects">Projects</a>
-    <a href="/#studio">Studio</a>
-  </nav>
-
-  <nav class="footer-group" aria-label="Footer organization links">
-    <h2>Organizations</h2>
-    {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
-  </nav>
-
-  <nav class="footer-group" aria-label="Footer featured project links">
-    <h2>Featured</h2>
-    {
-      featuredProjects.map((project) => (
-        <a href={toProjectAnchor(project.name)}>{project.name}</a>
-      ))
-    }
-  </nav>
-
-  <nav class="footer-group" aria-label="Footer site links">
-    <h2>Sites</h2>
-    <a href="https://dsteele.dev/" target="_blank" rel="noopener noreferrer">dsteele.dev</a>
-    <a href="https://shwimp.studio/" target="_blank" rel="noopener noreferrer">shwimp.studio</a>
-    <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noopener noreferrer">Source repo</a>
-  </nav>
 </footer>
 
 <style>
   .site-footer {
+    color: var(--paper-light);
+    background: var(--ink-deep);
+  }
+
+  .footer-inner {
     display: grid;
-    grid-template-columns: minmax(280px, 1.5fr) repeat(4, minmax(128px, 0.7fr));
-    gap: clamp(26px, 4vw, 46px);
-    width: min(calc(100% - 40px), var(--max));
+    grid-template-columns: minmax(280px, 1.45fr) minmax(120px, 0.55fr) minmax(170px, 0.75fr) minmax(150px, 0.65fr);
+    gap: clamp(30px, 5vw, 72px);
+    width: min(100%, var(--max));
     margin-inline: auto;
-    padding: clamp(42px, 6vw, 66px) 0 clamp(44px, 7vw, 74px);
-    border-top: 1px solid var(--line);
+    padding: clamp(58px, 8vw, 96px) var(--gutter) 28px;
   }
 
-  .footer-primary {
-    display: grid;
-    align-content: start;
-    gap: 20px;
-    max-width: 420px;
+  .footer-statement h2 {
+    max-width: 620px;
+    margin: 0 0 20px;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3.7rem);
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.97;
+    text-wrap: balance;
   }
 
-  .footer-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--ink);
-    text-decoration: none;
+  .footer-statement > p:last-child {
+    max-width: 480px;
+    margin: 0;
+    color: color-mix(in srgb, var(--paper-light) 72%, transparent);
   }
 
-  .footer-brand span:last-child {
-    min-width: 0;
-  }
-
-  .footer-brand strong,
-  .footer-brand small {
-    display: block;
-    white-space: nowrap;
-  }
-
-  .footer-brand strong,
-  .footer-group h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    letter-spacing: 0;
-  }
-
-  .footer-brand strong {
-    font-size: 1.28rem;
-    line-height: 1.05;
-  }
-
-  .footer-brand small {
-    color: var(--ink-soft);
-    font-size: 0.74rem;
-    font-weight: 800;
+  .footer-label,
+  .footer-index > p,
+  .footer-external > p,
+  .footer-legal {
+    font-family: var(--font-label);
+    font-size: var(--text-label);
+    font-weight: 900;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
   }
 
-  .brand-glyph {
-    display: grid;
-    flex: 0 0 auto;
-    width: 38px;
-    height: 38px;
-    place-items: center;
-    border: 1px solid var(--ink);
-    border-radius: var(--radius);
-    color: var(--paper-strong);
-    background: var(--ink);
-    font-size: 0.78rem;
-    font-weight: 900;
+  .footer-label {
+    margin: 0 0 22px;
+    color: var(--signal-light);
   }
 
-  .site-footer p {
-    margin: 0;
-    color: var(--ink-soft);
-    line-height: 1.65;
-  }
-
-  .social-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 16px;
-  }
-
-  .social-strip a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    color: var(--ink-soft);
-    font-size: 0.9rem;
-    font-weight: 900;
-    line-height: 1.3;
-    text-decoration: none;
-    transition:
-      color 160ms ease,
-      transform 160ms ease;
-  }
-
-  .social-strip a:hover,
-  .social-strip a:focus-visible {
-    color: var(--blue);
-    transform: translateX(2px);
-  }
-
-  .copyright {
-    font-size: 0.84rem;
-    font-weight: 800;
-  }
-
-  .footer-group {
+  .footer-index,
+  .footer-external {
     display: grid;
     align-content: start;
-    gap: 8px;
+    gap: 5px;
   }
 
-  .footer-group h2 {
-    margin: 0 0 8px;
-    color: var(--ink);
-    font-size: 1.04rem;
-    line-height: 1.15;
+  .footer-index > p,
+  .footer-external > p {
+    margin: 0 0 13px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid color-mix(in srgb, var(--paper-light) 26%, transparent);
+    color: var(--signal-light);
   }
 
-  .footer-group a {
+  .footer-index a,
+  .footer-external a {
     display: flex;
     align-items: center;
     min-height: 44px;
-    color: var(--ink-soft);
-    font-size: 0.9rem;
-    font-weight: 800;
-    line-height: 1.3;
-    text-decoration: none;
+    color: color-mix(in srgb, var(--paper-light) 78%, transparent);
+    font-size: 0.86rem;
+    font-weight: 750;
     transition:
-      color 160ms ease,
-      transform 160ms ease;
+      color 140ms ease,
+      transform 140ms ease;
   }
 
-  .footer-group a:hover,
-  .footer-group a:focus-visible {
-    color: var(--blue);
-    transform: translateX(2px);
+  .footer-index a:hover,
+  .footer-index a:focus-visible,
+  .footer-external a:hover,
+  .footer-external a:focus-visible {
+    color: var(--paper-strong);
+    transform: translateX(3px);
+  }
+
+  .footer-legal {
+    display: flex;
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    margin-top: 16px;
+    padding-top: 22px;
+    border-top: 1px solid color-mix(in srgb, var(--paper-light) 26%, transparent);
+    color: color-mix(in srgb, var(--paper-light) 54%, transparent);
   }
 
   @media (max-width: 980px) {
-    .site-footer {
-      grid-template-columns: minmax(260px, 1fr) repeat(2, minmax(150px, 0.7fr));
-    }
-  }
-
-  @media (max-width: 760px) {
-    .site-footer {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      width: min(calc(100% - 28px), var(--max));
+    .footer-inner {
+      grid-template-columns: 1.2fr repeat(2, 0.7fr);
     }
 
-    .footer-primary {
+    .footer-statement {
       grid-column: 1 / -1;
     }
+
+    .footer-index.organizations {
+      grid-column: span 1;
+    }
   }
 
-  @media (max-width: 520px) {
-    .site-footer {
-      grid-template-columns: 1fr;
+  @media (max-width: 680px) {
+    .footer-inner {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px 20px;
     }
 
-    .footer-brand strong {
-      max-width: 180px;
-      white-space: normal;
-      font-size: 1.08rem;
+    .footer-statement,
+    .footer-index.organizations,
+    .footer-legal {
+      grid-column: 1 / -1;
     }
 
-    .brand-glyph {
-      width: 34px;
-      height: 34px;
+    .footer-legal {
+      justify-content: flex-start;
     }
   }
 </style>

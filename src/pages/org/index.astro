@@ -2,11 +2,12 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ecosystem, projects } from "../../data/site";
 
-const orgCards = ecosystem.map((org) => {
+const orgCards = ecosystem.map((org, index) => {
   const orgProjects = org.name === "Lady International" ? projects : projects.filter((project) => project.division === org.name);
 
   return {
     ...org,
+    fileNumber: `ORG–${String(index).padStart(2, "0")}`,
     currentCount: orgProjects.filter((project) => project.phase !== "past").length,
     pastCount: orgProjects.filter((project) => project.phase === "past").length,
   };
@@ -18,170 +19,319 @@ const orgCards = ecosystem.map((org) => {
   description="Organizations in the Lady International and Shwimp Studios ecosystem."
   canonicalPath="/org/"
 >
-    <main id="main-content">
-      <section class="directory-hero" aria-labelledby="directory-title">
+  <main id="main-content">
+    <header class="directory-cover" aria-labelledby="directory-title">
+      <div class="directory-inner">
+        <div class="directory-heading">
+          <p>Corporate register / Public access</p>
+          <span>Series B</span>
+        </div>
+        <p class="eyebrow">Lady International operating structure</p>
+        <h1 id="directory-title">Organization files</h1>
+        <p class="lede">
+          One parent organization and four operating desks for public products, engineering tools, publishing, and
+          exploratory ventures.
+        </p>
+      </div>
+    </header>
+
+    <section class="directory" aria-labelledby="register-title">
+      <div class="directory-intro">
         <div>
-          <p class="eyebrow">The ecosystem</p>
-          <h1 id="directory-title">Organizations</h1>
-          <p class="lede">
-            Lady International organizes the work into a handful of small shops: public products, engineering tools,
-            publishing, and exploratory ventures.
-          </p>
+          <p class="eyebrow">Register B / complete index</p>
+          <h2 id="register-title">Filed by mandate.</h2>
         </div>
-      </section>
+        <p>Counts reflect the current public project register. Private work may be absent, classified, or still too vague to name.</p>
+      </div>
 
-      <section class="section" aria-label="Organization list">
-        <div class="org-grid">
-          {
-            orgCards.map((org) => (
-              <a class="org-card" href={`/org/${org.slug}/`}>
-                <p>{org.role}</p>
-                <h2>{org.name}</h2>
-                <span>{org.description}</span>
-                <dl>
-                  <div>
-                    <dt>Current</dt>
-                    <dd>{org.currentCount}</dd>
-                  </div>
-                  <div>
-                    <dt>Past</dt>
-                    <dd>{org.pastCount}</dd>
-                  </div>
-                </dl>
-              </a>
-            ))
-          }
+      <div class="organization-ledger">
+        <div class="ledger-head" aria-hidden="true">
+          <span>File / mandate</span>
+          <span>Organization</span>
+          <span>Description</span>
+          <span>Records</span>
         </div>
-      </section>
-    </main>
-
+        {
+          orgCards.map((org) => (
+            <a class="organization-row" href={`/org/${org.slug}/`}>
+              <div class="org-file">
+                <strong>{org.fileNumber}</strong>
+                <span>{org.role}</span>
+              </div>
+              <h3>{org.name}</h3>
+              <p>{org.description}</p>
+              <dl>
+                <div>
+                  <dt>Current</dt>
+                  <dd>{org.currentCount}</dd>
+                </div>
+                <div>
+                  <dt>Past</dt>
+                  <dd>{org.pastCount}</dd>
+                </div>
+              </dl>
+              <span class="row-arrow" aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </main>
 </BaseLayout>
 
 <style>
   h1,
-  h2 {
-    font-family: Georgia, "Times New Roman", serif;
-    letter-spacing: 0;
-  }
-
-  h1,
   h2,
+  h3,
   p {
     margin-top: 0;
   }
 
-  .directory-hero {
-    padding: clamp(58px, 8vw, 104px) 20px clamp(46px, 7vw, 82px);
-    border-bottom: 1px solid var(--line);
-    background-image:
-      linear-gradient(90deg, rgba(251, 244, 231, 0.94), rgba(251, 244, 231, 0.78)),
-      var(--hero-image);
-    background-position: center;
-    background-size: cover;
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.045em;
+    text-wrap: balance;
   }
 
-  .directory-hero > div,
-  .org-grid {
+  .eyebrow,
+  .directory-heading,
+  .ledger-head,
+  .org-file,
+  dt {
+    font-family: var(--font-label);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .directory-cover {
+    border-bottom: 1px solid var(--line-strong);
+    background: var(--paper-light);
+  }
+
+  .directory-inner,
+  .directory-intro,
+  .organization-ledger {
     width: min(100%, var(--max));
     margin-inline: auto;
   }
 
-  .eyebrow,
-  .org-card > p {
-    margin: 0 0 14px;
-    color: var(--coral);
+  .directory-inner {
+    padding: clamp(52px, 7vw, 96px) var(--gutter) clamp(54px, 7vw, 92px);
+  }
+
+  .directory-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: clamp(40px, 6vw, 76px);
+    padding-bottom: var(--space-xs);
+    border-bottom: var(--rule);
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .directory-heading p {
+    margin: 0;
+  }
+
+  .eyebrow {
+    margin-bottom: var(--space-md);
+    color: var(--signal);
     font-size: 0.78rem;
-    font-weight: 900;
-    text-transform: uppercase;
   }
 
   h1 {
-    max-width: 920px;
-    margin-bottom: 22px;
-    font-size: clamp(3rem, 7vw, 6rem);
-    line-height: 0.92;
-  }
-
-  h2 {
-    margin-bottom: 12px;
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
-    line-height: 1.02;
-  }
-
-  .lede,
-  .org-card span {
-    color: var(--ink-soft);
+    margin-bottom: var(--space-md);
+    font-size: clamp(3.8rem, 8.5vw, 8rem);
+    font-weight: 700;
+    line-height: 0.86;
   }
 
   .lede {
-    max-width: 760px;
+    max-width: 780px;
     margin-bottom: 0;
-    font-size: clamp(1.08rem, 2vw, 1.3rem);
-  }
-
-  .section {
-    padding: clamp(54px, 8vw, 92px) 20px;
-  }
-
-  .org-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-
-  .org-card {
-    min-height: 290px;
-    padding: 22px;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--paper-strong);
-    transition:
-      box-shadow 160ms ease,
-      transform 160ms ease;
-  }
-
-  .org-card:hover,
-  .org-card:focus-visible {
-    z-index: 1;
-    box-shadow: var(--shadow);
-    transform: translateY(-2px);
-  }
-
-  .org-card span {
-    display: block;
-  }
-
-  .org-card dl {
-    display: flex;
-    gap: 18px;
-    margin: 28px 0 0;
-  }
-
-  .org-card dt {
     color: var(--ink-soft);
-    font-size: 0.72rem;
-    font-weight: 900;
-    text-transform: uppercase;
+    font-size: clamp(1.08rem, 2vw, 1.35rem);
   }
 
-  .org-card dd {
+  .directory {
+    padding: var(--section-space) var(--gutter);
+  }
+
+  .directory-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
+    gap: clamp(32px, 7vw, 94px);
+    align-items: end;
+    margin-bottom: var(--space-xl);
+  }
+
+  .directory-intro h2 {
     margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 1.7rem;
-    font-weight: 700;
+    font-size: clamp(2.8rem, 5vw, 5.25rem);
+    line-height: 0.92;
   }
 
-  @media (max-width: 900px) {
-    .org-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+  .directory-intro > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .organization-ledger {
+    border-top: 2px solid var(--ink-deep);
+  }
+
+  .ledger-head,
+  .organization-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 0.55fr) minmax(220px, 0.85fr) minmax(280px, 1.15fr) 150px;
+    gap: clamp(20px, 4vw, 56px);
+    align-items: center;
+  }
+
+  .ledger-head {
+    padding: 10px var(--space-md);
+    border-bottom: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .organization-row {
+    position: relative;
+    min-height: 210px;
+    padding: clamp(28px, 4vw, 48px) var(--space-md);
+    border-bottom: 1px solid var(--line-strong);
+    transition:
+      color 150ms ease,
+      background 150ms ease;
+  }
+
+  .organization-row:hover,
+  .organization-row:focus-visible {
+    color: var(--paper-strong);
+    background: var(--ink-deep);
+  }
+
+  .org-file {
+    display: grid;
+    gap: 4px;
+    align-self: start;
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .org-file strong {
+    color: var(--signal);
+  }
+
+  .organization-row h3 {
+    margin: 0;
+    font-size: clamp(2.2rem, 3.6vw, 3.9rem);
+    line-height: 0.92;
+  }
+
+  .organization-row > p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .organization-row:hover > p,
+  .organization-row:focus-visible > p,
+  .organization-row:hover .org-file,
+  .organization-row:focus-visible .org-file {
+    color: color-mix(in srgb, var(--paper-light) 72%, transparent);
+  }
+
+  .organization-row dl {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-md);
+    margin: 0;
+  }
+
+  .organization-row dl div {
+    display: grid;
+  }
+
+  dt {
+    color: var(--ink-soft);
+    font-size: var(--text-label-small);
+  }
+
+  .organization-row:hover dt,
+  .organization-row:focus-visible dt {
+    color: color-mix(in srgb, var(--paper-light) 60%, transparent);
+  }
+
+  dd {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .row-arrow {
+    position: absolute;
+    right: var(--space-md);
+    bottom: var(--space-sm);
+    color: var(--signal);
+    font-size: 1.4rem;
+    transition: transform 140ms ease;
+  }
+
+  .organization-row:hover .row-arrow,
+  .organization-row:focus-visible .row-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 920px) {
+    .ledger-head {
+      display: none;
+    }
+
+    .organization-row {
+      grid-template-columns: minmax(100px, 0.35fr) minmax(220px, 0.85fr) minmax(280px, 1fr);
+    }
+
+    .organization-row dl {
+      grid-column: 2 / -1;
+      width: min(100%, 240px);
     }
   }
 
-  @media (max-width: 760px) {
-    .org-grid {
+  @media (max-width: 680px) {
+    .directory-heading span {
+      display: none;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 16vw, 4.2rem);
+    }
+
+    .directory-intro,
+    .organization-row {
       grid-template-columns: 1fr;
     }
-  }
 
+    .directory-intro {
+      gap: var(--space-md);
+    }
+
+    .organization-row {
+      gap: var(--space-md);
+      min-height: 0;
+      padding-inline: var(--space-xs);
+    }
+
+    .organization-row dl {
+      grid-column: 1;
+    }
+
+    .organization-row h3 {
+      font-size: clamp(2.5rem, 12vw, 3.6rem);
+    }
+  }
 </style>
