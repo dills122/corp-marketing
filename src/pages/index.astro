@@ -19,7 +19,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   <main id="main-content">
     <section class="hero" id="index" aria-labelledby="hero-title">
       <div class="hero-inner">
-        <p class="hero-kicker">Independent software studio · Toronto / Internet</p>
+        <p class="hero-kicker">Independent software studio · Central PA / Internet</p>
         <h1 id="hero-title">Useful software for curious people and <span>questionable ideas.</span></h1>
         <div class="hero-foot">
           <div class="hero-intro">
@@ -515,14 +515,23 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .family-note strong { color: var(--paper-strong); }
   .family-note a { display: inline-flex; justify-content: space-between; gap: 24px; min-height: 44px; color: var(--trove); font-family: var(--font-label); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
 
-  .divisions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 7vw, 82px); border-top: 1px solid rgba(255,255,255,0.45); border-left: 1px solid rgba(255,255,255,0.45); }
-  .division-card { display: flex; flex-direction: column; min-height: 320px; padding: 22px; border-right: 1px solid rgba(255,255,255,0.45); border-bottom: 1px solid rgba(255,255,255,0.45); transition: color 160ms ease, background 160ms ease; }
+  .divisions { display: grid; margin-top: clamp(42px, 6vw, 68px); border-top: 1px solid rgba(255,255,255,0.45); }
+  .division-card {
+    display: grid;
+    grid-template-columns: 44px minmax(120px, 0.45fr) minmax(240px, 0.9fr) minmax(300px, 1.35fr) minmax(160px, 0.55fr);
+    gap: clamp(18px, 3vw, 42px);
+    align-items: center;
+    min-height: 138px;
+    padding: 20px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.45);
+    transition: color 160ms ease, background 160ms ease;
+  }
   .division-card > span, .division-card > p, .division-card > strong { font-family: var(--font-label); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
-  .division-card > span { align-self: flex-end; }
-  .division-card > p { margin: auto 0 10px; color: rgba(255,255,255,0.58); }
-  .division-card h3 { margin: 0 0 16px; font-family: var(--font-display); font-size: clamp(2rem, 3.2vw, 3.4rem); letter-spacing: -0.07em; line-height: 0.88; overflow-wrap: anywhere; }
-  .division-card small { min-height: 72px; color: rgba(255,255,255,0.65); font-size: 0.86rem; }
-  .division-card > strong { display: flex; justify-content: space-between; margin-top: 25px; padding-top: 14px; border-top: 1px solid currentColor; }
+  .division-card > span { color: var(--paper-strong); }
+  .division-card > p { margin: 0; color: rgba(255,255,255,0.58); }
+  .division-card h3 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 2.8vw, 3.25rem); letter-spacing: -0.07em; line-height: 0.88; overflow-wrap: anywhere; }
+  .division-card small { color: rgba(255,255,255,0.65); font-size: 0.86rem; }
+  .division-card > strong { display: flex; justify-content: space-between; gap: 18px; margin: 0; padding-bottom: 7px; border-bottom: 1px solid currentColor; }
   .division-card-1:hover, .division-card-1:focus-visible { color: var(--ink-deep); background: var(--reef); }
   .division-card-2:hover, .division-card-2:focus-visible { color: var(--ink-deep); background: var(--kyn); }
   .division-card-3:hover, .division-card-3:focus-visible { color: var(--ink-deep); background: var(--media); }
@@ -551,8 +560,10 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
   @media (max-width: 980px) {
     .spotlight { grid-template-columns: 1fr 1fr; min-height: 440px; }
-    .divisions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .division-card { min-height: 300px; }
+    .division-card { grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px 22px; align-items: start; padding-block: 24px; }
+    .division-card > span { grid-row: 1 / 4; }
+    .division-card > p, .division-card h3, .division-card small { grid-column: 2; }
+    .division-card > strong { grid-column: 3; grid-row: 1 / 4; align-self: center; }
   }
 
   @media (max-width: 760px) {
@@ -591,8 +602,8 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     .spotlight-copy, .release-copy { padding: 22px 19px 24px; }
     .release-kicker { margin: 12px 0; }
     .catalog-link { padding-top: 22px; gap: 14px; }
-    .divisions { grid-template-columns: 1fr; }
-    .division-card { min-height: 250px; }
+    .division-card { grid-template-columns: 30px minmax(0, 1fr); gap: 10px 15px; }
+    .division-card > strong { grid-column: 2; grid-row: auto; width: fit-content; margin-top: 8px; }
     .note-label { align-items: flex-start; flex-direction: column; }
   }
 </style>
