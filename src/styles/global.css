@@ -109,7 +109,7 @@ a {
 
 @media (max-width: 720px) {
   :root {
-    --header-offset: 126px;
+    --header-offset: 64px;
   }
 }
 

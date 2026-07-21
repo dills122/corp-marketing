@@ -5,7 +5,7 @@ interface Props {
 
 const { currentPath } = Astro.props;
 const isHome = currentPath === "/";
-const isOrganizations = currentPath.startsWith("/org/");
+const isProjects = currentPath.startsWith("/projects/");
 ---
 
 <header class="site-header">
@@ -14,14 +14,14 @@ const isOrganizations = currentPath.startsWith("/org/");
       <span class="brand-monogram" aria-hidden="true">SS</span>
       <span class="brand-copy">
         <strong>Shwimp Studios</strong>
-        <small>An independent software label</small>
+        <small>Independent software studio</small>
       </span>
     </a>
 
     <nav aria-label="Primary navigation">
-      <a href="/#projects" data-nav-section="projects">Releases</a>
-      <a href="/#ecosystem" data-nav-section="ecosystem">The studio</a>
-      <a href="/org/" aria-current={isOrganizations ? "page" : undefined}>Organizations</a>
+      <a href="/#projects" data-nav-section="projects">Featured</a>
+      <a href="/projects/" aria-current={isProjects ? "page" : undefined}>Projects</a>
+      <a href="/#ecosystem" data-nav-section="ecosystem">Studio</a>
       <a href="/#studio" data-nav-section="studio">People</a>
     </nav>
 
@@ -150,19 +150,24 @@ const isOrganizations = currentPath.startsWith("/org/");
 
   @media (max-width: 720px) {
     .header-inner {
-      grid-template-columns: 1fr;
-      gap: 0;
-      padding-inline: 14px;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 10px;
+      min-height: 62px;
+      padding-inline: 12px 6px;
     }
 
     .brand {
-      min-height: 67px;
+      gap: 9px;
+      min-height: 62px;
     }
+
+    .brand-monogram { width: 38px; height: 38px; }
+    .brand-copy strong { font-size: 0.92rem; }
+    .brand-copy small { display: none; }
 
     nav {
       width: 100%;
       overflow-x: auto;
-      border-top: 1px solid var(--line);
       scrollbar-width: none;
     }
 
@@ -171,20 +176,19 @@ const isOrganizations = currentPath.startsWith("/org/");
     }
 
     nav a {
-      flex: 1 0 auto;
+      flex: 0 0 auto;
       justify-content: center;
-      min-height: 50px;
-      padding-inline: 10px;
+      min-height: 62px;
+      padding-inline: 9px;
     }
   }
 
   @media (max-width: 420px) {
-    .brand-copy small {
-      font-size: 0.6rem;
-    }
+    .brand-copy { display: none; }
 
     nav a {
-      font-size: 0.6rem;
+      font-size: 0.58rem;
+      padding-inline: 8px;
     }
   }
 </style>

@@ -1,0 +1,252 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { projects } from "../../data/site";
+
+const currentProjects = projects.filter((project) => project.phase === "current");
+const pastProjects = projects.filter((project) => project.phase === "past");
+const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll(" ", "-")}`;
+---
+
+<BaseLayout
+  title="All projects | Shwimp Studios"
+  description="The complete Shwimp Studios project catalogue: active software, tools, market systems, data work, experiments, and archived ideas."
+  canonicalPath="/projects/"
+>
+  <main id="main-content">
+    <header class="catalog-hero">
+      <div class="catalog-hero-inner">
+        <div>
+          <p class="eyebrow">Project register · Edition 01</p>
+          <h1>Every named project.</h1>
+        </div>
+        <div class="catalog-intro">
+          <p>
+            The complete working record: production-minded software, useful tools, market infrastructure, data work,
+            and the experiments that taught us something along the way.
+          </p>
+          <dl>
+            <div><dt>Current</dt><dd>{currentProjects.length}</dd></div>
+            <div><dt>Archive</dt><dd>{pastProjects.length}</dd></div>
+            <div><dt>Total</dt><dd>{projects.length}</dd></div>
+          </dl>
+        </div>
+      </div>
+      <nav class="catalog-jump" aria-label="Project catalogue sections">
+        <a href="#current">Current work <span>{currentProjects.length}</span></a>
+        <a href="#archive">Archive <span>{pastProjects.length}</span></a>
+        <a href="/#projects">Featured on the homepage <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <section class="catalog-section" id="current" aria-labelledby="current-title">
+      <div class="section-intro">
+        <p>01 · On the bench</p>
+        <h2 id="current-title">Current work</h2>
+        <span>Active products, maintained tools, and ongoing investigations.</span>
+      </div>
+
+      <div class="project-register">
+        {currentProjects.map((project, index) => (
+          <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
+            <p class="project-number">{String(index + 1).padStart(2, "0")}</p>
+            <div class="project-identity">
+              <p>{project.division}</p>
+              <h3>{project.name}</h3>
+              <strong>{project.status}</strong>
+            </div>
+            <div class="project-description">
+              <p class="project-kicker">{project.kicker}</p>
+              <p>{project.summary}</p>
+            </div>
+            <div class="project-links" aria-label={`${project.name} links`}>
+              {project.links?.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="catalog-section archive" id="archive" aria-labelledby="archive-title">
+      <div class="section-intro">
+        <p>02 · The evidence locker</p>
+        <h2 id="archive-title">Past work</h2>
+        <span>Retired, shelved, or dormant projects kept as part of the studio record.</span>
+      </div>
+
+      <div class="project-register">
+        {pastProjects.map((project, index) => (
+          <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
+            <p class="project-number">{String(currentProjects.length + index + 1).padStart(2, "0")}</p>
+            <div class="project-identity">
+              <p>{project.division}</p>
+              <h3>{project.name}</h3>
+              <strong>{project.status}</strong>
+            </div>
+            <div class="project-description">
+              <p class="project-kicker">{project.kicker}</p>
+              <p>{project.summary}</p>
+            </div>
+            <div class="project-links" aria-label={`${project.name} links`}>
+              {project.links?.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener noreferrer">
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  h1, h2, h3, p, dl, dd { margin-top: 0; }
+  h1, h2, h3 { text-wrap: balance; }
+
+  .eyebrow,
+  .catalog-jump,
+  .section-intro > p,
+  .project-number,
+  .project-identity > p,
+  .project-identity > strong,
+  .project-links {
+    font-family: var(--font-label);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .catalog-hero {
+    color: var(--paper-strong);
+    background: var(--ink-deep);
+  }
+
+  .catalog-hero-inner,
+  .catalog-jump,
+  .catalog-section {
+    width: min(100%, var(--max));
+    margin-inline: auto;
+  }
+
+  .catalog-hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(330px, 0.65fr);
+    gap: clamp(44px, 8vw, 120px);
+    align-items: end;
+    padding: clamp(58px, 7vw, 94px) var(--gutter);
+  }
+
+  .eyebrow { margin-bottom: 24px; color: var(--reef); }
+
+  h1 {
+    max-width: 850px;
+    margin-bottom: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-page);
+    letter-spacing: -0.075em;
+    line-height: 0.84;
+  }
+
+  .catalog-intro { padding-top: 26px; border-top: 1px solid rgba(255, 255, 255, 0.3); }
+  .catalog-intro > p { margin-bottom: 32px; color: rgba(255, 255, 255, 0.7); font-family: var(--font-editorial); font-size: 1.14rem; line-height: 1.5; }
+  .catalog-intro dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255, 255, 255, 0.32); }
+  .catalog-intro dl div { padding: 12px; background: var(--ink-deep); }
+  .catalog-intro dt { color: rgba(255, 255, 255, 0.55); font-family: var(--font-label); font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
+  .catalog-intro dd { font-family: var(--font-display); font-size: 1.65rem; line-height: 1.1; }
+
+  .catalog-jump {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.4fr;
+    border-top: 1px solid rgba(255, 255, 255, 0.34);
+    border-left: 1px solid rgba(255, 255, 255, 0.34);
+  }
+
+  .catalog-jump a {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 58px;
+    padding: 16px var(--gutter);
+    border-right: 1px solid rgba(255, 255, 255, 0.34);
+    transition: color 140ms ease, background 140ms ease;
+  }
+
+  .catalog-jump a:hover, .catalog-jump a:focus-visible { color: var(--ink-deep); background: var(--reef); }
+
+  .catalog-section { padding: var(--section-space) var(--gutter); }
+  .catalog-section.archive { padding-top: 0; }
+
+  .section-intro {
+    display: grid;
+    grid-template-columns: minmax(130px, 0.32fr) minmax(280px, 0.8fr) minmax(300px, 1fr);
+    gap: 28px;
+    align-items: baseline;
+    margin-bottom: 38px;
+  }
+
+  .section-intro > p { margin: 0; color: var(--accent-dark); }
+  .section-intro h2 { margin: 0; font-family: var(--font-display); font-size: var(--text-section); letter-spacing: -0.07em; line-height: 0.86; }
+  .section-intro > span { max-width: 520px; color: var(--ink-soft); font-family: var(--font-editorial); font-size: 1.06rem; }
+
+  .project-register { border-top: 2px solid var(--ink-deep); }
+
+  .project-row {
+    --project-color: var(--reef);
+    display: grid;
+    grid-template-columns: 70px minmax(210px, 0.7fr) minmax(300px, 1.25fr) minmax(150px, 0.52fr);
+    gap: clamp(22px, 4vw, 58px);
+    padding: 27px 0;
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .project-row.trove { --project-color: var(--trove); }
+  .project-row.kyn { --project-color: var(--kyn); }
+  .project-row.waves { --project-color: var(--waves); }
+
+  .project-number { margin: 0; color: var(--accent-dark); }
+  .project-identity > p { margin-bottom: 8px; color: var(--ink-soft); }
+  .project-identity h3 { margin: 0 0 9px; font-family: var(--font-display); font-size: clamp(2rem, 3.1vw, 3.5rem); letter-spacing: -0.075em; line-height: 0.86; }
+  .project-identity > strong { display: inline-block; padding: 4px 7px; color: var(--ink-deep); background: var(--project-color); }
+  .project-description p { margin-bottom: 0; color: var(--ink-soft); }
+  .project-description .project-kicker { margin-bottom: 10px; color: var(--ink-deep); font-family: var(--font-editorial); font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+  .project-links { display: flex; flex-direction: column; align-items: flex-start; }
+  .project-links a { display: inline-flex; justify-content: space-between; gap: 18px; width: 100%; min-height: 38px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .project-links a:hover, .project-links a:focus-visible { color: var(--accent-dark); border-color: var(--accent); }
+  .archive .project-row { padding-block: 22px; }
+
+  @media (max-width: 900px) {
+    .catalog-hero-inner { grid-template-columns: 1fr; }
+    .section-intro { grid-template-columns: 130px 1fr; }
+    .section-intro > span { grid-column: 2; }
+    .project-row { grid-template-columns: 52px minmax(190px, 0.72fr) minmax(0, 1fr); }
+    .project-links { grid-column: 2 / -1; flex-direction: row; flex-wrap: wrap; }
+    .project-links a { width: auto; min-width: 130px; }
+  }
+
+  @media (max-width: 620px) {
+    .catalog-hero-inner { gap: 30px; padding-top: 42px; padding-bottom: 38px; }
+    .eyebrow { margin-bottom: 17px; }
+    h1 { font-size: clamp(3rem, 15vw, 4.7rem); }
+    .catalog-intro { padding-top: 20px; }
+    .catalog-intro > p { margin-bottom: 23px; font-size: 1rem; }
+    .catalog-jump { grid-template-columns: 1fr 1fr; }
+    .catalog-jump a { min-height: 52px; padding: 13px 16px; }
+    .catalog-jump a:last-child { grid-column: 1 / -1; }
+    .catalog-section { padding-top: 48px; padding-bottom: 48px; }
+    .catalog-section.archive { padding-top: 0; }
+    .section-intro { grid-template-columns: 1fr; gap: 9px; margin-bottom: 26px; }
+    .section-intro > span { grid-column: auto; font-size: 1rem; }
+    .project-row { grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding: 23px 0; }
+    .project-description, .project-links { grid-column: 2; }
+    .project-identity h3 { font-size: clamp(2.15rem, 11vw, 3.25rem); }
+    .project-description .project-kicker { font-size: 1.06rem; }
+    .project-links { gap: 8px; }
+    .project-links a { min-width: 0; width: 100%; }
+  }
+</style>

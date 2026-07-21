@@ -50,14 +50,18 @@ export const projects = [
   {
     name: "Reef",
     division: "Noodle Ventures",
-    kicker: "Institutional trading simulator",
+    kicker: "Institutional-grade equity market simulator",
     summary:
-      "A market playground for exploring order flow, portfolios, dashboards, and the small systems that make financial software feel real.",
-    status: "Research",
+      "A simulation-first trading venue and post-trade platform for exploring market structure, order flow, portfolios, and execution—with a bolt-on Bot Arena for building trading agents and competing head-to-head.",
+    status: "Active",
     tone: "reef",
     phase: "current",
     featured: true,
-    availability: "Private / closed source",
+    links: [
+      { label: "Project site", href: "https://dills122.github.io/reef/" },
+      { label: "GitHub", href: "https://github.com/dills122/reef" },
+      { label: "Bot Arena", href: "https://reef-arena-admin.shrimpworks.dev/" },
+    ],
   },
   {
     name: "Trove",

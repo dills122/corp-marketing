@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-lead">
-      <p>Shwimp Studios · Independent software label</p>
+      <p>Shwimp Studios · Independent software studio</p>
       <h2>Useful products.<br />Strange research.<br /><span>Properly named.</span></h2>
     </div>
 
@@ -15,13 +15,14 @@ const year = new Date().getFullYear();
       <nav aria-label="Footer site navigation">
         <p>Browse</p>
         <a href="/">Home</a>
-        <a href="/#projects">Releases</a>
-        <a href="/org/">Organizations</a>
+        <a href="/#projects">Featured</a>
+        <a href="/projects/">All projects</a>
+        <a href="/#ecosystem">Studio</a>
         <a href="/#studio">People</a>
       </nav>
 
       <nav aria-label="Footer organization navigation">
-        <p>Label family</p>
+        <p>Studio structure</p>
         {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
       </nav>
 

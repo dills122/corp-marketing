@@ -68,7 +68,6 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
                     {project.links?.map((link) => (
                       <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span></a>
                     ))}
-                    {project.availability && <span class="availability">{project.availability}</span>}
                   </div>
                 </div>
                 <div class="release-mark" aria-hidden="true">{project.name.slice(0, 1)}</div>
@@ -172,10 +171,9 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
   .release-identity > strong { display: block; font-family: var(--font-editorial); font-size: 1.12rem; line-height: 1.25; }
   .release-detail > p { max-width: 660px; margin-bottom: var(--space-md); color: var(--ink-soft); }
   .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
-  .project-links a, .availability { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 11px; border: 1px solid var(--line-strong); }
+  .project-links a { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 11px; border: 1px solid var(--line-strong); }
   .project-links a { transition: color 140ms ease, background 140ms ease; }
   .project-links a:hover, .project-links a:focus-visible { color: var(--paper-strong); background: var(--ink-deep); }
-  .availability { color: var(--ink-soft); border-color: var(--line); }
   .release-mark { display: grid; width: 100px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); font-family: var(--font-display); font-size: 3.4rem; background: var(--reef); }
   .release.trove .release-mark { background: var(--trove); }
   .release.kyn .release-mark { background: var(--kyn); }

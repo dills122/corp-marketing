@@ -6,7 +6,7 @@ export const GET: APIRoute = ({ site }) => {
     throw new Error("The Astro site URL is required to generate the sitemap.");
   }
 
-  const paths = ["/", "/org/", ...ecosystem.map((org) => `/org/${org.slug}/`)];
+  const paths = ["/", "/projects/", "/org/", ...ecosystem.map((org) => `/org/${org.slug}/`)];
   const urls = paths
     .map((path) => `  <url><loc>${new URL(path, site).href}</loc></url>`)
     .join("\n");
