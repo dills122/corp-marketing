@@ -6,164 +6,156 @@ const year = new Date().getFullYear();
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-statement">
-      <p class="footer-label">End of public file / SS–001</p>
-      <h2>Useful products, strange research, and a naming system that has gone too far.</h2>
-      <p>Filed by Shwimp Studios, an operating division of Lady International.</p>
+    <div class="footer-lead">
+      <p>Shwimp Studios · Independent software label</p>
+      <h2>Useful products.<br />Strange research.<br /><span>Properly named.</span></h2>
     </div>
 
-    <nav class="footer-index" aria-label="Footer site navigation">
-      <p>Index</p>
-      <a href="/">Home</a>
-      <a href="/#projects">Projects</a>
-      <a href="/org/">Organizations</a>
-      <a href="/#studio">Personnel</a>
-    </nav>
+    <div class="footer-columns">
+      <nav aria-label="Footer site navigation">
+        <p>Browse</p>
+        <a href="/">Home</a>
+        <a href="/#projects">Releases</a>
+        <a href="/org/">Organizations</a>
+        <a href="/#studio">People</a>
+      </nav>
 
-    <nav class="footer-index organizations" aria-label="Footer organization navigation">
-      <p>Operating register</p>
-      {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
-    </nav>
+      <nav aria-label="Footer organization navigation">
+        <p>Label family</p>
+        {ecosystem.map((org) => <a href={`/org/${org.slug}/`}>{org.name}</a>)}
+      </nav>
 
-    <div class="footer-external">
-      <p>External channels</p>
-      <a href="https://github.com/dills122" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-      <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-      <a href="https://dsteele.dev/" target="_blank" rel="noopener noreferrer">dsteele.dev ↗</a>
-      <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noopener noreferrer">Source file ↗</a>
+      <nav aria-label="External channels">
+        <p>Elsewhere</p>
+        <a href="https://github.com/dills122" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/dssteele122/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href="https://dsteele.dev/" target="_blank" rel="noopener noreferrer">dsteele.dev ↗</a>
+        <a href="https://github.com/dills122/corp-marketing" target="_blank" rel="noopener noreferrer">Site source ↗</a>
+      </nav>
     </div>
 
-    <div class="footer-legal">
-      <span>Lady International registry no. LI–000</span>
+    <div class="footer-base">
+      <span>An operating division of Lady International</span>
       <span>&copy; {year} Shwimp Studios</span>
-      <span>All records subject to revision.</span>
+      <a href="#main-content">Back to top ↑</a>
     </div>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    color: var(--paper-light);
-    background: var(--ink-deep);
+    color: var(--paper-strong);
+    background: var(--accent);
   }
 
   .footer-inner {
-    display: grid;
-    grid-template-columns: minmax(280px, 1.45fr) minmax(120px, 0.55fr) minmax(170px, 0.75fr) minmax(150px, 0.65fr);
-    gap: clamp(30px, 5vw, 72px);
     width: min(100%, var(--max));
     margin-inline: auto;
-    padding: clamp(58px, 8vw, 96px) var(--gutter) 28px;
+    padding: clamp(54px, 7vw, 92px) var(--gutter) 26px;
   }
 
-  .footer-statement h2 {
-    max-width: 620px;
-    margin: 0 0 20px;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3.7rem);
-    font-weight: 700;
-    letter-spacing: -0.045em;
-    line-height: 0.97;
-    text-wrap: balance;
+  .footer-lead {
+    display: grid;
+    grid-template-columns: minmax(200px, 0.45fr) minmax(0, 1.55fr);
+    gap: clamp(32px, 7vw, 100px);
+    padding-bottom: clamp(42px, 6vw, 72px);
   }
 
-  .footer-statement > p:last-child {
-    max-width: 480px;
-    margin: 0;
-    color: color-mix(in srgb, var(--paper-light) 72%, transparent);
-  }
-
-  .footer-label,
-  .footer-index > p,
-  .footer-external > p,
-  .footer-legal {
+  .footer-lead p,
+  .footer-columns p,
+  .footer-columns a,
+  .footer-base {
     font-family: var(--font-label);
-    font-size: var(--text-label);
-    font-weight: 900;
-    letter-spacing: 0.09em;
+    font-size: 0.69rem;
+    font-weight: 800;
+    letter-spacing: 0.055em;
     text-transform: uppercase;
   }
 
-  .footer-label {
-    margin: 0 0 22px;
-    color: var(--signal-light);
+  .footer-lead p {
+    margin: 0;
   }
 
-  .footer-index,
-  .footer-external {
+  .footer-lead h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-feature);
+    letter-spacing: -0.075em;
+    line-height: 0.82;
+  }
+
+  .footer-lead h2 span {
+    color: var(--ink-deep);
+  }
+
+  .footer-columns {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(30px, 7vw, 100px);
+    margin-left: max(0px, calc(25% + 20px));
+    padding-block: var(--space-lg);
+    border-top: 1px solid rgba(255, 255, 255, 0.58);
+  }
+
+  .footer-columns nav {
     display: grid;
     align-content: start;
-    gap: 5px;
   }
 
-  .footer-index > p,
-  .footer-external > p {
-    margin: 0 0 13px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid color-mix(in srgb, var(--paper-light) 26%, transparent);
-    color: var(--signal-light);
+  .footer-columns p {
+    margin: 0 0 var(--space-sm);
+    color: var(--ink-deep);
   }
 
-  .footer-index a,
-  .footer-external a {
-    display: flex;
+  .footer-columns a {
+    display: inline-flex;
     align-items: center;
-    min-height: 44px;
-    color: color-mix(in srgb, var(--paper-light) 78%, transparent);
-    font-size: 0.86rem;
-    font-weight: 750;
-    transition:
-      color 140ms ease,
-      transform 140ms ease;
+    width: fit-content;
+    min-height: 36px;
+    transition: color 140ms ease, transform 140ms ease;
   }
 
-  .footer-index a:hover,
-  .footer-index a:focus-visible,
-  .footer-external a:hover,
-  .footer-external a:focus-visible {
-    color: var(--paper-strong);
+  .footer-columns a:hover,
+  .footer-columns a:focus-visible {
+    color: var(--ink-deep);
     transform: translateX(3px);
   }
 
-  .footer-legal {
+  .footer-base {
     display: flex;
-    grid-column: 1 / -1;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 12px 24px;
-    margin-top: 16px;
+    gap: 12px 28px;
+    margin-top: var(--space-lg);
     padding-top: 22px;
-    border-top: 1px solid color-mix(in srgb, var(--paper-light) 26%, transparent);
-    color: color-mix(in srgb, var(--paper-light) 54%, transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.58);
   }
 
-  @media (max-width: 980px) {
-    .footer-inner {
-      grid-template-columns: 1.2fr repeat(2, 0.7fr);
+  .footer-base a:hover,
+  .footer-base a:focus-visible {
+    color: var(--ink-deep);
+  }
+
+  @media (max-width: 760px) {
+    .footer-lead {
+      grid-template-columns: 1fr;
     }
 
-    .footer-statement {
-      grid-column: 1 / -1;
-    }
-
-    .footer-index.organizations {
-      grid-column: span 1;
+    .footer-columns {
+      margin-left: 0;
     }
   }
 
-  @media (max-width: 680px) {
-    .footer-inner {
+  @media (max-width: 540px) {
+    .footer-columns {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 34px 20px;
     }
 
-    .footer-statement,
-    .footer-index.organizations,
-    .footer-legal {
+    .footer-columns nav:last-child {
       grid-column: 1 / -1;
     }
 
-    .footer-legal {
+    .footer-base {
       justify-content: flex-start;
     }
   }
