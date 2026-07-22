@@ -6,7 +6,6 @@ interface Props {
 }
 
 const { currentPath } = Astro.props;
-const isHome = currentPath === "/";
 const isProjects = currentPath.startsWith("/projects/");
 ---
 
@@ -27,7 +26,7 @@ const isProjects = currentPath.startsWith("/projects/");
       <a href="/#studio" data-nav-section="studio">People</a>
     </nav>
 
-    <a class="edition" href="/" aria-current={isHome ? "page" : undefined}>
+    <a class="edition" href="/projects/" aria-current={isProjects ? "page" : undefined}>
       <span>Projects</span>
       <strong>{projects.length}</strong>
     </a>
@@ -74,6 +73,14 @@ const isProjects = currentPath.startsWith("/projects/");
     font-size: 0.78rem;
     font-weight: 900;
     letter-spacing: -0.08em;
+    transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard), transform var(--motion-base) var(--ease-out);
+  }
+
+  .brand:hover .brand-monogram,
+  .brand:focus-visible .brand-monogram {
+    color: var(--ink-deep);
+    background: var(--accent);
+    transform: rotate(-2deg) scale(1.035);
   }
 
   .brand-copy {
@@ -114,7 +121,7 @@ const isProjects = currentPath.startsWith("/projects/");
     padding: 10px 13px;
     border-bottom: 4px solid transparent;
     color: var(--ink-soft);
-    transition: color 140ms ease, border-color 140ms ease, background 140ms ease;
+    transition: color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard);
   }
 
   nav a:hover,
@@ -138,7 +145,11 @@ const isProjects = currentPath.startsWith("/projects/");
     font-family: var(--font-display);
     font-size: 1.3rem;
     line-height: 1;
+    transition: transform var(--motion-fast) var(--ease-out);
   }
+
+  .edition:hover strong,
+  .edition:focus-visible strong { transform: translateY(-2px); }
 
   @media (max-width: 920px) {
     .header-inner {

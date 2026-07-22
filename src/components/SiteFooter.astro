@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="footer-inner">
+  <div class="footer-inner" data-reveal="footer" data-reveal-early>
     <div class="footer-lead">
       <p>Shwimp Studios · Independent software studio</p>
       <h2>Software projects.<br />Developer tools.<br /><span>Market systems.</span></h2>
@@ -113,7 +113,7 @@ const year = new Date().getFullYear();
     align-items: center;
     width: fit-content;
     min-height: 36px;
-    transition: color 140ms ease, transform 140ms ease;
+    transition: color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out);
   }
 
   .footer-columns a:hover,
@@ -136,6 +136,9 @@ const year = new Date().getFullYear();
   .footer-base a:focus-visible {
     color: var(--ink-deep);
   }
+
+  .footer-base a { transition: color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out); }
+  .footer-base a:hover, .footer-base a:focus-visible { transform: translateY(-2px); }
 
   @media (max-width: 760px) {
     .footer-lead {

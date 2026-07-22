@@ -21,10 +21,10 @@ const orgCards = ecosystem.map((org, index) => {
   <main id="main-content">
     <header class="directory-hero" aria-labelledby="directory-title">
       <div class="hero-inner">
-        <a class="back-link" href="/"><span aria-hidden="true">←</span> Shwimp Studios</a>
-        <p class="eyebrow">Studio structure · Parent and divisions</p>
-        <h1 id="directory-title">How the studio is organized.</h1>
-        <div class="hero-note">
+        <a class="back-link" href="/" data-reveal><span aria-hidden="true">←</span> Shwimp Studios</a>
+        <p class="eyebrow" data-reveal data-reveal-delay="1">Studio structure · Parent and divisions</p>
+        <h1 id="directory-title" data-reveal data-reveal-delay="2">How the studio is organized.</h1>
+        <div class="hero-note" data-reveal data-reveal-delay="3">
           <p>
             Lady International is the parent organization. Four divisions group the work across products,
             engineering, publishing, and markets.
@@ -35,7 +35,7 @@ const orgCards = ecosystem.map((org, index) => {
     </header>
 
     <section class="directory" aria-labelledby="family-title">
-      <div class="directory-heading">
+      <div class="directory-heading" data-reveal>
         <div>
           <p class="eyebrow">Studio directory</p>
           <h2 id="family-title">Browse by division.</h2>
@@ -43,7 +43,7 @@ const orgCards = ecosystem.map((org, index) => {
         <p>Counts reflect the projects currently listed in the public catalogue.</p>
       </div>
 
-      <div class="organization-list">
+      <div class="organization-list" data-reveal="scale">
         {
           orgCards.map((org, index) => (
             <a class={`organization org-${index}`} href={`/org/${org.slug}/`}>
@@ -86,8 +86,10 @@ const orgCards = ecosystem.map((org, index) => {
   .directory-hero { color: var(--paper-strong); background: var(--ink-deep); }
   .hero-inner, .directory-heading, .organization-list { width: min(100%, var(--max)); margin-inline: auto; }
   .hero-inner { padding: clamp(52px, 7vw, 92px) var(--gutter) clamp(58px, 7vw, 98px); }
-  .back-link { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; margin-bottom: clamp(34px, 5vw, 62px); color: var(--reef); }
+  .back-link { display: inline-flex; gap: 10px; align-items: center; min-height: 44px; margin-bottom: clamp(34px, 5vw, 62px); color: var(--reef); transition: color var(--motion-fast) var(--ease-standard); }
   .back-link:hover, .back-link:focus-visible { color: var(--accent); }
+  .back-link span { transition: transform var(--motion-fast) var(--ease-out); }
+  .back-link:hover span, .back-link:focus-visible span { transform: translateX(-4px); }
   .eyebrow { margin-bottom: var(--space-md); color: var(--accent); }
   h1 { max-width: 1120px; margin-bottom: clamp(36px, 5vw, 58px); font-family: var(--font-display); font-size: var(--text-page); letter-spacing: -0.08em; line-height: 0.86; }
   .hero-note { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: end; padding-top: var(--space-lg); border-top: 1px solid rgba(255,255,255,0.3); }
@@ -100,21 +102,23 @@ const orgCards = ecosystem.map((org, index) => {
   .directory-heading > p { margin: 0; color: var(--ink-soft); font-family: var(--font-editorial); font-size: 1.1rem; }
 
   .organization-list { border-top: 1px solid var(--line-strong); }
-  .organization { position: relative; display: grid; grid-template-columns: 100px minmax(230px, 0.8fr) minmax(280px, 1fr) 125px; gap: clamp(20px, 3vw, 48px); align-items: center; min-height: 210px; padding: clamp(24px, 3vw, 38px) 64px clamp(24px, 3vw, 38px) 16px; border-bottom: 1px solid var(--line-strong); transition: color 150ms ease, background 150ms ease; }
+  .organization { position: relative; display: grid; grid-template-columns: 100px minmax(230px, 0.8fr) minmax(280px, 1fr) 125px; gap: clamp(20px, 3vw, 48px); align-items: center; min-height: 210px; padding: clamp(24px, 3vw, 38px) 64px clamp(24px, 3vw, 38px) 16px; border-bottom: 1px solid var(--line-strong); transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard); }
   .org-number { display: grid; align-self: start; gap: 6px; color: var(--ink-soft); }
   .org-number span { color: var(--accent-dark); font-family: var(--font-display); font-size: 2rem; letter-spacing: -0.05em; }
   .org-name { position: relative; min-height: 120px; display: flex; align-items: center; }
-  .org-name > p { position: absolute; z-index: 0; margin: 0; color: var(--reef); font-family: var(--font-display); font-size: 8rem; line-height: 0.7; opacity: 0.55; }
+  .org-name > p { position: absolute; z-index: 0; margin: 0; color: var(--reef); font-family: var(--font-display); font-size: 8rem; line-height: 0.7; opacity: 0.55; transition: transform var(--motion-slow) var(--ease-out); }
   .org-name h3 { position: relative; z-index: 1; margin: 0; font-family: var(--font-display); font-size: var(--text-card); letter-spacing: -0.075em; line-height: 0.86; }
   .org-description { margin: 0; color: var(--ink-soft); }
   .organization dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 0; }
   .organization dl div { padding-left: 12px; border-left: 1px solid var(--line); }
   dt { color: var(--ink-soft); }
   dd { margin: 4px 0 0; font-family: var(--font-display); font-size: 2rem; line-height: 1; }
-  .org-arrow { position: absolute; right: 20px; top: 50%; font-size: 1.4rem; transform: translateY(-50%); }
+  .org-arrow { position: absolute; right: 20px; top: 50%; font-size: 1.4rem; transform: translateY(-50%); transition: transform var(--motion-fast) var(--ease-out); }
   .organization:hover, .organization:focus-visible { color: var(--paper-strong); background: var(--ink-deep); }
   .organization:hover .org-description, .organization:focus-visible .org-description, .organization:hover .org-number, .organization:focus-visible .org-number, .organization:hover dt, .organization:focus-visible dt { color: rgba(255,255,255,0.66); }
   .organization:hover .org-number span, .organization:focus-visible .org-number span { color: var(--accent); }
+  .organization:hover .org-name > p, .organization:focus-visible .org-name > p { transform: translateX(6px); }
+  .organization:hover .org-arrow, .organization:focus-visible .org-arrow { transform: translate(4px, calc(-50% - 4px)); }
   .org-1 .org-name > p { color: var(--trove); }
   .org-2 .org-name > p { color: var(--kyn); }
   .org-3 .org-name > p { color: var(--media); }

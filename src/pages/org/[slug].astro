@@ -21,13 +21,13 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
     <header class={`organization-hero ${orgTone}`} aria-labelledby="organization-title">
       <div class="hero-inner">
         <div class="hero-copy">
-          <a class="back-link" href="/org/"><span aria-hidden="true">←</span> All organizations</a>
-          <p class="eyebrow">{organizationCode} · {org.role}</p>
-          <h1 id="organization-title">{org.name}</h1>
-          <p class="lede">{org.overview}</p>
+          <a class="back-link" href="/org/" data-reveal><span aria-hidden="true">←</span> All organizations</a>
+          <p class="eyebrow" data-reveal data-reveal-delay="1">{organizationCode} · {org.role}</p>
+          <h1 id="organization-title" data-reveal data-reveal-delay="2">{org.name}</h1>
+          <p class="lede" data-reveal data-reveal-delay="3">{org.overview}</p>
         </div>
 
-        <aside class="identity" aria-label={`${org.name} summary`}>
+        <aside class="identity" aria-label={`${org.name} summary`} data-reveal="scale" data-reveal-delay="2">
           <span class="identity-number">{String(organizationNumber + 1).padStart(2, "0")}</span>
           <strong aria-hidden="true">{org.name.slice(0, 1)}</strong>
           <dl>
@@ -40,7 +40,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
     </header>
 
     <section class="work current-work" aria-labelledby="current-title">
-      <div class="section-heading">
+      <div class="section-heading" data-reveal>
         <div>
           <p class="eyebrow">Current work</p>
           <h2 id="current-title">Current projects</h2>
@@ -50,7 +50,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
 
       {
         currentProjects.length > 0 ? (
-          <div class="release-list">
+          <div class="release-list" data-reveal="scale">
             {currentProjects.map((project, index) => (
               <article class={`release ${project.tone}`}>
                 <div class="release-number">
@@ -75,13 +75,13 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
             ))}
           </div>
         ) : (
-          <p class="empty-state">No current public projects are listed for {org.name} yet.</p>
+          <p class="empty-state" data-reveal>No current public projects are listed for {org.name} yet.</p>
         )
       }
     </section>
 
     <section class="work archive" aria-labelledby="archive-title">
-      <div class="section-heading compact">
+      <div class="section-heading compact" data-reveal>
         <div>
           <p class="eyebrow">Archive</p>
           <h2 id="archive-title">Past projects</h2>
@@ -91,7 +91,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
 
       {
         pastProjects.length > 0 ? (
-          <div class="archive-list">
+          <div class="archive-list" data-reveal="scale">
             {pastProjects.map((project, index) => (
               <article class="archive-row">
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -106,7 +106,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
             ))}
           </div>
         ) : (
-          <p class="empty-state">No archived projects are listed for {org.name} yet.</p>
+          <p class="empty-state" data-reveal>No archived projects are listed for {org.name} yet.</p>
         )
       }
     </section>
@@ -141,8 +141,10 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
   .hero-inner, .section-heading, .release-list, .archive-list, .empty-state { width: min(100%, var(--max)); margin-inline: auto; }
   .hero-inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.6fr); gap: clamp(40px, 6vw, 88px); align-items: stretch; padding: clamp(52px, 7vw, 92px) var(--gutter); }
   .hero-copy { display: flex; flex-direction: column; justify-content: center; }
-  .back-link { display: inline-flex; gap: 10px; align-items: center; width: fit-content; min-height: 44px; margin-bottom: clamp(32px, 4vw, 54px); color: var(--org-color); }
+  .back-link { display: inline-flex; gap: 10px; align-items: center; width: fit-content; min-height: 44px; margin-bottom: clamp(32px, 4vw, 54px); color: var(--org-color); transition: color var(--motion-fast) var(--ease-standard); }
   .back-link:hover, .back-link:focus-visible { color: var(--accent); }
+  .back-link span { transition: transform var(--motion-fast) var(--ease-out); }
+  .back-link:hover span, .back-link:focus-visible span { transform: translateX(-4px); }
   .eyebrow { margin-bottom: var(--space-md); color: var(--accent-dark); }
   .organization-hero .eyebrow { color: var(--org-color); }
   h1 { max-width: 940px; margin: 0 0 var(--space-md); font-family: var(--font-display); font-size: var(--text-page); letter-spacing: -0.08em; line-height: 0.84; overflow-wrap: anywhere; }
@@ -150,7 +152,8 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
 
   .identity { position: relative; display: flex; flex-direction: column; min-height: 450px; padding: 22px; overflow: hidden; color: var(--ink-deep); background: var(--org-color); }
   .identity-number { align-self: flex-end; }
-  .identity > strong { display: grid; flex: 1; place-items: center; font-family: var(--font-display); font-size: clamp(9rem, 17vw, 15rem); letter-spacing: -0.12em; line-height: 0.7; }
+  .identity > strong { display: grid; flex: 1; place-items: center; font-family: var(--font-display); font-size: clamp(9rem, 17vw, 15rem); letter-spacing: -0.12em; line-height: 0.7; transition: transform var(--motion-slow) var(--ease-out); }
+  .identity:hover > strong { transform: scale(1.035) rotate(-2deg); }
   .identity dl { display: grid; grid-template-columns: 1.2fr repeat(2, 0.7fr); margin: 0; padding-top: 18px; border-top: 1px solid var(--ink-deep); }
   .identity dl div { padding-inline: 12px; border-left: 1px solid var(--ink-deep); }
   .identity dl div:first-child { padding-left: 0; border-left: 0; }
@@ -163,7 +166,8 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
   .section-heading > p { margin: 0; color: var(--ink-soft); font-family: var(--font-editorial); font-size: 1.1rem; }
 
   .release-list { border-top: 1px solid var(--line-strong); }
-  .release { display: grid; grid-template-columns: 84px minmax(250px, 0.8fr) minmax(300px, 1.2fr) 120px; gap: clamp(20px, 3vw, 46px); align-items: center; min-height: 220px; padding: clamp(26px, 3.5vw, 42px) 16px; border-bottom: 1px solid var(--line-strong); }
+  .release { display: grid; grid-template-columns: 84px minmax(250px, 0.8fr) minmax(300px, 1.2fr) 120px; gap: clamp(20px, 3vw, 46px); align-items: center; min-height: 220px; padding: clamp(26px, 3.5vw, 42px) 16px; border-bottom: 1px solid var(--line-strong); transition: background var(--motion-fast) var(--ease-standard); }
+  .release:hover { background: color-mix(in srgb, var(--paper-strong) 45%, transparent); }
   .release-number { display: grid; align-self: start; gap: 4px; color: var(--ink-soft); }
   .release-number span { color: var(--accent-dark); font-family: var(--font-display); font-size: 2rem; letter-spacing: -0.05em; }
   .release-identity > p { margin-bottom: 10px; color: var(--ink-soft); }
@@ -172,9 +176,13 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
   .release-detail > p { max-width: 660px; margin-bottom: var(--space-md); color: var(--ink-soft); }
   .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
   .project-links a { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 11px; border: 1px solid var(--line-strong); }
-  .project-links a { transition: color 140ms ease, background 140ms ease; }
+  .project-links a { transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out); }
   .project-links a:hover, .project-links a:focus-visible { color: var(--paper-strong); background: var(--ink-deep); }
-  .release-mark { display: grid; width: 100px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); font-family: var(--font-display); font-size: 3.4rem; background: var(--reef); }
+  .project-links a:hover, .project-links a:focus-visible { transform: translateY(var(--motion-lift)); }
+  .project-links a span { transition: transform var(--motion-fast) var(--ease-out); }
+  .project-links a:hover span, .project-links a:focus-visible span { transform: translate(2px, -2px); }
+  .release-mark { display: grid; width: 100px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); font-family: var(--font-display); font-size: 3.4rem; background: var(--reef); transition: transform var(--motion-base) var(--ease-out); }
+  .release:hover .release-mark { transform: rotate(-3deg) scale(1.025); }
   .release.trove .release-mark { background: var(--trove); }
   .release.kyn .release-mark { background: var(--kyn); }
   .release.waves .release-mark { background: var(--waves); }
@@ -183,7 +191,8 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
   .archive .eyebrow { color: var(--kyn); }
   .archive .section-heading > p { color: rgba(255,255,255,0.62); }
   .archive-list { border-top: 1px solid rgba(255,255,255,0.4); }
-  .archive-row { display: grid; grid-template-columns: 64px minmax(220px, 0.65fr) minmax(300px, 1fr) minmax(150px, 0.45fr); gap: clamp(18px, 3vw, 42px); align-items: center; min-height: 150px; padding: 22px 8px; border-bottom: 1px solid rgba(255,255,255,0.4); }
+  .archive-row { display: grid; grid-template-columns: 64px minmax(220px, 0.65fr) minmax(300px, 1fr) minmax(150px, 0.45fr); gap: clamp(18px, 3vw, 42px); align-items: center; min-height: 150px; padding: 22px 8px; border-bottom: 1px solid rgba(255,255,255,0.4); transition: background var(--motion-fast) var(--ease-standard); }
+  .archive-row:hover { background: rgba(255,255,255,0.035); }
   .archive-row > span, .archive-row > div > p { color: var(--kyn); }
   .archive-row > div > p { margin-bottom: 8px; }
   .archive-row h3 { margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 3.2vw, 3.2rem); letter-spacing: -0.07em; line-height: 0.88; }
