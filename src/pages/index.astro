@@ -19,9 +19,9 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   <main id="main-content">
     <section class="hero" id="index" aria-labelledby="hero-title">
       <div class="hero-inner">
-        <p class="hero-kicker">Independent software studio · Central PA / Internet</p>
-        <h1 id="hero-title">Useful software for curious people and <span>ideas worth testing.</span></h1>
-        <div class="hero-foot">
+        <p class="hero-kicker" data-reveal>Independent software studio · Central PA / Internet</p>
+        <h1 id="hero-title" data-reveal data-reveal-delay="1">Useful software for curious people and <span>ideas worth testing.</span></h1>
+        <div class="hero-foot" data-reveal data-reveal-delay="2">
           <div class="hero-intro">
             <p>
               We build and maintain software for developers, knowledge workers, people interested in markets, and
@@ -40,13 +40,13 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
           </div>
         </div>
       </div>
-      <div class="hero-ticker" aria-hidden="true">
+      <div class="hero-ticker" aria-hidden="true" data-reveal="slide" data-reveal-delay="3">
         <span>Software</span><b>◆</b><span>Tools</span><b>◆</b><span>Research</span><b>◆</b><span>Experiments</span>
       </div>
     </section>
 
     <section class="releases" id="projects" aria-labelledby="projects-title">
-      <div class="section-heading">
+      <div class="section-heading" data-reveal>
         <div>
           <p class="eyebrow">Selected work</p>
           <h2 id="projects-title">The projects are the point.</h2>
@@ -57,7 +57,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </p>
       </div>
 
-      <article id={toProjectId(spotlight.name)} class={`spotlight ${spotlight.tone}`}>
+      <article id={toProjectId(spotlight.name)} class={`spotlight ${spotlight.tone}`} data-reveal="scale">
         <div class="spotlight-art" aria-hidden="true">
           <span class="art-orbit one"></span>
           <span class="art-orbit two"></span>
@@ -82,7 +82,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
       </article>
 
-      <div class="release-list">
+      <div class="release-list" data-reveal="scale">
         {
           supportingReleases.map((project, index) => (
             <article id={toProjectId(project.name)} class={`release ${project.tone}`}>
@@ -113,14 +113,14 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         }
       </div>
 
-      <div class="catalog-link">
+      <div class="catalog-link" data-reveal>
         <p><span>{projects.length}</span> projects in the public catalogue.</p>
         <a href="/projects/">Browse every project <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <section class="studio-family" id="ecosystem" aria-labelledby="ecosystem-title">
-      <div class="family-intro">
+      <div class="family-intro" data-reveal>
         <p class="eyebrow">Inside the studio</p>
         <h2 id="ecosystem-title">One parent.<br />Four divisions.<br /><span>A place for each kind of work.</span></h2>
         <div class="family-note">
@@ -132,7 +132,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
       </div>
 
-      <div class="divisions">
+      <div class="divisions" data-reveal="scale">
         {
           operatingOrganizations.map((item, index) => (
             <a class={`division-card division-card-${index + 1}`} href={`/org/${item.slug}/`}>
@@ -148,17 +148,17 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     </section>
 
     <section class="research-note" aria-labelledby="note-title">
-      <div class="note-label">
+      <div class="note-label" data-reveal>
         <p>Studio note · 01</p>
         <span>On finishing projects</span>
       </div>
-      <blockquote id="note-title">
+      <blockquote id="note-title" data-reveal data-reveal-delay="1">
         “The second session makes it a project.”
       </blockquote>
     </section>
 
     <section class="people" id="studio" aria-labelledby="studio-title">
-      <div class="section-heading light">
+      <div class="section-heading light" data-reveal>
         <div>
           <p class="eyebrow">People and namesakes</p>
           <h2 id="studio-title">Who is behind the studio.</h2>
@@ -172,7 +172,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
       <div class="people-list">
         {
           leaders.map((leader, index) => (
-            <article class="person">
+            <article class="person" data-reveal="slide" data-reveal-delay={String(Math.min(index, 3))}>
               <div class="portrait">
                 <span aria-hidden="true">0{index + 1}</span>
                 <picture>
@@ -278,7 +278,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     gap: 3px;
     margin-top: 19px;
     color: rgba(255, 253, 247, 0.55);
-    transition: color 140ms ease;
+    transition: color var(--motion-fast) var(--ease-standard);
   }
 
   .founder-note strong { color: var(--reef); }
@@ -299,11 +299,14 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     font-weight: 800;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+    transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out);
   }
 
   .action.primary { color: var(--ink-deep); background: var(--paper-strong); }
   .action:hover, .action:focus-visible { color: var(--paper-strong); border-color: var(--accent); background: var(--accent); }
+  .action:hover, .action:focus-visible { transform: translateY(var(--motion-lift)); }
+  .action span { transition: transform var(--motion-fast) var(--ease-out); }
+  .action:hover span, .action:focus-visible span { transform: translateY(3px); }
 
   .hero-ticker {
     display: flex;
@@ -400,11 +403,15 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     aspect-ratio: 1;
     border: 2px solid var(--ink-deep);
     border-radius: 50%;
+    transition: transform var(--motion-slow) var(--ease-out);
   }
 
   .art-orbit.one { transform: translate(-25%, -18%); }
   .art-orbit.two { transform: translate(30%, 24%) scale(0.7); }
-  .art-axis { position: absolute; width: 130%; height: 2px; background: var(--ink-deep); transform: rotate(-23deg); }
+  .art-axis { position: absolute; width: 130%; height: 2px; background: var(--ink-deep); transform: rotate(-23deg); transition: transform var(--motion-slow) var(--ease-out); }
+  .spotlight:hover .art-orbit.one { transform: translate(-22%, -15%) rotate(7deg); }
+  .spotlight:hover .art-orbit.two { transform: translate(27%, 20%) scale(0.74); }
+  .spotlight:hover .art-axis { transform: rotate(-20deg); }
 
   .spotlight-copy,
   .release-copy {
@@ -454,8 +461,11 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     border: 1px solid var(--line-strong);
   }
 
-  .release-actions a { transition: color 140ms ease, background 140ms ease; }
+  .release-actions a { transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard), transform var(--motion-fast) var(--ease-out); }
   .release-actions a:hover, .release-actions a:focus-visible { color: var(--paper-strong); background: var(--ink-deep); }
+  .release-actions a:hover, .release-actions a:focus-visible { transform: translateY(var(--motion-lift)); }
+  .release-actions a span { transition: transform var(--motion-fast) var(--ease-out); }
+  .release-actions a:hover span, .release-actions a:focus-visible span { transform: translate(2px, -2px); }
 
   .release-list { border-inline: 1px solid var(--line-strong); }
 
@@ -475,7 +485,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .release.waves .release-art { background: var(--waves); }
   .release-art strong { font-size: clamp(9rem, 20vw, 18rem); }
 
-  .art-shape { position: absolute; border: 2px solid var(--ink-deep); }
+  .art-shape { position: absolute; border: 2px solid var(--ink-deep); transition: transform var(--motion-slow) var(--ease-out); }
   .trove .art-shape.a { width: 62%; height: 38%; transform: rotate(8deg); }
   .trove .art-shape.b { width: 48%; height: 58%; transform: rotate(-13deg); }
   .trove .art-shape.c { width: 28%; height: 75%; transform: rotate(20deg); }
@@ -487,6 +497,15 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .waves .art-shape.a { transform: translateX(-40%); }
   .waves .art-shape.b { transform: scale(0.68); }
   .waves .art-shape.c { transform: translateX(40%) scale(0.45); }
+  .release.trove:hover .art-shape.a { transform: rotate(12deg) translateY(-3px); }
+  .release.trove:hover .art-shape.b { transform: rotate(-17deg) translateX(-3px); }
+  .release.trove:hover .art-shape.c { transform: rotate(24deg) translateX(3px); }
+  .release.kyn:hover .art-shape.a { transform: rotate(5deg); }
+  .release.kyn:hover .art-shape.b { transform: rotate(65deg); }
+  .release.kyn:hover .art-shape.c { transform: rotate(125deg); }
+  .release.waves:hover .art-shape.a { transform: translateX(-36%); }
+  .release.waves:hover .art-shape.b { transform: scale(0.73); }
+  .release.waves:hover .art-shape.c { transform: translateX(36%) scale(0.49); }
 
   .release-copy h3 { font-size: var(--text-feature); }
   .release-copy .division { margin-top: clamp(24px, 3vw, 34px); }
@@ -501,8 +520,10 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
   .catalog-link p { margin: 0; color: var(--ink-soft); }
   .catalog-link p span { margin-right: 7px; color: var(--accent); font-family: var(--font-display); font-size: 1.9rem; }
-  .catalog-link a { display: inline-flex; gap: 30px; align-items: center; min-height: 48px; border-bottom: 2px solid var(--ink-deep); }
+  .catalog-link a { display: inline-flex; gap: 30px; align-items: center; min-height: 48px; border-bottom: 2px solid var(--ink-deep); transition: color var(--motion-fast) var(--ease-standard), border-color var(--motion-fast) var(--ease-standard); }
   .catalog-link a:hover, .catalog-link a:focus-visible { color: var(--accent-dark); border-color: var(--accent); }
+  .catalog-link a span, .family-note a span { transition: transform var(--motion-fast) var(--ease-out); }
+  .catalog-link a:hover span, .catalog-link a:focus-visible span, .family-note a:hover span, .family-note a:focus-visible span { transform: translateX(4px); }
 
   .studio-family { padding: var(--section-space) var(--gutter); color: var(--paper-strong); background: var(--ink-deep); }
   .family-intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.55fr); gap: clamp(40px, 7vw, 100px); align-items: end; }
@@ -522,7 +543,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     min-height: 138px;
     padding: 20px 22px;
     border-bottom: 1px solid rgba(255,255,255,0.45);
-    transition: color 160ms ease, background 160ms ease;
+    transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard);
   }
   .division-card > span, .division-card > p, .division-card > strong { font-family: var(--font-label); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
   .division-card > span { color: var(--paper-strong); }
@@ -530,6 +551,8 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .division-card h3 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 2.8vw, 3.25rem); letter-spacing: -0.07em; line-height: 0.88; overflow-wrap: anywhere; }
   .division-card small { color: rgba(255,255,255,0.65); font-size: 0.86rem; }
   .division-card > strong { display: flex; justify-content: space-between; gap: 18px; margin: 0; padding-bottom: 7px; border-bottom: 1px solid currentColor; }
+  .division-card > strong b { transition: transform var(--motion-fast) var(--ease-out); }
+  .division-card:hover > strong b, .division-card:focus-visible > strong b { transform: translate(3px, -3px); }
   .division-card-1:hover, .division-card-1:focus-visible { color: var(--ink-deep); background: var(--reef); }
   .division-card-2:hover, .division-card-2:focus-visible { color: var(--ink-deep); background: var(--kyn); }
   .division-card-3:hover, .division-card-3:focus-visible { color: var(--ink-deep); background: var(--media); }
@@ -546,9 +569,10 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .section-heading.light > p { color: rgba(255,255,255,0.62); }
   .people-list { display: grid; gap: 1px; background: rgba(255,255,255,0.28); border: 1px solid rgba(255,255,255,0.28); }
   .person { display: grid; grid-template-columns: minmax(190px, 260px) minmax(0, 1fr); background: #142430; }
-  .portrait { position: relative; padding: clamp(20px, 3vw, 36px); border-right: 1px solid rgba(255,255,255,0.28); }
+  .portrait { position: relative; padding: clamp(20px, 3vw, 36px); border-right: 1px solid rgba(255,255,255,0.28); overflow: hidden; }
   .portrait > span { position: absolute; z-index: 2; top: 14px; left: 14px; padding: 7px 9px; color: var(--ink-deep); background: var(--kyn); font-family: var(--font-label); font-size: 0.7rem; font-weight: 900; }
-  .portrait img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--paper); }
+  .portrait img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--paper); transition: transform var(--motion-slow) var(--ease-out); }
+  .person:hover .portrait img { transform: scale(1.025); }
   .person-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(26px, 3vw, 46px); }
   .person-copy > p { margin-bottom: 12px; color: var(--kyn); }
   .person-copy h3 { margin: 0 0 16px; font-family: var(--font-display); font-size: var(--text-card); letter-spacing: -0.075em; line-height: 0.86; }

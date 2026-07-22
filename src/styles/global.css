@@ -36,6 +36,14 @@
   --space-md: 24px;
   --space-lg: 40px;
   --space-xl: 56px;
+  --motion-fast: 160ms;
+  --motion-base: 420ms;
+  --motion-slow: 720ms;
+  --motion-stagger: 70ms;
+  --motion-distance: 18px;
+  --motion-lift: -3px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   color: var(--ink);
   background: var(--canvas);
   font-family: var(--font-body);
@@ -49,6 +57,7 @@
 html {
   min-width: 320px;
   background: var(--ink-deep);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -81,6 +90,14 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+:where(a, button) {
+  touch-action: manipulation;
+}
+
+:where(a, button):active {
+  translate: 0 1px;
+}
+
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 4px;
@@ -100,12 +117,46 @@ a {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   transform: translateY(calc(-100% - 24px));
-  transition: transform 140ms ease;
+  transition: transform var(--motion-fast) var(--ease-out);
 }
 
 .skip-link:focus-visible {
   transform: translateY(0);
 }
+
+html[data-motion="ready"] [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--motion-distance));
+  transition:
+    opacity var(--motion-base) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+html[data-motion="ready"] [data-reveal="slide"] {
+  transform: translateX(calc(var(--motion-distance) * -1));
+}
+
+html[data-motion="ready"] [data-reveal="scale"] {
+  transform: scale(0.975);
+}
+
+html[data-motion="ready"] [data-reveal="footer"] {
+  transform: translateY(calc(var(--motion-distance) * 0.65));
+}
+
+html[data-motion="ready"] [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+[data-reveal-delay="1"] { --reveal-delay: var(--motion-stagger); }
+[data-reveal-delay="2"] { --reveal-delay: calc(var(--motion-stagger) * 2); }
+[data-reveal-delay="3"] { --reveal-delay: calc(var(--motion-stagger) * 3); }
+[data-reveal-delay="4"] { --reveal-delay: calc(var(--motion-stagger) * 4); }
+[data-reveal-delay="5"] { --reveal-delay: calc(var(--motion-stagger) * 5); }
 
 @media (max-width: 720px) {
   :root {
@@ -121,6 +172,11 @@ a {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
