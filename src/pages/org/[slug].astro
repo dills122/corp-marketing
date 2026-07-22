@@ -3,10 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { ecosystem, projects } from "../../data/site";
 
 export function getStaticPaths() {
-  return ecosystem.map((org, index) => ({
-    params: { slug: org.slug },
-    props: { org, organizationNumber: index },
-  }));
+  return ecosystem.map((org, index) => ({ params: { slug: org.slug }, props: { org, organizationNumber: index } }));
 }
 
 const { org, organizationNumber } = Astro.props;
@@ -15,79 +12,65 @@ const currentProjects = orgProjects.filter((project) => project.phase !== "past"
 const pastProjects = orgProjects.filter((project) => project.phase === "past");
 const pageDescription = `${org.name}: ${org.description}`;
 const organizationCode = `ORG–${String(organizationNumber).padStart(2, "0")}`;
+const orgTones = ["parent", "products", "engineering", "media", "venture"];
+const orgTone = orgTones[organizationNumber] ?? "parent";
 ---
 
 <BaseLayout title={`${org.name} | Shwimp Studios`} description={pageDescription} canonicalPath={`/org/${org.slug}/`}>
   <main id="main-content">
-    <header class="organization-cover" aria-labelledby="organization-title">
-      <div class="cover-inner">
-        <div class="cover-copy">
-          <a class="back-link" href="/org/"><span aria-hidden="true">←</span> Organization register</a>
-          <p class="eyebrow">{organizationCode} / {org.role}</p>
+    <header class={`organization-hero ${orgTone}`} aria-labelledby="organization-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <a class="back-link" href="/org/"><span aria-hidden="true">←</span> All organizations</a>
+          <p class="eyebrow">{organizationCode} · {org.role}</p>
           <h1 id="organization-title">{org.name}</h1>
           <p class="lede">{org.overview}</p>
         </div>
 
-        <aside class="organization-file" aria-label={`${org.name} registry summary`}>
-          <p>Public organization file</p>
-          <div class="organization-initial" aria-hidden="true">{org.name.slice(0, 1)}</div>
+        <aside class="identity" aria-label={`${org.name} summary`}>
+          <span class="identity-number">{String(organizationNumber + 1).padStart(2, "0")}</span>
+          <strong aria-hidden="true">{org.name.slice(0, 1)}</strong>
           <dl>
-            <div>
-              <dt>File</dt>
-              <dd>{organizationCode}</dd>
-            </div>
-            <div>
-              <dt>Mandate</dt>
-              <dd>{org.role}</dd>
-            </div>
-            <div>
-              <dt>Current records</dt>
-              <dd>{currentProjects.length}</dd>
-            </div>
-            <div>
-              <dt>Archived records</dt>
-              <dd>{pastProjects.length}</dd>
-            </div>
+            <div><dt>Focus</dt><dd>{org.role}</dd></div>
+            <div><dt>Current</dt><dd>{currentProjects.length}</dd></div>
+            <div><dt>Archive</dt><dd>{pastProjects.length}</dd></div>
           </dl>
-          <span>Division record verified for public release.</span>
         </aside>
       </div>
     </header>
 
-    <section class="work-register current-work" aria-labelledby="current-title">
-      <div class="section-intro">
+    <section class="work current-work" aria-labelledby="current-title">
+      <div class="section-heading">
         <div>
-          <p class="eyebrow">Current work / active register</p>
-          <h2 id="current-title">Active projects</h2>
+          <p class="eyebrow">Current work</p>
+          <h2 id="current-title">Current projects</h2>
         </div>
-        <p>Public and in-progress work currently associated with {org.name}. Some projects remain private while they take shape.</p>
+        <p>Public and in-progress projects grouped under {org.name}.</p>
       </div>
 
       {
         currentProjects.length > 0 ? (
-          <div class="project-ledger">
+          <div class="release-list">
             {currentProjects.map((project, index) => (
-              <article class="project-record">
-                <div class="record-code">
-                  <strong>{organizationCode}.{String(index + 1).padStart(2, "0")}</strong>
-                  <span>{project.status}</span>
+              <article class={`release ${project.tone}`}>
+                <div class="release-number">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <small>{project.status}</small>
                 </div>
-                <div class="record-title">
+                <div class="release-identity">
                   <p>{project.division}</p>
                   <h3>{project.name}</h3>
                   <strong>{project.kicker}</strong>
                 </div>
-                <div class="record-detail">
+                <div class="release-detail">
                   <p>{project.summary}</p>
                   <div class="project-links" aria-label={`${project.name} links`}>
                     {project.links?.map((link) => (
-                      <a href={link.href} target="_blank" rel="noopener noreferrer">
-                        {link.label} <span aria-hidden="true">↗</span>
-                      </a>
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span></a>
                     ))}
-                    {project.availability && <span class="unavailable">{project.availability}</span>}
                   </div>
                 </div>
+                <div class="release-mark" aria-hidden="true">{project.name.slice(0, 1)}</div>
               </article>
             ))}
           </div>
@@ -97,34 +80,26 @@ const organizationCode = `ORG–${String(organizationNumber).padStart(2, "0")}`;
       }
     </section>
 
-    <section class="work-register archive" aria-labelledby="archive-title">
-      <div class="section-intro">
+    <section class="work archive" aria-labelledby="archive-title">
+      <div class="section-heading compact">
         <div>
-          <p class="eyebrow">Historical register / closed files</p>
+          <p class="eyebrow">Archive</p>
           <h2 id="archive-title">Past projects</h2>
         </div>
-        <p>Older releases, retired experiments, and archived work retained as part of the studio record.</p>
+        <p>Retired experiments and older work kept for reference.</p>
       </div>
 
       {
         pastProjects.length > 0 ? (
-          <div class="archive-ledger">
+          <div class="archive-list">
             {pastProjects.map((project, index) => (
-              <article class="archive-record">
-                <div class="archive-code">
-                  <span>{organizationCode}.A{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{project.status}</strong>
-                </div>
-                <div>
-                  <h3>{project.name}</h3>
-                  <p>{project.kicker}</p>
-                </div>
+              <article class="archive-row">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div><p>{project.status}</p><h3>{project.name}</h3></div>
                 <p>{project.summary}</p>
                 <div class="project-links compact" aria-label={`${project.name} archive links`}>
                   {project.links?.map((link) => (
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
-                      {link.label} <span aria-hidden="true">↗</span>
-                    </a>
+                    <a href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span></a>
                   ))}
                 </div>
               </article>
@@ -139,407 +114,107 @@ const organizationCode = `ORG–${String(organizationNumber).padStart(2, "0")}`;
 </BaseLayout>
 
 <style>
-  h1,
-  h2,
-  h3,
-  p {
-    margin-top: 0;
-  }
-
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display);
-    letter-spacing: -0.045em;
-    text-wrap: balance;
-  }
+  h1, h2, h3, p { margin-top: 0; }
+  h1, h2, h3 { text-wrap: balance; }
 
   .eyebrow,
   .back-link,
-  .organization-file > p,
-  .organization-file dt,
-  .record-code,
-  .record-title > p,
-  .archive-code {
+  .identity-number,
+  dt,
+  .release-number,
+  .release-identity > p,
+  .project-links,
+  .archive-row > span,
+  .archive-row > div > p {
     font-family: var(--font-label);
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .organization-cover {
-    border-bottom: 1px solid var(--line-strong);
-    background: var(--paper-light);
-  }
-
-  .cover-inner,
-  .section-intro,
-  .project-ledger,
-  .archive-ledger,
-  .empty-state {
-    width: min(100%, var(--max));
-    margin-inline: auto;
-  }
-
-  .cover-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.55fr);
-    gap: clamp(50px, 9vw, 124px);
-    align-items: center;
-    padding: clamp(54px, 7vw, 96px) var(--gutter);
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    gap: var(--space-xs);
-    margin-bottom: clamp(34px, 5vw, 58px);
-    color: var(--ink-soft);
-    font-size: var(--text-label);
-    transition:
-      color 140ms ease,
-      transform 140ms ease;
-  }
-
-  .back-link:hover,
-  .back-link:focus-visible {
-    color: var(--signal);
-    transform: translateX(-3px);
-  }
-
-  .eyebrow {
-    margin-bottom: var(--space-md);
-    color: var(--signal);
-    font-size: 0.78rem;
-  }
-
-  h1 {
-    margin-bottom: var(--space-md);
-    font-size: clamp(3.8rem, 8vw, 8rem);
-    font-weight: 700;
-    line-height: 0.86;
-  }
-
-  .lede {
-    max-width: 800px;
-    margin: 0;
-    color: var(--ink-soft);
-    font-size: clamp(1.06rem, 2vw, 1.32rem);
-  }
-
-  .organization-file {
-    border: 1px solid var(--line-strong);
-    background: var(--folder-blue);
-    transform: rotate(1deg);
-  }
-
-  .organization-file > p {
-    margin: 0;
-    padding: var(--space-sm);
-    border-bottom: var(--rule);
-    font-size: var(--text-label-small);
-  }
-
-  .organization-initial {
-    display: grid;
-    min-height: 210px;
-    place-items: center;
-    border-bottom: var(--rule);
-    font-family: var(--font-display);
-    font-size: clamp(7rem, 12vw, 10rem);
-    font-weight: 700;
-    line-height: 0.8;
-  }
-
-  .organization-file dl {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin: 0;
-  }
-
-  .organization-file dl div {
-    display: grid;
-    align-content: start;
-    min-height: 92px;
-    padding: var(--space-sm);
-    border-right: var(--rule);
-    border-bottom: var(--rule);
-  }
-
-  .organization-file dt {
-    color: color-mix(in srgb, var(--ink-deep) 65%, transparent);
-    font-size: var(--text-label-small);
-  }
-
-  .organization-file dd {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1.1;
-  }
-
-  .organization-file > span {
-    display: block;
-    padding: var(--space-sm);
-    color: color-mix(in srgb, var(--ink-deep) 72%, transparent);
-    font-size: 0.85rem;
-  }
-
-  .work-register {
-    padding: var(--section-space) var(--gutter);
-  }
-
-  .section-intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
-    gap: clamp(34px, 7vw, 96px);
-    align-items: end;
-    margin-bottom: var(--space-xl);
-  }
-
-  .section-intro h2 {
-    margin: 0;
-    font-size: clamp(2.9rem, 5.5vw, 5.7rem);
-    font-weight: 700;
-    line-height: 0.91;
-  }
-
-  .section-intro > p {
-    margin: 0;
-    color: var(--ink-soft);
-  }
-
-  .project-ledger {
-    border-top: 2px solid var(--ink-deep);
-  }
-
-  .project-record {
-    display: grid;
-    grid-template-columns: minmax(100px, 0.35fr) minmax(260px, 0.9fr) minmax(300px, 1.25fr);
-    gap: clamp(24px, 5vw, 70px);
-    min-height: 220px;
-    align-items: center;
-    padding: clamp(30px, 5vw, 58px) var(--space-md);
-    border-bottom: 1px solid var(--line-strong);
-    transition: background 140ms ease;
-  }
-
-  .project-record:hover {
-    background: color-mix(in srgb, var(--folder-blue) 14%, var(--paper));
-  }
-
-  .record-code {
-    display: grid;
-    gap: 4px;
-    align-self: start;
-    color: var(--ink-soft);
-    font-size: var(--text-label-small);
-  }
-
-  .record-code strong,
-  .record-title > p {
-    color: var(--signal);
-  }
-
-  .record-title > p {
-    margin-bottom: var(--space-sm);
-    font-size: var(--text-label-small);
-    font-weight: 900;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .record-title h3 {
-    margin-bottom: 4px;
-    font-size: clamp(2.65rem, 4.4vw, 4.5rem);
-    line-height: 0.9;
-  }
-
-  .record-title > strong {
-    font-size: 0.92rem;
-  }
-
-  .record-detail > p {
-    margin-bottom: var(--space-md);
-    color: var(--ink-soft);
-  }
-
-  .project-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-  }
-
-  .project-links a,
-  .project-links .unavailable {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding: 7px 11px;
-    border: var(--rule);
-    background: var(--paper-light);
-    font-family: var(--font-label);
-    font-size: var(--text-label-small);
-    font-weight: 900;
+    font-size: 0.7rem;
+    font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .project-links a {
-    transition:
-      color 140ms ease,
-      background 140ms ease;
-  }
+  .organization-hero { --org-color: var(--reef); color: var(--paper-strong); background: var(--ink-deep); }
+  .organization-hero.products { --org-color: var(--trove); }
+  .organization-hero.engineering { --org-color: var(--kyn); }
+  .organization-hero.media { --org-color: var(--media); }
+  .organization-hero.venture { --org-color: var(--venture); }
+  .hero-inner, .section-heading, .release-list, .archive-list, .empty-state { width: min(100%, var(--max)); margin-inline: auto; }
+  .hero-inner { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.6fr); gap: clamp(40px, 6vw, 88px); align-items: stretch; padding: clamp(52px, 7vw, 92px) var(--gutter); }
+  .hero-copy { display: flex; flex-direction: column; justify-content: center; }
+  .back-link { display: inline-flex; gap: 10px; align-items: center; width: fit-content; min-height: 44px; margin-bottom: clamp(32px, 4vw, 54px); color: var(--org-color); }
+  .back-link:hover, .back-link:focus-visible { color: var(--accent); }
+  .eyebrow { margin-bottom: var(--space-md); color: var(--accent-dark); }
+  .organization-hero .eyebrow { color: var(--org-color); }
+  h1 { max-width: 940px; margin: 0 0 var(--space-md); font-family: var(--font-display); font-size: var(--text-page); letter-spacing: -0.08em; line-height: 0.84; overflow-wrap: anywhere; }
+  .lede { max-width: 790px; margin: 0; color: rgba(255,255,255,0.68); font-family: var(--font-editorial); font-size: clamp(1.12rem, 2vw, 1.5rem); }
 
-  .project-links a:hover,
-  .project-links a:focus-visible {
-    color: var(--paper-strong);
-    background: var(--ink-deep);
-  }
+  .identity { position: relative; display: flex; flex-direction: column; min-height: 450px; padding: 22px; overflow: hidden; color: var(--ink-deep); background: var(--org-color); }
+  .identity-number { align-self: flex-end; }
+  .identity > strong { display: grid; flex: 1; place-items: center; font-family: var(--font-display); font-size: clamp(9rem, 17vw, 15rem); letter-spacing: -0.12em; line-height: 0.7; }
+  .identity dl { display: grid; grid-template-columns: 1.2fr repeat(2, 0.7fr); margin: 0; padding-top: 18px; border-top: 1px solid var(--ink-deep); }
+  .identity dl div { padding-inline: 12px; border-left: 1px solid var(--ink-deep); }
+  .identity dl div:first-child { padding-left: 0; border-left: 0; }
+  dt { opacity: 0.66; }
+  dd { margin: 3px 0 0; font-family: var(--font-display); font-size: 1.35rem; letter-spacing: -0.04em; line-height: 1; overflow-wrap: anywhere; }
 
-  .project-links .unavailable {
-    color: var(--ink-soft);
-    background: transparent;
-  }
+  .work { padding: var(--section-space) var(--gutter); }
+  .section-heading { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.55fr); gap: clamp(40px, 8vw, 118px); align-items: end; margin-bottom: var(--space-xl); }
+  .section-heading h2 { margin: 0; font-family: var(--font-display); font-size: var(--text-section); letter-spacing: -0.07em; line-height: 0.88; }
+  .section-heading > p { margin: 0; color: var(--ink-soft); font-family: var(--font-editorial); font-size: 1.1rem; }
 
-  .archive {
-    border-top: 1px solid var(--line-strong);
-    background: var(--paper-light);
-  }
+  .release-list { border-top: 1px solid var(--line-strong); }
+  .release { display: grid; grid-template-columns: 84px minmax(250px, 0.8fr) minmax(300px, 1.2fr) 120px; gap: clamp(20px, 3vw, 46px); align-items: center; min-height: 220px; padding: clamp(26px, 3.5vw, 42px) 16px; border-bottom: 1px solid var(--line-strong); }
+  .release-number { display: grid; align-self: start; gap: 4px; color: var(--ink-soft); }
+  .release-number span { color: var(--accent-dark); font-family: var(--font-display); font-size: 2rem; letter-spacing: -0.05em; }
+  .release-identity > p { margin-bottom: 10px; color: var(--ink-soft); }
+  .release-identity h3 { margin: 0 0 12px; font-family: var(--font-display); font-size: var(--text-card); letter-spacing: -0.075em; line-height: 0.86; }
+  .release-identity > strong { display: block; font-family: var(--font-editorial); font-size: 1.12rem; line-height: 1.25; }
+  .release-detail > p { max-width: 660px; margin-bottom: var(--space-md); color: var(--ink-soft); }
+  .project-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .project-links a { display: inline-flex; align-items: center; min-height: 42px; padding: 8px 11px; border: 1px solid var(--line-strong); }
+  .project-links a { transition: color 140ms ease, background 140ms ease; }
+  .project-links a:hover, .project-links a:focus-visible { color: var(--paper-strong); background: var(--ink-deep); }
+  .release-mark { display: grid; width: 100px; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); font-family: var(--font-display); font-size: 3.4rem; background: var(--reef); }
+  .release.trove .release-mark { background: var(--trove); }
+  .release.kyn .release-mark { background: var(--kyn); }
+  .release.waves .release-mark { background: var(--waves); }
 
-  .archive-ledger {
-    border-top: 2px solid var(--ink-deep);
-  }
-
-  .archive-record {
-    display: grid;
-    grid-template-columns: minmax(100px, 0.35fr) minmax(220px, 0.75fr) minmax(280px, 1.25fr) minmax(180px, 0.65fr);
-    gap: clamp(20px, 4vw, 54px);
-    align-items: start;
-    padding: var(--space-lg) var(--space-md);
-    border-bottom: 1px solid var(--line-strong);
-  }
-
-  .archive-code {
-    display: grid;
-    gap: 4px;
-    color: var(--ink-soft);
-    font-size: var(--text-label-small);
-  }
-
-  .archive-code strong {
-    color: var(--stamp);
-  }
-
-  .archive-record h3 {
-    margin-bottom: 2px;
-    font-size: clamp(1.8rem, 3vw, 3rem);
-    line-height: 0.95;
-  }
-
-  .archive-record p {
-    margin-bottom: 0;
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-  }
-
-  .project-links.compact a {
-    min-height: 44px;
-  }
-
-  .empty-state {
-    padding: var(--space-lg) 0;
-    border-top: 2px solid var(--ink-deep);
-    border-bottom: 1px solid var(--line-strong);
-    color: var(--ink-soft);
-  }
+  .archive { color: var(--paper-strong); background: #142430; }
+  .archive .eyebrow { color: var(--kyn); }
+  .archive .section-heading > p { color: rgba(255,255,255,0.62); }
+  .archive-list { border-top: 1px solid rgba(255,255,255,0.4); }
+  .archive-row { display: grid; grid-template-columns: 64px minmax(220px, 0.65fr) minmax(300px, 1fr) minmax(150px, 0.45fr); gap: clamp(18px, 3vw, 42px); align-items: center; min-height: 150px; padding: 22px 8px; border-bottom: 1px solid rgba(255,255,255,0.4); }
+  .archive-row > span, .archive-row > div > p { color: var(--kyn); }
+  .archive-row > div > p { margin-bottom: 8px; }
+  .archive-row h3 { margin: 0; font-family: var(--font-display); font-size: clamp(1.8rem, 3.2vw, 3.2rem); letter-spacing: -0.07em; line-height: 0.88; }
+  .archive-row > p { margin: 0; color: rgba(255,255,255,0.62); }
+  .archive .project-links a { border-color: rgba(255,255,255,0.5); }
+  .archive .project-links a:hover, .archive .project-links a:focus-visible { color: var(--ink-deep); background: var(--kyn); }
+  .empty-state { padding: var(--space-lg); border: 1px solid var(--line-strong); font-family: var(--font-editorial); font-size: 1.2rem; }
+  .archive .empty-state { border-color: rgba(255,255,255,0.4); }
 
   @media (max-width: 980px) {
-    .cover-inner {
-      grid-template-columns: minmax(0, 1fr) minmax(270px, 0.5fr);
-      gap: var(--space-lg);
-    }
-
-    .project-record {
-      grid-template-columns: minmax(90px, 0.3fr) minmax(240px, 0.8fr) minmax(280px, 1fr);
-    }
-
-    .archive-record {
-      grid-template-columns: minmax(100px, 0.35fr) minmax(220px, 0.75fr) minmax(280px, 1fr);
-    }
-
-    .archive-record .project-links {
-      grid-column: 2 / -1;
-    }
+    .release { grid-template-columns: 80px minmax(220px, 0.8fr) minmax(280px, 1.2fr); }
+    .release-mark { display: none; }
+    .archive-row { grid-template-columns: 60px minmax(200px, 0.65fr) minmax(280px, 1fr); }
+    .archive-row .project-links { grid-column: 2 / -1; }
   }
 
-  @media (max-width: 800px) {
-    .cover-inner,
-    .section-intro {
-      grid-template-columns: 1fr;
-    }
-
-    .organization-file {
-      width: min(100%, 480px);
-      transform: none;
-    }
-
-    .project-record {
-      grid-template-columns: 80px minmax(0, 1fr);
-    }
-
-    .record-detail {
-      grid-column: 2;
-    }
-
-    .archive-record {
-      grid-template-columns: 80px minmax(0, 1fr);
-    }
-
-    .archive-record > p,
-    .archive-record .project-links {
-      grid-column: 2;
-    }
+  @media (max-width: 740px) {
+    .hero-inner, .section-heading { grid-template-columns: 1fr; }
+    .identity { min-height: 360px; }
+    .release { grid-template-columns: 62px 1fr; }
+    .release-detail { grid-column: 2; }
+    .archive-row { grid-template-columns: 48px 1fr; }
+    .archive-row > p, .archive-row .project-links { grid-column: 2; }
   }
 
-  @media (max-width: 680px) {
-    h1 {
-      font-size: clamp(3.3rem, 16vw, 5rem);
-    }
-
-    .cover-inner {
-      padding-top: var(--space-xl);
-    }
-
-    .section-intro {
-      gap: var(--space-md);
-    }
-
-    .section-intro h2 {
-      font-size: clamp(2.8rem, 13vw, 4.2rem);
-    }
-
-    .project-record,
-    .archive-record {
-      grid-template-columns: 1fr;
-      gap: var(--space-md);
-      padding-inline: var(--space-xs);
-    }
-
-    .record-detail,
-    .archive-record > p,
-    .archive-record .project-links {
-      grid-column: 1;
-    }
-
-    .record-title h3 {
-      font-size: clamp(2.8rem, 14vw, 4.2rem);
-    }
-
-    .organization-file dl {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 420px) {
+    .identity { min-height: 310px; }
+    .identity dl { grid-template-columns: 1fr 0.7fr 0.7fr; }
+    .release { grid-template-columns: 1fr; padding-inline: 4px; }
+    .release-detail { grid-column: 1; }
+    .archive-row { grid-template-columns: 1fr; }
+    .archive-row > p, .archive-row .project-links { grid-column: 1; }
   }
 </style>

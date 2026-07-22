@@ -2,47 +2,47 @@ export const ecosystem = [
   {
     name: "Lady International",
     slug: "lady-international",
-    role: "Holding company",
+    role: "Parent organization",
     description:
-      "The parent structure for a small universe of studios, projects, names, and long-running bets.",
+      "The umbrella organization for the studio's software, publishing, and market-related work.",
     overview:
-      "Lady International is the parent organization for the studio family: a holding company for software projects, experiments, writing, and ventures that need a name before they are fully sensible.",
+      "Lady International is the parent organization for Shwimp Studios and its product, engineering, publishing, and market-related projects.",
   },
   {
     name: "Shwimp Studios",
     slug: "shwimp-studios",
     role: "Products",
     description:
-      "User-facing software, live sites, polished oddities, and projects that have met the internet.",
+      "Public-facing software, websites, and product experiments.",
     overview:
-      "Shwimp Studios is the public product arm for running and formerly running projects: web apps, sites, and software with a user-facing surface.",
+      "Shwimp Studios is the public-facing product division for web applications, websites, and software intended for people to use directly.",
   },
   {
     name: "Shrimpworks",
     slug: "shrimpworks",
     role: "Engineering",
     description:
-      "CLI tools, engineering experiments, infrastructure, and the practical machinery behind the studio.",
+      "Developer tools, infrastructure, libraries, and engineering experiments.",
     overview:
-      "Shrimpworks is the development studio for CLI tools, pre-release systems, internal infrastructure, and engineering experiments that support the rest of the organization.",
+      "Shrimpworks covers the developer tools, infrastructure, libraries, and engineering work that support the studio's projects.",
   },
   {
     name: "Wimpy Productions",
     slug: "wimpy-productions",
-    role: "Media",
+    role: "Publishing",
     description:
-      "Docs, blogs, datasets, release notes, and written context for what is being built.",
+      "Documentation, blogs, datasets, and project publishing.",
     overview:
-      "Wimpy Productions is the publishing shelf for docs, blogs, datasets, release notes, project documentation, and the narrative context around what the studio is building.",
+      "Wimpy Productions groups the studio's documentation, blogs, datasets, release notes, and other published material.",
   },
   {
     name: "Noodle Ventures",
     slug: "noodle-ventures",
-    role: "Incubation",
+    role: "Markets",
     description:
-      "Finance, trading, markets, and venture experiments with a business-shaped edge.",
+      "Market software, trading simulations, and finance-related research.",
     overview:
-      "Noodle Ventures is the venture bench for finance, trading, stocks, markets, and business-shaped experiments that might become products, simulations, or small companies.",
+      "Noodle Ventures is the home for Reef and the studio's work on market structure, trading simulations, financial data, and related research.",
   },
 ];
 
@@ -50,21 +50,25 @@ export const projects = [
   {
     name: "Reef",
     division: "Noodle Ventures",
-    kicker: "Institutional trading simulator",
+    kicker: "Institutional-grade equity market simulator",
     summary:
-      "A market playground for exploring order flow, portfolios, dashboards, and the small systems that make financial software feel real.",
-    status: "Research",
+      "A simulation-first trading venue and post-trade platform for exploring market structure, order flow, portfolios, and execution—with a bolt-on Bot Arena for building trading agents and competing head-to-head.",
+    status: "Active",
     tone: "reef",
     phase: "current",
     featured: true,
-    availability: "Private / closed source",
+    links: [
+      { label: "Project site", href: "https://dills122.github.io/reef/" },
+      { label: "GitHub", href: "https://github.com/dills122/reef" },
+      { label: "Bot Arena", href: "https://reef-arena-admin.shrimpworks.dev/" },
+    ],
   },
   {
     name: "Trove",
     division: "Shwimp Studios",
     kicker: "Personal knowledge and bookmark management",
     summary:
-      "A calmer way to keep saved links, references, and internet rabbit holes organized without turning them into another chore.",
+      "A personal knowledge and bookmark manager for organizing saved links, references, and research.",
     status: "Prototype",
     tone: "trove",
     phase: "current",
@@ -79,7 +83,7 @@ export const projects = [
     division: "Shrimpworks",
     kicker: "Developer workflow tooling",
     summary:
-      "A CLI for keeping related project rules, conventions, docs, and code paths close enough that teams can actually use them.",
+      "A CLI for keeping project rules, conventions, documentation, and relevant code paths together.",
     status: "Tooling",
     tone: "kyn",
     phase: "current",
@@ -94,7 +98,7 @@ export const projects = [
     division: "Noodle Ventures",
     kicker: "Retro mobile web exploration",
     summary:
-      "Part of Wap Labs, the broader toolkit for WAP tooling, testing, simulation, engine work, and a browser for exploring the forgotten mobile web.",
+      "Part of Wap Labs, a toolkit for WAP development, testing, simulation, engine work, and browsing the early mobile web.",
     status: "Experiment",
     tone: "waves",
     phase: "current",
@@ -145,7 +149,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "GitHub stars discovery",
     summary:
-      "A small app for rummaging through starred repositories and rediscovering the useful things hiding inside an old GitHub account.",
+      "An app for searching, filtering, and rediscovering repositories saved to a GitHub stars collection.",
     status: "Prototype",
     tone: "trove",
     phase: "current",
@@ -159,7 +163,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "Older user-facing experiments",
     summary:
-      "A shelf for smaller public app experiments: secure chat, golf tracking, receipt rewards, and a browser-based Markdown editor.",
+      "A collection of smaller public app experiments covering secure chat, golf tracking, receipt rewards, and browser-based Markdown editing.",
     status: "Archive",
     tone: "trove",
     phase: "past",
@@ -189,7 +193,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "Football statistics site",
     summary:
-      "A public data deep dive into historical English football league stats and long-running competition records.",
+      "A public site for exploring historical English football league statistics and competition records.",
     status: "Data",
     tone: "trove",
     phase: "current",
@@ -225,7 +229,7 @@ export const projects = [
     division: "Wimpy Productions",
     kicker: "Studio marketing site",
     summary:
-      "The public Shwimp Studios and Lady International marketing site, used to organize the ecosystem and its project catalog.",
+      "The public website for Shwimp Studios, its divisions, and its project catalogue.",
     status: "Site",
     tone: "trove",
     phase: "current",
@@ -253,7 +257,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "Nicolas Cage movie tracker",
     summary:
-      "A currently dormant site for picking the Nicolas Cage movie of the night and finding where to stream it.",
+      "A dormant site for choosing a Nicolas Cage movie and finding where it is available to stream.",
     status: "Dormant",
     tone: "waves",
     phase: "past",
@@ -267,7 +271,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "Task management app",
     summary:
-      "A Next.js task management app paired with a NestJS API, useful as a full-stack product experiment.",
+      "A task management application built with a Next.js frontend and NestJS API.",
     status: "Prototype",
     tone: "trove",
     phase: "past",
@@ -408,7 +412,7 @@ export const projects = [
     division: "Shwimp Studios",
     kicker: "Star Wars API app",
     summary:
-      "An Angular experiment for browsing a galaxy far away's archive through the public SWAPI data set.",
+      "An Angular application for browsing the public Star Wars API data set.",
     status: "Experiment",
     tone: "waves",
     phase: "past",
