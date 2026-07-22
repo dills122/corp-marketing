@@ -1,4 +1,6 @@
 ---
+import { projects } from "../data/site";
+
 interface Props {
   currentPath: string;
 }
@@ -26,8 +28,8 @@ const isProjects = currentPath.startsWith("/projects/");
     </nav>
 
     <a class="edition" href="/" aria-current={isHome ? "page" : undefined}>
-      <span>Edition</span>
-      <strong>01</strong>
+      <span>Projects</span>
+      <strong>{projects.length}</strong>
     </a>
   </div>
 </header>

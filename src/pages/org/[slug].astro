@@ -31,7 +31,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
           <span class="identity-number">{String(organizationNumber + 1).padStart(2, "0")}</span>
           <strong aria-hidden="true">{org.name.slice(0, 1)}</strong>
           <dl>
-            <div><dt>Mandate</dt><dd>{org.role}</dd></div>
+            <div><dt>Focus</dt><dd>{org.role}</dd></div>
             <div><dt>Current</dt><dd>{currentProjects.length}</dd></div>
             <div><dt>Archive</dt><dd>{pastProjects.length}</dd></div>
           </dl>
@@ -42,10 +42,10 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
     <section class="work current-work" aria-labelledby="current-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">Now publishing</p>
-          <h2 id="current-title">Current releases</h2>
+          <p class="eyebrow">Current work</p>
+          <h2 id="current-title">Current projects</h2>
         </div>
-        <p>Public and in-progress work associated with {org.name}. Some projects remain private while they take shape.</p>
+        <p>Public and in-progress projects grouped under {org.name}.</p>
       </div>
 
       {
@@ -83,10 +83,10 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
     <section class="work archive" aria-labelledby="archive-title">
       <div class="section-heading compact">
         <div>
-          <p class="eyebrow">The back catalogue</p>
-          <h2 id="archive-title">Past releases</h2>
+          <p class="eyebrow">Archive</p>
+          <h2 id="archive-title">Past projects</h2>
         </div>
-        <p>Retired experiments and older work retained because the internet forgets enough without our help.</p>
+        <p>Retired experiments and older work kept for reference.</p>
       </div>
 
       {

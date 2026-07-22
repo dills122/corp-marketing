@@ -16,13 +16,13 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     <header class="catalog-hero">
       <div class="catalog-hero-inner">
         <div>
-          <p class="eyebrow">Project register · Edition 01</p>
-          <h1>Every named project.</h1>
+          <p class="eyebrow">Project catalogue</p>
+          <h1>All projects.</h1>
         </div>
         <div class="catalog-intro">
           <p>
-            The complete working record: production-minded software, useful tools, market infrastructure, data work,
-            and the experiments that taught us something along the way.
+            A catalogue of active software, maintained tools, market and data projects, and older experiments kept for
+            reference.
           </p>
           <dl>
             <div><dt>Current</dt><dd>{currentProjects.length}</dd></div>
@@ -40,9 +40,9 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
     <section class="catalog-section" id="current" aria-labelledby="current-title">
       <div class="section-intro">
-        <p>01 · On the bench</p>
+        <p>01 · Current</p>
         <h2 id="current-title">Current work</h2>
-        <span>Active products, maintained tools, and ongoing investigations.</span>
+        <span>Projects in active development, maintenance, or ongoing research.</span>
       </div>
 
       <div class="project-register">
@@ -72,9 +72,9 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
     <section class="catalog-section archive" id="archive" aria-labelledby="archive-title">
       <div class="section-intro">
-        <p>02 · The evidence locker</p>
+        <p>02 · Archive</p>
         <h2 id="archive-title">Past work</h2>
-        <span>Retired, shelved, or dormant projects kept as part of the studio record.</span>
+        <span>Retired, shelved, or dormant projects kept for reference.</span>
       </div>
 
       <div class="project-register">

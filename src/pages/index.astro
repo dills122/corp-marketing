@@ -13,19 +13,19 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
 <BaseLayout
   title="Shwimp Studios | Software, tools, experiments"
-  description="Shwimp Studios is an independent software studio and engineering lab building tools, experiments, and a strange little universe of named projects."
+  description="Shwimp Studios is an independent software studio building products, developer tools, market systems, and web experiments."
   canonicalPath="/"
 >
   <main id="main-content">
     <section class="hero" id="index" aria-labelledby="hero-title">
       <div class="hero-inner">
         <p class="hero-kicker">Independent software studio · Central PA / Internet</p>
-        <h1 id="hero-title">Useful software for curious people and <span>questionable ideas.</span></h1>
+        <h1 id="hero-title">Useful software for curious people and <span>ideas worth testing.</span></h1>
         <div class="hero-foot">
           <div class="hero-intro">
             <p>
-              We build practical software for developers, knowledge workers, market enthusiasts, and anyone curious
-              enough to follow an idea past the sensible stopping point.
+              We build and maintain software for developers, knowledge workers, people interested in markets, and
+              curious web users.
             </p>
             {founder && (
               <a class="founder-note" href="#studio">
@@ -41,19 +41,19 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
       </div>
       <div class="hero-ticker" aria-hidden="true">
-        <span>Software</span><b>◆</b><span>Tools</span><b>◆</b><span>Research</span><b>◆</b><span>Oddities</span>
+        <span>Software</span><b>◆</b><span>Tools</span><b>◆</b><span>Research</span><b>◆</b><span>Experiments</span>
       </div>
     </section>
 
     <section class="releases" id="projects" aria-labelledby="projects-title">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">New and ongoing · Edition 01</p>
+          <p class="eyebrow">Selected work</p>
           <h2 id="projects-title">The projects are the point.</h2>
         </div>
         <p>
-          Each release gets its own world. Some become products, some remain experiments, and some are best understood
-          as evidence of a productive afternoon getting out of hand.
+          The studio spans products, developer tools, market systems, and web experiments. These are the projects
+          currently receiving the most attention.
         </p>
       </div>
 
@@ -67,7 +67,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
         <div class="spotlight-copy">
           <div class="release-meta">
-            <span>Release 01</span>
+            <span>Project 01</span>
             <strong>{spotlight.status}</strong>
           </div>
           <p class="division">From {spotlight.division}</p>
@@ -95,7 +95,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
               </div>
               <div class="release-copy">
                 <div class="release-meta">
-                  <span>Release 0{index + 2}</span>
+                  <span>Project 0{index + 2}</span>
                   <strong>{project.status}</strong>
                 </div>
                 <p class="division">From {project.division}</p>
@@ -114,7 +114,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
       </div>
 
       <div class="catalog-link">
-        <p><span>{projects.length}</span> named projects and counting.</p>
+        <p><span>{projects.length}</span> projects in the public catalogue.</p>
         <a href="/projects/">Browse every project <span aria-hidden="true">→</span></a>
       </div>
     </section>
@@ -122,13 +122,13 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     <section class="studio-family" id="ecosystem" aria-labelledby="ecosystem-title">
       <div class="family-intro">
         <p class="eyebrow">Inside the studio</p>
-        <h2 id="ecosystem-title">One parent.<br />Four divisions.<br /><span>No sensible stopping point.</span></h2>
+        <h2 id="ecosystem-title">One parent.<br />Four divisions.<br /><span>A place for each kind of work.</span></h2>
         <div class="family-note">
           <p>
-            <strong>{parentOrganization.name}</strong> is the parent structure for a small universe of studios,
-            projects, names, and long-running bets.
+            <strong>{parentOrganization.name}</strong> is the umbrella organization for the studio's product,
+            engineering, publishing, and market-related work.
           </p>
-          <a href={`/org/${parentOrganization.slug}/`}>Meet the parent company <span aria-hidden="true">→</span></a>
+          <a href={`/org/${parentOrganization.slug}/`}>View the studio structure <span aria-hidden="true">→</span></a>
         </div>
       </div>
 
@@ -140,7 +140,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
               <p>{item.role}</p>
               <h3>{item.name}</h3>
               <small>{item.description}</small>
-              <strong>Explore the division <b aria-hidden="true">↗</b></strong>
+              <strong>View the division <b aria-hidden="true">↗</b></strong>
             </a>
           ))
         }
@@ -149,24 +149,23 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
     <section class="research-note" aria-labelledby="note-title">
       <div class="note-label">
-        <p>Research note · 01</p>
-        <span>On naming things</span>
+        <p>Studio note · 01</p>
+        <span>On finishing projects</span>
       </div>
       <blockquote id="note-title">
-        “A project becomes considerably harder to abandon once it has a name, a division, and mild internal political support.”
+        “The second session makes it a project.”
       </blockquote>
-      <p class="note-credit">— Shwimp Studios working principle, unofficial</p>
     </section>
 
     <section class="people" id="studio" aria-labelledby="studio-title">
       <div class="section-heading light">
         <div>
-          <p class="eyebrow">The executive office</p>
-          <h2 id="studio-title">Leadership with excellent instincts.</h2>
+          <p class="eyebrow">People and namesakes</p>
+          <h2 id="studio-title">Who is behind the studio.</h2>
         </div>
         <p>
-          A compact leadership structure with an unusually high tolerance for ideas that begin as jokes and become
-          infrastructure.
+          D. Steele builds and maintains the software. Catherine and Cynthia are the cats behind several of the
+          studio's names.
         </p>
       </div>
 
@@ -207,7 +206,6 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .release-actions,
   .catalog-link,
   .note-label,
-  .note-credit,
   .person-copy > p,
   .person-copy > strong,
   .founder-note {
@@ -542,7 +540,6 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .note-label { display: flex; justify-content: space-between; gap: 20px; padding-bottom: var(--space-sm); border-bottom: 1px solid var(--line-strong); color: var(--accent-dark); }
   .note-label p { margin: 0; }
   .research-note blockquote { max-width: 1060px; margin: clamp(36px, 5vw, 64px) 0 var(--space-lg); font-family: var(--font-editorial); font-size: var(--text-quote); letter-spacing: -0.04em; line-height: 1.04; }
-  .note-credit { margin: 0; color: var(--ink-soft); }
 
   .people { padding: var(--section-space) var(--gutter); color: var(--paper-strong); background: #142430; }
   .section-heading.light .eyebrow { color: var(--kyn); }
