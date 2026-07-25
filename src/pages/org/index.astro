@@ -102,12 +102,13 @@ const orgCards = ecosystem.map((org, index) => {
   .directory-heading > p { margin: 0; color: var(--ink-soft); font-family: var(--font-editorial); font-size: 1.1rem; }
 
   .organization-list { border-top: 1px solid var(--line-strong); }
-  .organization { position: relative; display: grid; grid-template-columns: 100px minmax(230px, 0.8fr) minmax(280px, 1fr) 125px; gap: clamp(20px, 3vw, 48px); align-items: center; min-height: 210px; padding: clamp(24px, 3vw, 38px) 64px clamp(24px, 3vw, 38px) 16px; border-bottom: 1px solid var(--line-strong); transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard); }
+  .organization { position: relative; display: grid; grid-template-columns: 100px minmax(260px, 1fr) minmax(280px, 1fr) 125px; gap: clamp(20px, 3vw, 48px); align-items: center; min-height: 210px; padding: clamp(24px, 3vw, 38px) 64px clamp(24px, 3vw, 38px) 16px; border-bottom: 1px solid var(--line-strong); transition: color var(--motion-fast) var(--ease-standard), background var(--motion-fast) var(--ease-standard); }
+  .organization > * { min-width: 0; }
   .org-number { display: grid; align-self: start; gap: 6px; color: var(--ink-soft); }
   .org-number span { color: var(--accent-dark); font-family: var(--font-display); font-size: 2rem; letter-spacing: -0.05em; }
   .org-name { position: relative; min-height: 120px; display: flex; align-items: center; }
   .org-name > p { position: absolute; z-index: 0; margin: 0; color: var(--reef); font-family: var(--font-display); font-size: 8rem; line-height: 0.7; opacity: 0.55; transition: transform var(--motion-slow) var(--ease-out); }
-  .org-name h3 { position: relative; z-index: 1; margin: 0; font-family: var(--font-display); font-size: var(--text-card); letter-spacing: -0.075em; line-height: 0.86; }
+  .org-name h3 { position: relative; z-index: 1; margin: 0; font-family: var(--font-display); font-size: clamp(2.125rem, 4.2vw, 3.75rem); letter-spacing: -0.075em; line-height: 0.86; overflow-wrap: anywhere; }
   .org-description { margin: 0; color: var(--ink-soft); }
   .organization dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 0; }
   .organization dl div { padding-left: 12px; border-left: 1px solid var(--line); }
@@ -124,12 +125,12 @@ const orgCards = ecosystem.map((org, index) => {
   .org-3 .org-name > p { color: var(--media); }
   .org-4 .org-name > p { color: var(--venture); }
 
-  @media (max-width: 940px) {
+  @media (max-width: 1100px) {
     .organization { grid-template-columns: 90px minmax(200px, 0.8fr) minmax(260px, 1fr); }
     .organization dl { grid-column: 2 / -1; max-width: 250px; }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 820px) {
     .hero-note, .directory-heading { grid-template-columns: 1fr; }
     .organization { grid-template-columns: 70px 1fr; padding-right: 48px; }
     .org-name { min-height: 110px; }
