@@ -60,12 +60,23 @@ const structuredData = {
     <meta property="og:image" content={socialImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Shwimp Studios, an independent software studio." />
+    <meta
+      property="og:image:alt"
+      content="Shwimp Studios, an independent software studio."
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData)}
+      is:inline
+    />
+    <script
+      defer
+      src="https://umami.dsteele.dev/script.js"
+      data-website-id="35b19a1e-d233-42cf-9c14-6698f3f92faf"></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -73,13 +84,23 @@ const structuredData = {
     <slot />
     <SiteFooter />
     <script>
-      const motionQuery = window.matchMedia("(prefers-reduced-motion: no-preference)");
-      const revealItems = document.querySelectorAll<HTMLElement>("[data-reveal]");
+      const motionQuery = window.matchMedia(
+        "(prefers-reduced-motion: no-preference)",
+      );
+      const revealItems =
+        document.querySelectorAll<HTMLElement>("[data-reveal]");
 
-      if (motionQuery.matches && "IntersectionObserver" in window && revealItems.length > 0) {
+      if (
+        motionQuery.matches &&
+        "IntersectionObserver" in window &&
+        revealItems.length > 0
+      ) {
         document.documentElement.dataset.motion = "ready";
 
-        const observeReveals = (items: NodeListOf<HTMLElement>, rootMargin: string) => {
+        const observeReveals = (
+          items: NodeListOf<HTMLElement>,
+          rootMargin: string,
+        ) => {
           const observer = new IntersectionObserver(
             (entries) => {
               for (const entry of entries) {
@@ -95,8 +116,16 @@ const structuredData = {
         };
 
         requestAnimationFrame(() => {
-          observeReveals(document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-reveal-early])"), "0px 0px -3%");
-          observeReveals(document.querySelectorAll<HTMLElement>("[data-reveal-early]"), "0px 0px 18%");
+          observeReveals(
+            document.querySelectorAll<HTMLElement>(
+              "[data-reveal]:not([data-reveal-early])",
+            ),
+            "0px 0px -3%",
+          );
+          observeReveals(
+            document.querySelectorAll<HTMLElement>("[data-reveal-early]"),
+            "0px 0px 18%",
+          );
         });
       } else {
         revealItems.forEach((item) => item.classList.add("is-visible"));
