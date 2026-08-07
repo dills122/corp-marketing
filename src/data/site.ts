@@ -64,6 +64,29 @@ export const projects = [
     ],
   },
   {
+    name: "Capsule",
+    division: "Shrimpworks",
+    kicker: "Human-approved execution for AI-proposed code",
+    summary:
+      "An experimental, local-first platform for bounded JavaScript jobs proposed by AI agents. Capsule fixes the exact code, input, limits, and runtime before one-use human approval, then targets a fresh disposable guest built from governed Deno, rusty_v8, and libkrun forks. It remains a pre-alpha scaffold, not yet a security boundary.",
+    status: "Pre-alpha",
+    tone: "kyn",
+    phase: "current",
+    featured: true,
+    links: [
+      { label: "Project site", href: "https://shrimpworks.github.io/capsule-corp/" },
+      { label: "GitHub", href: "https://github.com/Shrimpworks/capsule-corp" },
+      {
+        label: "Security overview",
+        href: "https://github.com/Shrimpworks/capsule-corp/blob/main/docs/SECURITY_OVERVIEW.md",
+      },
+      {
+        label: "Runtime governance",
+        href: "https://github.com/Shrimpworks/capsule-corp/blob/main/docs/GOVERNED_RUNTIME_RELEASE_CANDIDATE.md",
+      },
+    ],
+  },
+  {
     name: "Trove",
     division: "Shwimp Studios",
     kicker: "Personal knowledge and bookmark management",
