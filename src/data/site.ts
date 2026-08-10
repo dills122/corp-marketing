@@ -143,6 +143,17 @@ export const projects = [
     links: [{ label: "GitHub", href: "https://github.com/dills122/ai-central" }],
   },
   {
+    name: "Image Fingerprint",
+    division: "Shrimpworks",
+    kicker: "Cross-runtime perceptual image fingerprints",
+    summary:
+      "A modern TypeScript fork of image-hash with versioned BlockHash and PDQ fingerprints, Node and browser image adapters, comparison and matching policy tools, and an exact migration path for image-hash v7 values.",
+    status: "Library",
+    tone: "kyn",
+    phase: "current",
+    links: [{ label: "GitHub", href: "https://github.com/dills122/image-fingerprint" }],
+  },
+  {
     name: "NeDB Fork",
     division: "Shrimpworks",
     kicker: "Curated JavaScript database fork",
@@ -320,12 +331,12 @@ export const projects = [
   {
     name: "MTG Card Analyzer",
     division: "Shwimp Studios",
-    kicker: "Trading card image analysis",
+    kicker: "Local-first Magic card identification",
     summary:
-      "An experimental Magic: The Gathering card image analyzer using OCR and image-processing ideas.",
-    status: "Experiment",
+      "A Node.js CLI that identifies Magic: The Gathering cards and likely printings from images using OCR, fuzzy name matching, Scryfall data, and perceptual image hashes, with regression tooling and optional local collection tracking.",
+    status: "Active",
     tone: "waves",
-    phase: "past",
+    phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/MTG-Card-Analyzer" }],
   },
   {
