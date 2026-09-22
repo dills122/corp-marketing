@@ -37,12 +37,23 @@ npm run preview
 ## Project Structure
 
 ```text
-src/pages/index.astro    Homepage markup, data, and scoped styles
+src/data/site.ts         Shared project catalog, organizations, and leadership
+src/pages/index.astro    Homepage markup and scoped styles
+src/pages/projects/      Full current and archived project catalog
+src/pages/org/           Organization directory and division pages
 public/studio-hero.png   Hero image used on the homepage
 public/favicon.svg       Site favicon
 public/CNAME             GitHub Pages custom domain
 docs/deployment.md       GitHub Pages deployment notes
 ```
+
+## Updating content
+
+Edit `src/data/site.ts` to update projects across the homepage, catalog, and
+organization pages. Keep release status separate from development activity and
+check public repository evidence before adding projects or making availability
+claims. The [September 2026 refresh notes](docs/content-refresh-2026-09.md) record
+the sources and editorial decisions behind the current update.
 
 ## Deployment
 
