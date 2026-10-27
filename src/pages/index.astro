@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { openSourceProjects } from "../data/open-source";
 import { ecosystem, leaders, projects } from "../data/site";
 
 const featuredProjects = projects.filter((project) => project.featured);
@@ -13,19 +14,19 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
 <BaseLayout
   title="Shwimp Studios | Software, tools, experiments"
-  description="Shwimp Studios is an independent software studio building products, developer tools, market systems, and web experiments."
+  description="Software projects by Dylan Steele, including developer tools, market simulations, games, and open-source contributions."
   canonicalPath="/"
 >
   <main id="main-content">
     <section class="hero" id="index" aria-labelledby="hero-title">
       <div class="hero-inner">
         <p class="hero-kicker" data-reveal>Independent software studio · Central PA / Internet</p>
-        <h1 id="hero-title" data-reveal data-reveal-delay="1">Useful software for curious people and <span>ideas worth testing.</span></h1>
+        <h1 id="hero-title" data-reveal data-reveal-delay="1">Developer tools, games,<br /><span>and a few experiments.</span></h1>
         <div class="hero-foot" data-reveal data-reveal-delay="2">
           <div class="hero-intro">
             <p>
-              We build tools for better code reviews, cleaner bookmark collections, and experiments in markets,
-              games, and the early mobile web.
+              Shwimp Studios is where Dylan Steele’s software projects live. Some are ready to use;
+              others are still taking shape. You’ll also find contributions to other open-source projects.
             </p>
             {founder && (
               <a class="founder-note" href="#studio">
@@ -35,7 +36,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
             )}
           </div>
           <div class="hero-actions" aria-label="Homepage shortcuts">
-            <a class="action primary" href="#project-reef">Meet Reef <span aria-hidden="true">↓</span></a>
+            <a class="action primary" href="#project-reef">See Reef <span aria-hidden="true">↓</span></a>
             <a class="action secondary" href="/projects/">All projects</a>
           </div>
         </div>
@@ -49,11 +50,10 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
       <div class="section-heading" data-reveal>
         <div>
           <p class="eyebrow">Selected work</p>
-          <h2 id="projects-title">The projects are the point.</h2>
+          <h2 id="projects-title">What we’re working on.</h2>
         </div>
         <p>
-          From market simulation and campaign games to code review and developer tooling, a selection of
-          current work at different stages of development.
+          A few projects from the catalog. The labels show what’s released and what’s still being worked out.
         </p>
       </div>
 
@@ -114,19 +114,41 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
       </div>
 
       <div class="catalog-link" data-reveal>
-        <p><span>{projects.length}</span> projects in the public catalogue.</p>
+        <p><span>{projects.length}</span> projects in the catalog.</p>
         <a href="/projects/">Browse every project <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="open-source-preview" aria-labelledby="open-source-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Beyond our own projects</p>
+          <h2 id="open-source-title">Giving back<br />to open source.</h2>
+        </div>
+        <div class="open-source-intro">
+          <p>Fixes and additions to other people’s projects, including AWS LLRT, rusty_v8, and image-hash.</p>
+          <a href="/open-source/">See the contributions <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="open-source-links">
+        {openSourceProjects.slice(0, 3).map((project) => (
+          <a href={`/open-source/#${project.slug}`}>
+            <span>{project.kind}</span>
+            <strong>{project.name} <span aria-hidden="true">↗</span></strong>
+            <small>{project.headline}</small>
+          </a>
+        ))}
       </div>
     </section>
 
     <section class="studio-family" id="ecosystem" aria-labelledby="ecosystem-title">
       <div class="family-intro" data-reveal>
         <p class="eyebrow">Inside the studio</p>
-        <h2 id="ecosystem-title">One parent.<br />Four divisions.<br /><span>A place for each kind of work.</span></h2>
+        <h2 id="ecosystem-title">How the studio<br /><span>is organized.</span></h2>
         <div class="family-note">
           <p>
-            <strong>{parentOrganization.name}</strong> is the umbrella organization for the studio's product,
-            engineering, publishing, and market-related work.
+            <strong>{parentOrganization.name}</strong> is the parent organization. These four divisions
+            group the projects by the kind of work involved.
           </p>
           <a href={`/org/${parentOrganization.slug}/`}>View the studio structure <span aria-hidden="true">→</span></a>
         </div>
@@ -150,11 +172,11 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
     <section class="research-note" aria-labelledby="note-title">
       <div class="note-label" data-reveal>
         <p>Studio note · 01</p>
-        <span>On finishing projects</span>
+        <span>On corporate structure</span>
       </div>
-      <blockquote id="note-title" data-reveal data-reveal-delay="1">
-        “The second session makes it a project.”
-      </blockquote>
+      <p class="studio-note-copy" id="note-title" data-reveal data-reveal-delay="1">
+        We have a parent organization, four divisions, and no way to explain any of this to the cats.
+      </p>
     </section>
 
     <section class="people" id="studio" aria-labelledby="studio-title">
@@ -196,6 +218,23 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 </BaseLayout>
 
 <style>
+  .open-source-preview { width: min(100%, var(--max)); margin-inline: auto; padding: var(--space-xl) var(--gutter) var(--section-space); border-top: 1px solid var(--line-strong); }
+  .open-source-intro p { margin: 0 0 var(--space-sm); color: var(--ink-soft); }
+  .open-source-intro > a { display: inline-flex; align-items: center; gap: var(--space-md); min-height: 48px; border-bottom: 2px solid var(--ink-deep); font-weight: 700; }
+  .open-source-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+  .open-source-links > a { display: grid; align-content: start; gap: var(--space-sm); padding: var(--space-md); border-bottom: 1px solid var(--line); }
+  .open-source-links > a + a { border-left: 1px solid var(--line); }
+  .open-source-links > a > span { font-family: var(--font-label); font-size: 0.7rem; color: var(--ink-soft); }
+  .open-source-links strong { display: flex; justify-content: space-between; gap: var(--space-sm); font-family: var(--font-display); font-size: 1.7rem; letter-spacing: -0.05em; }
+  .open-source-links strong span { color: var(--accent-dark); }
+  .open-source-links small { font-size: 0.95rem; }
+  .open-source-preview a:hover, .open-source-preview a:focus-visible { color: var(--accent-dark); }
+  @media (max-width: 680px) {
+    .open-source-links { grid-template-columns: minmax(0, 1fr); }
+    .open-source-links > a { padding-inline: 0; }
+    .open-source-links > a + a { border-left: 0; }
+  }
+
   h1, h2, h3, p { margin-top: 0; }
   h1, h2, h3 { text-wrap: balance; }
 
@@ -417,6 +456,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .release-copy {
     display: flex;
     flex-direction: column;
+    min-width: 0;
     padding: clamp(24px, 3vw, 42px);
   }
 
@@ -436,6 +476,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .spotlight-copy h3,
   .release-copy h3 {
     margin: 0;
+    overflow-wrap: anywhere;
     font-family: var(--font-display);
     font-size: var(--text-feature);
     letter-spacing: -0.085em;
@@ -562,7 +603,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .research-note { padding: var(--section-space) var(--gutter); }
   .note-label { display: flex; justify-content: space-between; gap: 20px; padding-bottom: var(--space-sm); border-bottom: 1px solid var(--line-strong); color: var(--accent-dark); }
   .note-label p { margin: 0; }
-  .research-note blockquote { max-width: 1060px; margin: clamp(36px, 5vw, 64px) 0 var(--space-lg); font-family: var(--font-editorial); font-size: var(--text-quote); letter-spacing: -0.04em; line-height: 1.04; }
+  .research-note .studio-note-copy { max-width: 1060px; margin: clamp(36px, 5vw, 64px) 0 var(--space-lg); font-family: var(--font-editorial); font-size: var(--text-quote); letter-spacing: -0.04em; line-height: 1.04; }
 
   .people { padding: var(--section-space) var(--gutter); color: var(--paper-strong); background: #142430; }
   .section-heading.light .eyebrow { color: var(--kyn); }
