@@ -4,9 +4,9 @@ export const ecosystem = [
     slug: "lady-international",
     role: "Parent organization",
     description:
-      "The umbrella organization for the studio's software, publishing, and market-related work.",
+      "The parent organization for Shwimp Studios and its divisions.",
     overview:
-      "Lady International is the parent organization for Shwimp Studios and its product, engineering, publishing, and market-related projects.",
+      "Lady International brings the studio’s divisions together. Their projects range from everyday apps to publishing and market research.",
   },
   {
     name: "Shwimp Studios",
@@ -15,7 +15,7 @@ export const ecosystem = [
     description:
       "Bookmark tools, web applications, and game experiments.",
     overview:
-      "Shwimp Studios builds software for people to use directly, from cleaning up bookmarks and rediscovering saved repositories to exploring the early mobile web and developing campaign simulations.",
+      "Shwimp Studios is where the apps and games live. That includes bookmark cleanup, a browser for the early mobile web, and a digital adaptation of Campaign for North Africa.",
   },
   {
     name: "Shrimpworks",
@@ -24,7 +24,7 @@ export const ecosystem = [
     description:
       "Developer tools, AI coding workflows, libraries, and infrastructure.",
     overview:
-      "Shrimpworks builds tools for reviewing code, checking project conventions, describing application behavior, and understanding dependencies, alongside experimental runtimes and reusable libraries.",
+      "Shrimpworks houses the developer tools and libraries. Kyn checks for missing file changes; Independent Reviewer is an experiment with AI models. Other projects deal with forms, dependencies, and hosting.",
   },
   {
     name: "Wimpy Productions",
@@ -33,7 +33,7 @@ export const ecosystem = [
     description:
       "Documentation, blogs, datasets, and project publishing.",
     overview:
-      "Wimpy Productions groups the studio's documentation, blogs, datasets, release notes, and other published material.",
+      "Wimpy Productions covers the writing and published data, including this website, engineering notes, and football datasets.",
   },
   {
     name: "Noodle Ventures",
@@ -42,7 +42,7 @@ export const ecosystem = [
     description:
       "Market software, trading simulations, and finance-related research.",
     overview:
-      "Noodle Ventures is the home for Reef and the studio's work on market structure, trading simulations, financial data, and related research.",
+      "Noodle Ventures is home to Reef. The work here looks at how markets handle orders and trades, with older experiments in financial data kept in the archive.",
   },
 ];
 
@@ -50,10 +50,10 @@ export const projects = [
   {
     name: "Reef",
     division: "Noodle Ventures",
-    kicker: "Equity market simulation and trading-agent research",
+    kicker: "A stock market you can replay",
     summary:
-      "A simulation-first trading venue for studying order flow, matching, and post-trade workflows with deterministic replay. Its optional Bot Arena supports trading-agent submission and qualification through an invite-only hosted environment.",
-    status: "Active",
+      "Reef simulates stock orders and trades, so you can replay a run and study what happened. There’s also an invite-only Bot Arena for testing trading bots against the simulator.",
+    status: "Prototype",
     tone: "reef",
     phase: "current",
     featured: true,
@@ -66,10 +66,10 @@ export const projects = [
   {
     name: "Capsule",
     division: "Shrimpworks",
-    kicker: "Human-approved execution for AI-proposed code",
+    kicker: "Approve what an AI agent runs",
     summary:
-      "An experimental macOS platform designed to pair exact JavaScript job plans with one-use human approval and disposable execution. Work now focuses on the approval broker, execution supervisor, and governed runtime. It remains a pre-alpha scaffold that does not yet launch guest runtimes or provide a security boundary.",
-    status: "Pre-alpha",
+      "The idea behind Capsule is to review an AI agent’s proposed actions, then run approved code in a disposable environment on macOS. Those controls are still being built. Capsule cannot launch the environments yet and does not currently isolate code safely.",
+    status: "Early development",
     tone: "kyn",
     phase: "current",
     featured: true,
@@ -89,10 +89,10 @@ export const projects = [
   {
     name: "Sandtable",
     division: "Shwimp Studios",
-    kicker: "A digital Campaign for North Africa",
+    kicker: "Bringing Campaign for North Africa to the screen",
     summary:
-      "An in-development adaptation of the 1979 board wargame, with a digital umpire intended to handle rules, hidden information, and record-keeping. The pre-alpha engine supports deterministic simulation and replay; playable campaigns and the player interface are still ahead.",
-    status: "Pre-alpha",
+      "A digital adaptation of the 1979 board wargame, with the computer handling the rules and paperwork. The rules engine, saved campaigns, and Maproom interface are in development. The first playable version is planned as a six-turn scenario for two people sharing a computer.",
+    status: "Early development",
     tone: "waves",
     phase: "current",
     featured: true,
@@ -101,10 +101,10 @@ export const projects = [
   {
     name: "Independent Reviewer",
     division: "Shrimpworks",
-    kicker: "Independent model review of Git changes",
+    kicker: "Working directly with models",
     summary:
-      "A local CLI that captures a fixed changeset, gets a blind assessment through OpenRouter, and challenges findings before considering the author's explanation. Produces structured reports with explicit evidence gaps and cost limits. Available from source as a pre-release.",
-    status: "Pre-release",
+      "This started as a code-review tool and became an experiment in building harnesses around AI models: providing context, running reviews, and checking the results. A model reads the changes before it sees the author’s explanation. The reports record its findings, the evidence behind them, and the cost of the run. The pre-release code is available on GitHub.",
+    status: "Research",
     tone: "kyn",
     phase: "current",
     featured: true,
@@ -113,13 +113,12 @@ export const projects = [
   {
     name: "Trove",
     division: "Shwimp Studios",
-    kicker: "Local-first bookmark cleanup",
+    kicker: "Sort out your bookmarks",
     summary:
-      "Import a browser bookmark export, find duplicates, assess link quality, and organize the collection before exporting it. Cleanup happens locally without changing the source file, with optional link-health checks.",
+      "Trove finds duplicates in an imported bookmark file and helps you organize what’s left. It works locally and exports a new copy, leaving the original alone. You can also check for broken links.",
     status: "Prototype",
     tone: "trove",
     phase: "current",
-    featured: true,
     links: [
       { label: "GitHub", href: "https://github.com/dills122/trove" },
       { label: "Website", href: "https://trove.dsteele.dev/" },
@@ -128,9 +127,9 @@ export const projects = [
   {
     name: "Kyn",
     division: "Shrimpworks",
-    kicker: "Related-file checks for code review and CI",
+    kicker: "Catch the files you forgot to update",
     summary:
-      "A stateless CLI that checks whether related files change together: a component and its story, an API handler and its tests, or a module and its documentation. Readable YAML policies produce consistent local and CI results, with installable releases.",
+      "Changed the code but forgot its tests or docs? Kyn checks rules you write in YAML to catch missing companion changes, either locally or in automated checks. Installable releases are available. A more usable v3 config schema is planned soon, though there’s no firm date yet.",
     status: "Released",
     tone: "kyn",
     phase: "current",
@@ -138,15 +137,16 @@ export const projects = [
     links: [
       { label: "GitHub", href: "https://github.com/dills122/kyn" },
       { label: "Website", href: "https://dills122.github.io/kyn/" },
+      { label: "WinGet package", href: "https://github.com/microsoft/winget-pkgs/tree/master/manifests/d/DylanSteele/Kyn/0.1.3" },
     ],
   },
   {
     name: "Waves",
     division: "Shwimp Studios",
-    kicker: "The WAP Labs browser and early mobile web stack",
+    kicker: "Browse the early mobile web",
     summary:
-      "The desktop browser in WAP Labs, backed by a Rust WML engine, native WAP transport, and an interoperability lab. Try the engine in the web simulator today; packaged desktop releases and protocol conformance remain in development.",
-    status: "Pre-alpha",
+      "Waves is a desktop browser project for the WAP and WML sites that early mobile phones used. The web simulator already runs the page-rendering engine. Desktop downloads and full support for the original protocols are still in development.",
+    status: "Early development",
     tone: "waves",
     phase: "current",
     featured: true,
@@ -157,12 +157,37 @@ export const projects = [
     ],
   },
   {
+    name: "Angular Usage Lookup",
+    division: "Shrimpworks",
+    kicker: "Check where an Angular component is used",
+    summary:
+      "An agent skill for finding uses of Angular components and APIs in Angular and Nx projects. It helps investigate what a migration could affect and points out gaps in the search results. The pilot release reads the code without changing it.",
+    status: "Pilot release",
+    tone: "kyn",
+    phase: "current",
+    links: [
+      { label: "GitHub", href: "https://github.com/dills122/angular-usage-lookup" },
+      { label: "Release", href: "https://github.com/dills122/angular-usage-lookup/releases/tag/v0.1.0" },
+    ],
+  },
+  {
+    name: "ask-formly",
+    division: "Shrimpworks",
+    kicker: "Give coding agents a Formly reference",
+    summary:
+      "A small reference service that coding agents can query about the Formly forms library through MCP. Answers come with source citations. So far, it’s a local prototype covering a limited set of library facts; there’s no one-command public install yet.",
+    status: "Prototype",
+    tone: "kyn",
+    phase: "current",
+    links: [{ label: "GitHub", href: "https://github.com/dills122/ask-formly" }],
+  },
+  {
     name: "Formly Contract",
     division: "Shrimpworks",
-    kicker: "Agent-readable contracts for Angular forms",
+    kicker: "Describe a form so tools can work with it",
     summary:
-      "An early experiment in turning Angular Formly configurations into structured descriptions of fields, constraints, states, and locator evidence for tests and coding agents. Feasibility and scope are still being evaluated; continued development and a public release are not committed.",
-    status: "Early experiment · Future uncertain",
+      "Reads selected Angular Formly configurations and describes their fields, rules, states, and how to locate controls. Tests and coding agents can use that information to work with a form. The packages aren’t on npm yet. A production MCP server and automatic browser-test generation are also still to come.",
+    status: "Pre-release",
     tone: "kyn",
     phase: "current",
     links: [
@@ -173,10 +198,10 @@ export const projects = [
   {
     name: "Package Spelunker",
     division: "Shrimpworks",
-    kicker: "Evidence-backed package and repository analysis",
+    kicker: "Look inside a package without running it",
     summary:
-      "An early experiment in understanding installed packages and their public APIs without executing package code. Initial work covers package snapshots, resolution, and API modeling. Broader repository analysis and agent tooling are exploratory ideas; continued development and a public release are not committed.",
-    status: "Early experiment · Future uncertain",
+      "An experiment in reading installed packages to see what they contain and which features they expose. The initial work maps package contents and how they’re found. Broader repository analysis is still an idea; there’s no commitment to a release or further development.",
+    status: "Exploratory",
     tone: "kyn",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/package-spelunker" }],
@@ -184,21 +209,25 @@ export const projects = [
   {
     name: "Session Chat",
     division: "Shrimpworks",
-    kicker: "Disposable encrypted conversation protocols",
+    kicker: "Trying out temporary, encrypted chats",
     summary:
-      "A Rust research project for temporary, end-to-end encrypted conversations, combining invitation-based admission, MLS messaging, and encrypted-storage recovery tests. The source-only alpha is a headless protocol laboratory, with a deployable chat application still ahead.",
-    status: "Research alpha",
+      "Session Chat tests how people could join a temporary conversation and send encrypted messages. The work so far covers invitations, messaging, and recovering encrypted data. You can read the source, but there isn’t a chat app ready to deploy yet.",
+    status: "Research",
     tone: "kyn",
     phase: "current",
-    links: [{ label: "GitHub", href: "https://github.com/dills122/session-chat" }],
+    featured: true,
+    links: [
+      { label: "GitHub", href: "https://github.com/dills122/session-chat" },
+      { label: "Project site", href: "https://dills122.github.io/session-chat/" },
+    ],
   },
   {
     name: "TMDb SDK",
     division: "Shrimpworks",
-    kicker: "Typed movie-data access for Node.js",
+    kicker: "Movie data for Node.js apps",
     summary:
-      "A published TypeScript SDK for The Movie Database, covering movie, person, company, image, and credit lookups. Includes a typed low-level client, consistent response keys, and bounded rate-limit retries.",
-    status: "Library",
+      "A published TypeScript library for The Movie Database, covering movies, people, companies, images, and credits. Responses are typed, and requests retry within a set limit when the service asks clients to slow down.",
+    status: "Released",
     tone: "kyn",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/tmdb" }],
@@ -206,10 +235,10 @@ export const projects = [
   {
     name: "AI Central",
     division: "Shrimpworks",
-    kicker: "AI coding context library",
+    kicker: "Project instructions for coding agents",
     summary:
-      "Reusable project guidance, curated skill bundles, and installers for AI-assisted development. It brings repository conventions, planning, implementation, review, and specialist workflows into new or existing projects without overwriting project-owned guidance.",
-    status: "Tooling",
+      "Shared instructions, skills, and setup tools for AI-assisted development. They cover planning, coding, and review while preserving instructions already in the project.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/ai-central" }],
@@ -217,10 +246,10 @@ export const projects = [
   {
     name: "Image Fingerprint",
     division: "Shrimpworks",
-    kicker: "Cross-runtime perceptual image fingerprints",
+    kicker: "Compare images in Node.js or a browser",
     summary:
-      "A TypeScript library for versioned BlockHash and PDQ image fingerprints in Node and browsers, with matching tools, an experimental crop-aware matcher, and compatibility for historical image-hash values. Includes a browser playground.",
-    status: "Library",
+      "Our fork of image-hash, now a TypeScript library with several ways to fingerprint and compare images. Matching cropped images is still experimental. The browser playground lets you try the comparisons yourself.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [
@@ -231,10 +260,10 @@ export const projects = [
   {
     name: "NeDB Fork",
     division: "Shrimpworks",
-    kicker: "Curated JavaScript database fork",
+    kicker: "NeDB for newer versions of Node.js",
     summary:
-      "A maintained fork of the embedded JavaScript database. The 2.x line targets modern Node.js while preserving its CommonJS callback API and on-disk data format, with the 1.9.2 compatibility release retained for older runtimes.",
-    status: "Fork",
+      "A maintained fork of the small JavaScript database NeDB. Version 2.x targets modern Node.js and keeps the existing callbacks and data-file format. Version 1.9.2 remains available for older runtimes.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/nedb" }],
@@ -242,10 +271,10 @@ export const projects = [
   {
     name: "Engineering Starters",
     division: "Shrimpworks",
-    kicker: "Reusable project templates",
+    kicker: "Skip some of the project setup",
     summary:
-      "Starter kits and base images for spinning up Angular, Tailwind, Material, Rush, and containerized project foundations.",
-    status: "Templates",
+      "Starter projects and container images for Angular, Tailwind, Material, and Rush. Reusable setup for the next project.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [
@@ -256,9 +285,9 @@ export const projects = [
   {
     name: "Forage",
     division: "Shwimp Studios",
-    kicker: "GitHub stars discovery",
+    kicker: "Find that repo you starred",
     summary:
-      "Rediscover useful projects in your GitHub stars. Import starred repositories, analyze and categorize them locally, then review and export the results. Imported repository data stays in browser storage.",
+      "Forage imports your starred GitHub repositories so you can sort them into categories and find them again. It analyzes the collection locally, keeps imported data in your browser, and lets you review and export the results.",
     status: "Prototype",
     tone: "trove",
     phase: "current",
@@ -270,10 +299,10 @@ export const projects = [
   {
     name: "Small App Archive",
     division: "Shwimp Studios",
-    kicker: "Older user-facing experiments",
+    kicker: "Earlier small-app experiments",
     summary:
-      "A collection of smaller public app experiments covering golf tracking, receipt rewards, and browser-based Markdown editing.",
-    status: "Archive",
+      "Older public experiments in tracking golf, receipt rewards, and editing Markdown in a browser.",
+    status: "Archived",
     tone: "trove",
     phase: "past",
     links: [
@@ -285,10 +314,10 @@ export const projects = [
   {
     name: "Footy Data Kit",
     division: "Wimpy Productions",
-    kicker: "Football data tooling",
+    kicker: "Collect historical football data",
     summary:
-      "Scripts and datasets for pulling, shaping, and browsing English football history from public sources.",
-    status: "Data",
+      "Scripts and datasets for collecting English football history from public sources, with tools to organize and browse the results.",
+    status: "Source available",
     tone: "trove",
     phase: "current",
     links: [
@@ -299,10 +328,10 @@ export const projects = [
   {
     name: "Footy Stats",
     division: "Shwimp Studios",
-    kicker: "Football statistics site",
+    kicker: "Browse historical football statistics",
     summary:
-      "A public site for exploring historical English football league statistics and competition records.",
-    status: "Data",
+      "A public website for exploring English football league statistics and competition records.",
+    status: "Public site",
     tone: "trove",
     phase: "current",
     links: [
@@ -313,10 +342,10 @@ export const projects = [
   {
     name: "Backbone Infrastructure",
     division: "Shrimpworks",
-    kicker: "Web app infrastructure",
+    kicker: "How the studio hosts its web apps",
     summary:
-      "Terraform, Caddy, DigitalOcean, and service infrastructure patterns for keeping the studio's web projects online.",
-    status: "Infrastructure",
+      "Terraform and Caddy configuration for hosting the studio’s web apps on DigitalOcean, with setup examples.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/backbone-infa" }],
@@ -324,10 +353,10 @@ export const projects = [
   {
     name: "Capsule Orchestrator",
     division: "Shrimpworks",
-    kicker: "Secure task runner",
+    kicker: "An earlier experiment in scheduled tasks",
     summary:
-      "A shelved experiment around SES-oriented cron orchestration and controlled background task execution.",
-    status: "Shelved",
+      "A shelved experiment in scheduling background tasks and controlling what they could execute.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/capsule-orchestrator" }],
@@ -335,10 +364,10 @@ export const projects = [
   {
     name: "Corporate Marketing",
     division: "Wimpy Productions",
-    kicker: "Studio marketing site",
+    kicker: "This website",
     summary:
-      "The public website for Shwimp Studios, its divisions, and its project catalogue.",
-    status: "Site",
+      "The source for this site, including the project catalog and open-source contribution history.",
+    status: "Public site",
     tone: "trove",
     phase: "current",
     links: [
@@ -349,10 +378,10 @@ export const projects = [
   {
     name: "Dylan Steele — Technical Writing",
     division: "Wimpy Productions",
-    kicker: "Engineering notes and project deep dives",
+    kicker: "Notes on building the projects",
     summary:
-      "The current personal site and technical writing home for Dylan Steele, with articles on software engineering and the studio's projects, including Reef's architecture and development.",
-    status: "Site",
+      "Dylan Steele’s personal site, with software engineering articles and notes on projects such as Reef.",
+    status: "Public site",
     tone: "trove",
     phase: "current",
     links: [
@@ -363,10 +392,10 @@ export const projects = [
   {
     name: "Blog",
     division: "Wimpy Productions",
-    kicker: "Personal publishing archive",
+    kicker: "Earlier posts and technical notes",
     summary:
-      "A GitHub Pages blog archive and writing surface for technical notes, personal posts, and older web publishing experiments.",
-    status: "Archive",
+      "An archive of personal posts, technical notes, and earlier experiments in publishing on the web.",
+    status: "Archived",
     tone: "trove",
     phase: "past",
     links: [
@@ -377,9 +406,9 @@ export const projects = [
   {
     name: "Where My Cage At",
     division: "Shwimp Studios",
-    kicker: "Nicolas Cage movie tracker",
+    kicker: "Where can you watch Nicolas Cage?",
     summary:
-      "A Nicolas Cage film discovery app for finding streaming, rental, and purchase options. The Angular frontend and movie-data pipeline are being refreshed while production hosting is rebuilt.",
+      "An app for finding where to stream, rent, or buy Nicolas Cage films. The interface and movie-data tools are getting an update while production hosting is rebuilt.",
     status: "Rebuilding",
     tone: "waves",
     phase: "current",
@@ -390,10 +419,10 @@ export const projects = [
   {
     name: "Work Nest",
     division: "Shwimp Studios",
-    kicker: "Task management app",
+    kicker: "An earlier task-management app",
     summary:
-      "A task management application built with a Next.js frontend and NestJS API.",
-    status: "Prototype",
+      "A prototype for organizing tasks, built with a Next.js interface and a separate NestJS service.",
+    status: "Archived",
     tone: "trove",
     phase: "past",
     links: [
@@ -404,10 +433,10 @@ export const projects = [
   {
     name: "Cardboard Crack",
     division: "Shwimp Studios",
-    kicker: "Sports card checklist parser",
+    kicker: "Turn sports-card checklists into browsable data",
     summary:
-      "A web app and parser workbench for turning sports card checklist PDFs into something structured and browsable.",
-    status: "Prototype",
+      "A prototype for extracting information from sports-card checklist PDFs and exploring it in a web app.",
+    status: "Archived",
     tone: "waves",
     phase: "past",
     links: [
@@ -418,10 +447,10 @@ export const projects = [
   {
     name: "MTG Card Analyzer",
     division: "Shwimp Studios",
-    kicker: "Local-first Magic card identification",
+    kicker: "Identify Magic cards from a photo",
     summary:
-      "A Node.js CLI that identifies Magic: The Gathering cards and likely printings from images using OCR, fuzzy name matching, Scryfall data, and perceptual image hashes, with regression tooling and optional local collection tracking.",
-    status: "Active",
+      "Uses text recognition, image matching, and Scryfall data to identify Magic: The Gathering cards and their likely printings. It runs from the command line and can keep track of a local collection.",
+    status: "Source available",
     tone: "waves",
     phase: "current",
     links: [{ label: "GitHub", href: "https://github.com/dills122/MTG-Card-Analyzer" }],
@@ -429,10 +458,10 @@ export const projects = [
   {
     name: "ShamWow",
     division: "Shrimpworks",
-    kicker: "PII document scrubber",
+    kicker: "An experiment in removing personal information",
     summary:
-      "A C# experiment for scrubbing personally identifiable information from documents using attributes and reflection.",
-    status: "Experiment",
+      "An earlier C# experiment for finding and removing personally identifiable information from documents.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/ShamWow" }],
@@ -440,10 +469,10 @@ export const projects = [
   {
     name: "Patent View Tools",
     division: "Shrimpworks",
-    kicker: "USPTO API wrapper",
+    kicker: "Explore historical US patent data",
     summary:
-      "A TypeScript API wrapper and test app for exploring historical patent data from the USPTO Patent View API.",
-    status: "Tooling",
+      "A TypeScript library and test app for accessing historical patent data through the USPTO Patent View API.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [
@@ -454,10 +483,10 @@ export const projects = [
   {
     name: "WeasyPrint Tools",
     division: "Shrimpworks",
-    kicker: "HTML-to-PDF services",
+    kicker: "Use WeasyPrint from Node.js",
     summary:
-      "A maintained Node.js wrapper for turning HTML, URLs, buffers, and streams into PDFs with WeasyPrint, with CommonJS and ESM builds and compatibility checks against multiple WeasyPrint releases. Includes a companion Docker service.",
-    status: "Tooling",
+      "Tools for turning HTML and URLs into PDFs with WeasyPrint. They support both CommonJS and ES modules and are checked against multiple WeasyPrint versions. A companion Docker service is also available.",
+    status: "Source available",
     tone: "kyn",
     phase: "current",
     links: [
@@ -468,10 +497,10 @@ export const projects = [
   {
     name: "Snips",
     division: "Shrimpworks",
-    kicker: "Code snippet manager",
+    kicker: "Keep code snippets handy",
     summary:
-      "A small Node console app for managing reusable code snippets from the command line.",
-    status: "Tooling",
+      "A small Node.js command-line app for saving and managing code snippets.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/Snips" }],
@@ -479,10 +508,10 @@ export const projects = [
   {
     name: "Trading Tools",
     division: "Noodle Ventures",
-    kicker: "Market data experiments",
+    kicker: "Earlier market-data experiments",
     summary:
-      "Earlier stock, portfolio, and currency experiments that helped shape the later trading-simulator direction.",
-    status: "Archive",
+      "Older experiments with stocks, portfolios, and currency data that helped shape the studio’s later trading-simulator work.",
+    status: "Archived",
     tone: "reef",
     phase: "past",
     links: [
@@ -495,10 +524,10 @@ export const projects = [
   {
     name: "P2P Test",
     division: "Shrimpworks",
-    kicker: "Peer-to-peer messaging experiment",
+    kicker: "An experiment in direct messaging between computers",
     summary:
-      "A Go experiment for testing peer-to-peer node messaging through an interactive shell.",
-    status: "Experiment",
+      "A Go experiment for trying peer-to-peer messaging through an interactive command-line interface.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/p2p-test" }],
@@ -506,10 +535,10 @@ export const projects = [
   {
     name: "Utility Libraries",
     division: "Shrimpworks",
-    kicker: "Small reusable libraries",
+    kicker: "Small libraries from earlier projects",
     summary:
-      "Older library experiments covering rule evaluation, image hashing, and other compact pieces of reusable application logic.",
-    status: "Archive",
+      "Libraries for rule evaluation, image hashing, and other shared application code.",
+    status: "Archived",
     tone: "kyn",
     phase: "past",
     links: [
@@ -520,10 +549,10 @@ export const projects = [
   {
     name: "Pokemon FS",
     division: "Shrimpworks",
-    kicker: "CLI game experiment",
+    kicker: "A command-line Pokémon experiment",
     summary:
-      "A command-line game experiment that treats Pokemon as a file-system adventure.",
-    status: "Experiment",
+      "An experimental game that turns navigating a computer’s files into a Pokémon adventure.",
+    status: "Archived",
     tone: "waves",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/Pokemon-FS" }],
@@ -531,10 +560,10 @@ export const projects = [
   {
     name: "Stellar Archives",
     division: "Shwimp Studios",
-    kicker: "Star Wars API app",
+    kicker: "Browse Star Wars information",
     summary:
-      "An Angular application for browsing the public Star Wars API data set.",
-    status: "Experiment",
+      "An Angular app for exploring information from the public Star Wars API.",
+    status: "Archived",
     tone: "waves",
     phase: "past",
     links: [{ label: "GitHub", href: "https://github.com/dills122/stellar-archives" }],

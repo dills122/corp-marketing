@@ -9,20 +9,20 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 
 <BaseLayout
   title="All projects | Shwimp Studios"
-  description="The complete Shwimp Studios project catalogue: software, AI coding tools, market and game simulations, data work, and archived experiments."
+  description="Browse Shwimp Studios projects, check what’s ready to use, and find source code, demos, and older work."
   canonicalPath="/projects/"
 >
   <main id="main-content">
     <header class="catalog-hero">
       <div class="catalog-hero-inner">
         <div data-reveal>
-          <p class="eyebrow">Project catalogue</p>
+          <p class="eyebrow">Project catalog</p>
           <h1>All projects.</h1>
         </div>
         <div class="catalog-intro" data-reveal data-reveal-delay="1">
           <p>
-            Explore developer tools, bookmark apps, market and game simulations, and protocol research, alongside
-            older experiments. Each entry identifies its current stage of development.
+            The full list, from released tools to unfinished experiments. Each entry explains what it does,
+            how far along it is, and where to find it.
           </p>
           <dl>
             <div><dt>Current</dt><dd>{currentProjects.length}</dd></div>
@@ -31,18 +31,25 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
           </dl>
         </div>
       </div>
-      <nav class="catalog-jump" aria-label="Project catalogue sections" data-reveal data-reveal-delay="2">
+      <nav class="catalog-jump" aria-label="Project catalog sections" data-reveal data-reveal-delay="2">
         <a href="#current">Current work <span>{currentProjects.length}</span></a>
         <a href="#archive">Archive <span>{pastProjects.length}</span></a>
         <a href="/#projects">Featured on the homepage <span aria-hidden="true">↗</span></a>
       </nav>
     </header>
 
+    <aside class="readiness-note" aria-label="Understanding project readiness">
+      <p><strong>Reading the labels.</strong> Released means there’s a published release. Pilot and pre-release versions are early builds.
+        Prototypes, research, and early development are unfinished. Source available means the code is public,
+        but we haven’t confirmed a packaged release. Public sites are online; rebuilding means work to bring one back.
+        Exploratory work may go no further. The archive holds older projects.</p>
+    </aside>
+
     <section class="catalog-section" id="current" aria-labelledby="current-title">
       <div class="section-intro" data-reveal>
         <p>01 · Current</p>
         <h2 id="current-title">Current work</h2>
-        <span>Projects in active development, maintenance, or ongoing research.</span>
+        <span>Released tools, ongoing research, and projects still in development.</span>
       </div>
 
       <div class="project-register" data-reveal="scale">
@@ -74,7 +81,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
       <div class="section-intro" data-reveal>
         <p>02 · Archive</p>
         <h2 id="archive-title">Past work</h2>
-        <span>Retired, shelved, or dormant projects kept for reference.</span>
+        <span>Older projects, including work we’ve shelved.</span>
       </div>
 
       <div class="project-register" data-reveal="scale">
@@ -105,6 +112,10 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
 </BaseLayout>
 
 <style>
+  .readiness-note { width: min(100%, var(--max)); margin-inline: auto; padding: var(--space-lg) var(--gutter) 0; }
+  .readiness-note p { max-width: 85ch; margin-bottom: 0; color: var(--ink-soft); font-size: 0.9rem; }
+  .readiness-note strong { color: var(--ink-deep); }
+
   h1, h2, h3, p, dl, dd { margin-top: 0; }
   h1, h2, h3 { text-wrap: balance; }
 

@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { currentPath } = Astro.props;
+const isOpenSource = currentPath.startsWith("/open-source/");
 const isProjects = currentPath.startsWith("/projects/");
 ---
 
@@ -22,6 +23,7 @@ const isProjects = currentPath.startsWith("/projects/");
     <nav aria-label="Primary navigation">
       <a href="/#projects" data-nav-section="projects">Featured</a>
       <a href="/projects/" aria-current={isProjects ? "page" : undefined}>Projects</a>
+      <a href="/open-source/" aria-current={isOpenSource ? "page" : undefined}>Open source</a>
       <a href="/#ecosystem" data-nav-section="ecosystem">Studio</a>
       <a href="/#studio" data-nav-section="studio">People</a>
     </nav>
