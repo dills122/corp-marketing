@@ -15,11 +15,11 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   <main id="main-content">
     <header class="catalog-hero">
       <div class="catalog-hero-inner">
-        <div data-reveal>
+        <div>
           <p class="eyebrow">Project catalog</p>
           <h1>All projects.</h1>
         </div>
-        <div class="catalog-intro" data-reveal data-reveal-delay="1">
+        <div class="catalog-intro">
           <p>
             The full list, from released tools to unfinished experiments. Each entry explains what it does,
             how far along it is, and where to find it.
@@ -31,7 +31,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
           </dl>
         </div>
       </div>
-      <nav class="catalog-jump" aria-label="Project catalog sections" data-reveal data-reveal-delay="2">
+      <nav class="catalog-jump" aria-label="Project catalog sections">
         <a href="#current">Current work <span>{currentProjects.length}</span></a>
         <a href="#archive">Archive <span>{pastProjects.length}</span></a>
         <a href="/#projects">Featured on the homepage <span aria-hidden="true">↗</span></a>
@@ -52,7 +52,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         <span>Released tools, ongoing research, and projects still in development.</span>
       </div>
 
-      <div class="project-register" data-reveal="scale">
+      <div class="project-register">
         {currentProjects.map((project, index) => (
           <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
             <p class="project-number">{String(index + 1).padStart(2, "0")}</p>
@@ -84,7 +84,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         <span>Older projects, including work we’ve shelved.</span>
       </div>
 
-      <div class="project-register" data-reveal="scale">
+      <div class="project-register">
         {pastProjects.map((project, index) => (
           <article id={toProjectId(project.name)} class={`project-row ${project.tone}`}>
             <p class="project-number">{String(currentProjects.length + index + 1).padStart(2, "0")}</p>

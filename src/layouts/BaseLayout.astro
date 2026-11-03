@@ -109,7 +109,7 @@ const structuredData = {
                 observer.unobserve(entry.target);
               }
             },
-            { rootMargin, threshold: 0.04 },
+            { rootMargin, threshold: 0 },
           );
 
           items.forEach((item) => observer.observe(item));

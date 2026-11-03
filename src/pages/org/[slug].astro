@@ -21,13 +21,13 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
     <header class={`organization-hero ${orgTone}`} aria-labelledby="organization-title">
       <div class="hero-inner">
         <div class="hero-copy">
-          <a class="back-link" href="/org/" data-reveal><span aria-hidden="true">←</span> All organizations</a>
-          <p class="eyebrow" data-reveal data-reveal-delay="1">{organizationCode} · {org.role}</p>
-          <h1 id="organization-title" data-reveal data-reveal-delay="2">{org.name}</h1>
-          <p class="lede" data-reveal data-reveal-delay="3">{org.overview}</p>
+          <a class="back-link" href="/org/"><span aria-hidden="true">←</span> All organizations</a>
+          <p class="eyebrow">{organizationCode} · {org.role}</p>
+          <h1 id="organization-title">{org.name}</h1>
+          <p class="lede">{org.overview}</p>
         </div>
 
-        <aside class="identity" aria-label={`${org.name} summary`} data-reveal="scale" data-reveal-delay="2">
+        <aside class="identity" aria-label={`${org.name} summary`}>
           <span class="identity-number">{String(organizationNumber + 1).padStart(2, "0")}</span>
           <strong aria-hidden="true">{org.name.slice(0, 1)}</strong>
           <dl>
@@ -50,7 +50,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
 
       {
         currentProjects.length > 0 ? (
-          <div class="release-list" data-reveal="scale">
+          <div class="release-list">
             {currentProjects.map((project, index) => (
               <article class={`release ${project.tone}`}>
                 <div class="release-number">
@@ -91,7 +91,7 @@ const orgTone = orgTones[organizationNumber] ?? "parent";
 
       {
         pastProjects.length > 0 ? (
-          <div class="archive-list" data-reveal="scale">
+          <div class="archive-list">
             {pastProjects.map((project, index) => (
               <article class="archive-row">
                 <span>{String(index + 1).padStart(2, "0")}</span>
