@@ -20,9 +20,9 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   <main id="main-content">
     <section class="hero" id="index" aria-labelledby="hero-title">
       <div class="hero-inner">
-        <p class="hero-kicker" data-reveal>Independent software studio · Central PA / Internet</p>
-        <h1 id="hero-title" data-reveal data-reveal-delay="1">Developer tools, games,<br /><span>and a few experiments.</span></h1>
-        <div class="hero-foot" data-reveal data-reveal-delay="2">
+        <p class="hero-kicker">Independent software studio · Central PA / Internet</p>
+        <h1 id="hero-title">Developer tools, games,<br /><span>and a few experiments.</span></h1>
+        <div class="hero-foot">
           <div class="hero-intro">
             <p>
               Shwimp Studios is where Dylan Steele’s software projects live. Some are ready to use;
@@ -41,7 +41,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
           </div>
         </div>
       </div>
-      <div class="hero-ticker" aria-hidden="true" data-reveal="slide" data-reveal-delay="3">
+      <div class="hero-ticker" aria-hidden="true">
         <span>Software</span><b>◆</b><span>Tools</span><b>◆</b><span>Research</span><b>◆</b><span>Experiments</span>
       </div>
     </section>
@@ -82,7 +82,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
       </article>
 
-      <div class="release-list" data-reveal="scale">
+      <div class="release-list">
         {
           supportingReleases.map((project, index) => (
             <article id={toProjectId(project.name)} class={`release ${project.tone}`}>
@@ -154,7 +154,7 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
         </div>
       </div>
 
-      <div class="divisions" data-reveal="scale">
+      <div class="divisions">
         {
           operatingOrganizations.map((item, index) => (
             <a class={`division-card division-card-${index + 1}`} href={`/org/${item.slug}/`}>
@@ -620,12 +620,15 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   .person-copy > strong { margin-bottom: var(--space-lg); color: rgba(255,255,255,0.62); }
   .person-copy > span { max-width: 790px; color: rgba(255,255,255,0.68); }
 
-  @media (max-width: 980px) {
-    .spotlight { grid-template-columns: 1fr 1fr; min-height: 440px; }
+  @media (max-width: 1200px) {
     .division-card { grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px 22px; align-items: start; padding-block: 24px; }
     .division-card > span { grid-row: 1 / 4; }
     .division-card > p, .division-card h3, .division-card small { grid-column: 2; }
     .division-card > strong { grid-column: 3; grid-row: 1 / 4; align-self: center; }
+  }
+
+  @media (max-width: 980px) {
+    .spotlight { grid-template-columns: 1fr 1fr; min-height: 440px; }
   }
 
   @media (max-width: 760px) {

@@ -17,14 +17,20 @@ const orgCards = ecosystem.map((org, index) => {
   title="Organizations | Shwimp Studios"
   description="The parent organization and working divisions behind Shwimp Studios."
   canonicalPath="/org/"
+  breadcrumbs={[{ name: "Organizations", path: "/org/" }]}
+  collectionItems={ecosystem.map((org) => ({
+    name: org.name,
+    path: `/org/${org.slug}/`,
+    description: org.description,
+  }))}
 >
   <main id="main-content">
     <header class="directory-hero" aria-labelledby="directory-title">
       <div class="hero-inner">
-        <a class="back-link" href="/" data-reveal><span aria-hidden="true">←</span> Shwimp Studios</a>
-        <p class="eyebrow" data-reveal data-reveal-delay="1">Studio structure · Parent and divisions</p>
-        <h1 id="directory-title" data-reveal data-reveal-delay="2">How the studio is organized.</h1>
-        <div class="hero-note" data-reveal data-reveal-delay="3">
+        <a class="back-link" href="/"><span aria-hidden="true">←</span> Shwimp Studios</a>
+        <p class="eyebrow">Studio structure · Parent and divisions</p>
+        <h1 id="directory-title">How the studio is organized.</h1>
+        <div class="hero-note">
           <p>
             Lady International is the parent organization. The four divisions below group the apps, developer tools,
             published material, and market research.
@@ -43,7 +49,7 @@ const orgCards = ecosystem.map((org, index) => {
         <p>Project counts include current work and the archive.</p>
       </div>
 
-      <div class="organization-list" data-reveal="scale">
+      <div class="organization-list">
         {
           orgCards.map((org, index) => (
             <a class={`organization org-${index}`} href={`/org/${org.slug}/`}>

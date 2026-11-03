@@ -22,15 +22,21 @@ const contributionYears = (dates: string[]) => {
   title="Open source | Shwimp Studios"
   description="Selected open-source contributions by Dylan Steele: merged fixes, compatibility improvements, and tooling for LLRT, rusty_v8, image-hash, Taho, and React Spark."
   canonicalPath="/open-source/"
+  breadcrumbs={[{ name: "Open source", path: "/open-source/" }]}
+  collectionItems={openSourceProjects.map((project) => ({
+    name: project.name,
+    path: `/open-source/#${project.slug}`,
+    description: project.summary,
+  }))}
 >
   <main id="main-content">
     <header class="contribution-hero">
       <div class="hero-inner">
-        <div class="hero-title" data-reveal>
+        <div class="hero-title">
           <p class="eyebrow">Giving back</p>
           <h1>Open<br />source.</h1>
         </div>
-        <div class="hero-intro" data-reveal data-reveal-delay="1">
+        <div class="hero-intro">
           <p>Here are some of our contributions to other open-source projects. They include bug fixes,
             Linux build support, and changes to libraries and interfaces. The merged pull requests are linked below.</p>
           <dl class="totals" aria-label="Selected contribution totals">

@@ -7,22 +7,40 @@ interface Props {
   title: string;
   description: string;
   canonicalPath: string;
+  breadcrumbs?: { name: string; path: string }[];
+  collectionItems?: { name: string; path: string; description: string }[];
+  organization?: { name: string; description: string };
 }
 
-const { title, description, canonicalPath } = Astro.props;
-const siteUrl = Astro.site ?? Astro.url.origin;
+const { title, description, canonicalPath, breadcrumbs = [], collectionItems, organization } = Astro.props;
+if (!Astro.site) throw new Error("The Astro site URL is required for canonical metadata.");
+const siteUrl = new URL("/", Astro.site);
 const canonicalUrl = new URL(canonicalPath, siteUrl);
 const socialImageUrl = new URL("/og-image.jpg", siteUrl);
+const socialImageAlt = "Shwimp Studios, an independent software studio.";
+const organizationId = new URL("#organization", siteUrl).href;
+const websiteId = new URL("#website", siteUrl).href;
+const founderId = new URL("#dylan-steele", siteUrl).href;
+const breadcrumbId = `${canonicalUrl.href}#breadcrumbs`;
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
-      "@id": `${siteUrl}#organization`,
+      "@id": organizationId,
       name: "Shwimp Studios",
       url: siteUrl.toString(),
       description:
         "Software projects by Dylan Steele, including developer tools, market simulations, games, and open-source contributions.",
+      logo: new URL("/favicon.svg", siteUrl).href,
+      founder: { "@id": founderId },
+    },
+    {
+      "@type": "Person",
+      "@id": founderId,
+      name: "Dylan Steele",
+      alternateName: "D. Steele",
+      url: "https://dsteele.dev/",
       sameAs: [
         "https://github.com/dills122",
         "https://www.linkedin.com/in/dssteele122/",
@@ -30,11 +48,60 @@ const structuredData = {
     },
     {
       "@type": "WebSite",
-      "@id": `${siteUrl}#website`,
+      "@id": websiteId,
       name: "Shwimp Studios",
       url: siteUrl.toString(),
-      publisher: { "@id": `${siteUrl}#organization` },
+      inLanguage: "en",
+      publisher: { "@id": organizationId },
     },
+    {
+      "@type": collectionItems ? "CollectionPage" : "WebPage",
+      "@id": `${canonicalUrl.href}#webpage`,
+      url: canonicalUrl.href,
+      name: title,
+      description,
+      inLanguage: "en",
+      isPartOf: { "@id": websiteId },
+      publisher: { "@id": organizationId },
+      author: { "@id": founderId },
+      about: organization ? {
+        "@type": "Organization",
+        name: organization.name,
+        description: organization.description,
+        url: canonicalUrl.href,
+      } : { "@id": organizationId },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: socialImageUrl.href,
+        width: 1200,
+        height: 630,
+        caption: socialImageAlt,
+      },
+      ...(breadcrumbs.length > 0 && { breadcrumb: { "@id": breadcrumbId } }),
+      ...(collectionItems && {
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: collectionItems.length,
+          itemListElement: collectionItems.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.name,
+            description: item.description,
+            url: new URL(item.path, siteUrl).href,
+          })),
+        },
+      }),
+    },
+    ...(breadcrumbs.length > 0 ? [{
+      "@type": "BreadcrumbList",
+      "@id": breadcrumbId,
+      itemListElement: [{ name: "Shwimp Studios", path: "/" }, ...breadcrumbs].map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: new URL(item.path, siteUrl).href,
+      })),
+    }] : []),
   ],
 };
 ---
@@ -45,32 +112,37 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Dylan Steele" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="theme-color" content="#0c151c" />
     <title>{title}</title>
 
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title="Shwimp Studios — open-source contributions" href={new URL("/feed.xml", siteUrl)} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="Shwimp Studios" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Shwimp Studios, an independent software studio."
+      content={socialImageAlt}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageUrl} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <script
       type="application/ld+json"
-      set:html={JSON.stringify(structuredData)}
+      set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")}
       is:inline
     />
     <script
@@ -109,7 +181,7 @@ const structuredData = {
                 observer.unobserve(entry.target);
               }
             },
-            { rootMargin, threshold: 0.04 },
+            { rootMargin, threshold: 0 },
           );
 
           items.forEach((item) => observer.observe(item));
