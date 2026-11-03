@@ -17,6 +17,12 @@ const orgCards = ecosystem.map((org, index) => {
   title="Organizations | Shwimp Studios"
   description="The parent organization and working divisions behind Shwimp Studios."
   canonicalPath="/org/"
+  breadcrumbs={[{ name: "Organizations", path: "/org/" }]}
+  collectionItems={ecosystem.map((org) => ({
+    name: org.name,
+    path: `/org/${org.slug}/`,
+    description: org.description,
+  }))}
 >
   <main id="main-content">
     <header class="directory-hero" aria-labelledby="directory-title">

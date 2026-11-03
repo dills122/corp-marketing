@@ -58,7 +58,11 @@ claims. The [September 2026 refresh notes](docs/content-refresh-2026-09.md) reco
 the sources and editorial decisions behind that update. The [October 2026 refresh
 notes](docs/content-refresh-2026-10.md) cover the open-source page and latest catalog
 changes. Edit `src/data/open-source.ts` to maintain verified upstream contributions;
-totals and the homepage preview derive from that curated data.
+totals, the homepage preview, and the RSS feed at `/feed.xml` derive from that
+curated data. Keep contribution URLs and merge dates accurate: feed readers use
+them as permanent item identifiers and publication dates. Page metadata and
+structured data are rendered by `src/layouts/BaseLayout.astro`; the sitemap is
+generated at `/sitemap.xml`.
 
 ## Deployment
 

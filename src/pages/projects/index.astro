@@ -11,6 +11,12 @@ const toProjectId = (name: string) => `project-${name.toLowerCase().replaceAll("
   title="All projects | Shwimp Studios"
   description="Browse Shwimp Studios projects, check what’s ready to use, and find source code, demos, and older work."
   canonicalPath="/projects/"
+  breadcrumbs={[{ name: "Projects", path: "/projects/" }]}
+  collectionItems={[...currentProjects, ...pastProjects].map((project) => ({
+    name: project.name,
+    path: `/projects/#${toProjectId(project.name)}`,
+    description: `${project.status}. ${project.summary}`,
+  }))}
 >
   <main id="main-content">
     <header class="catalog-hero">
