@@ -595,4 +595,12 @@ export const leaders = [
     note:
       "Cynthia's career was defined less by expertise and more by persistence. Although frequently confused about the details, she approached every challenge with confidence, enthusiasm, and a remarkable willingness to improvise. Many of the studio's ideas can be traced back to questions she probably should not have been asking, and her influence continues to be felt throughout the organization today.",
   },
+  {
+    name: "Serena",
+    alias: "The Baby",
+    title: "Intern, Shwimp Studios",
+    image: "/Serena",
+    note:
+      "Serena joined the studio with no qualifications, no references, and the unanimous support of everyone who saw her face. As the newest intern, she is learning directly from Catherine, although it remains unclear whether Catherine agreed to this. Her long-term career goals are still developing. Her immediate goals involve finding out whether you are going to finish that.",
+  },
 ];
